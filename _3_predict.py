@@ -251,9 +251,16 @@ def predict():
         # if needed, could be checked that x_test_from_prepare == x_test --> [[True]] * shape
         nof_groups = local_script_settings['number_of_groups']
         forecasts = []
+        if local_script_settings['first_train_approach'] == 'stochastic_simulation':
+            nof_groups = 1
+            time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
+                                                        'time_series_not_improved.npy']), allow_pickle=True)
+            groups_list = [window_normalized_scaled_unit_sales[time_series_not_improved, :]]
         for group in range(nof_groups):
             # print(time_series_group.shape)
             time_series_in_group = time_series_group[:, [0]][time_series_group[:, [1]] == group]
+            if local_script_settings['first_train_approach'] == 'stochastic_simulation':
+                time_series_in_group = time_series_not_improved
             # print(time_series_in_group.shape)
             # print(time_series_in_group)
             x_test = window_normalized_scaled_unit_sales[
@@ -278,6 +285,9 @@ def predict():
             time_serie_normalized_window_mean = np.mean(groups_list[group][:, -moving_window_length:], axis=1)
             group_time_serie_window_scaled_sales_mean = [
                 mean_scaled_window_time_serie[[time_serie for time_serie in time_series_in_group]]]
+            # print(point_forecast_reshaped.shape)
+            # print(time_serie_normalized_window_mean.shape)
+            # print(np.shape(group_time_serie_window_scaled_sales_mean))
             denormalized_array = window_based_denormalizer(point_forecast_reshaped,
                                                            time_serie_normalized_window_mean,
                                                            time_steps_days)
@@ -311,8 +321,12 @@ def predict():
         y_ground_truth_array = []
         y_pred_array = []
         customized_mod_mape = modified_mape()
+        if local_script_settings['first_train_approach'] == 'stochastic_simulation':
+            nof_groups = 1
         for group in range(nof_groups):
             time_series_in_group = time_series_group[:, [0]][time_series_group[:, [1]] == group]
+            if local_script_settings['first_train_approach'] == 'stochastic_simulation':
+                time_series_in_group = time_series_not_improved
             time_serie_iterator = 0
             for time_serie in time_series_in_group:
                 y_ground_truth = raw_unit_sales[time_serie, -forecast_horizon_days:]

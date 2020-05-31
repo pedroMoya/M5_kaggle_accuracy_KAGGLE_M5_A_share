@@ -140,11 +140,12 @@ def train():
         print('\n~train_model module~')
         # check settings for previous training and then repeat or not this phase
         if local_script_settings['training_done'] == "True":
-            print('training previously done')
+            print('training of neural_network previously done')
             if local_script_settings['repeat_training'] == "True":
                 print('repeating training')
             else:
                 print("settings indicates don't repeat training")
+            if local_script_settings['first_train_approach'] == 'neural_network':
                 return True
         else:
             print('model training start')
@@ -176,13 +177,18 @@ def train():
         nof_groups = local_script_settings['number_of_groups']
         window_normalized_scaled_unit_sales = np.load(''.join([local_script_settings['train_data_path'],
                                                                'x_train_source.npy']))
-        if nof_groups == 1:
+        if nof_groups == 1 or local_settings['first_train_approach'] == "stochastic_simulation":
             scaled_unit_sales_g1 = window_normalized_scaled_unit_sales
             scaled_unit_sales_g2 = np.array([])
             scaled_unit_sales_g3 = np.array([])
             nof_time_series_list = [np.shape(window_normalized_scaled_unit_sales)[0]]
             max_selling_time_list = [local_script_settings['max_selling_time']]
             groups_list = [window_normalized_scaled_unit_sales]
+            if local_settings['first_train_approach'] == "stochastic_simulation":
+                nof_groups = 1
+                time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
+                                                            'time_series_not_improved.npy']), allow_pickle=True)
+                groups_list = [window_normalized_scaled_unit_sales[time_series_not_improved]]
         else:
             scaled_unit_sales_g1 = np.load(''.join([local_script_settings['train_data_path'], 'group1.npy']))
             scaled_unit_sales_g2 = np.load(''.join([local_script_settings['train_data_path'], 'group2.npy']))
@@ -209,18 +215,22 @@ def train():
                 number_of_time_series_g2 = forecast_settings['number_of_time_series_g2']
                 number_of_time_series_g3 = forecast_settings['number_of_time_series_g3']
             nof_time_series_list = [number_of_time_series_g1, number_of_time_series_g2, number_of_time_series_g3]
-        print('here')
         if local_script_settings['first_train_approach'] == 'stochastic_simulation':
             print('assuming first_train_approach as stochastic simulation')
             in_block_time_series_forecast = in_block_high_loss_ts_forecast()
             time_series_reviewed = in_block_time_series_forecast.forecast(local_settings=local_script_settings,
                                                                           local_raw_unit_sales=raw_unit_sales)
-            print('last step -time_serie specific (in-block) forecast- completed, success: ', time_series_reviewed)
+            print('-time_serie specific (in-block) forecast- completed, success: ', time_series_reviewed)
         elif local_script_settings['first_train_approach'] != 'neural_network':
             print('first_train_approach parameter in settings not defined or unknown')
             return False
-        elif local_script_settings['first_train_approach'] == 'neural_network':
+        else:
             print('assuming first_train_approach as neural_network')
+        if local_script_settings['repeat_training'] == "False":
+            print("settings indicates don't repeat neural_network training")
+            print('train module has finished')
+            return True
+
         # set training parameters
         time_steps_days = int(local_script_settings['time_steps_days'])
         epochs = int(model_hyperparameters['epochs'])
@@ -276,6 +286,8 @@ def train():
                     logging.info("\nnumber of features in settings don't match valid expected values")
                     print("-number of features doesn't match valid expected values")
                     return False
+                if local_settings['first_train_approach'] == 'stochastic_simulation':
+                    nof_features_in_group = np.shape(groups_list[group])[0]
                 forecaster = tf.keras.Sequential()
                 if model_hyperparameters['model_type'] == 'Pure_ANN':
                     # model Bidirectional_PeepHole_LSTM
@@ -446,7 +458,7 @@ def train():
                                  ' LSTM model creation or compile error']))
             logger.error(str(e1), exc_info=True)
 
-        # preparing training inputs arrays, callbacks and training of models
+        # preparing training inputs arrays structures, callbacks and training of models
         nof_years = local_script_settings['number_of_years_ceil']
         days_in_focus_frame = model_hyperparameters['days_in_focus_frame']
         window_input_length = local_script_settings['moving_window_input_length']
@@ -490,7 +502,6 @@ def train():
                 logging.info("\ntrain_model_input_data_approach is not defined")
                 print('-a problem occurs with the data_approach settings')
                 return False, None
-            print('defining y_train')
             y_train = []
             if local_settings['train_model_input_data_approach'] == "all":
                 [y_train.append(group[:, day - time_steps_days: day])

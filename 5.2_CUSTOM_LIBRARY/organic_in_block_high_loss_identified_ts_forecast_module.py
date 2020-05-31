@@ -44,6 +44,29 @@ tf.random.set_seed(42)
 kb.clear_session()
 
 
+def random_event_realization(local_time_serie_data, local_model_hyperparameters, local_nof_features_for_training):
+    # computing non_zero_frequencies by time_serie, this brings the probability_of_sale = 1 - zero_frequency
+    local_days_in_focus_frame = local_model_hyperparameters['days_in_focus_frame']
+    local_forecast_horizon_days = local_model_hyperparameters['forecast_horizon_days']
+    x_data = local_time_serie_data[:, -local_days_in_focus_frame:]
+    probability_of_sale_list = []
+    for time_serie in range(local_nof_features_for_training):
+        nof_nonzeros = np.count_nonzero(x_data[time_serie, :])
+        probability_of_sale_list.append(nof_nonzeros / local_days_in_focus_frame)
+    probability_of_sale_array = np.array(probability_of_sale_list)
+    # mean with zero included (test with zero excluded, but obtains poorer results)
+    mean_last_days_frame = np.mean(x_data[:, -local_days_in_focus_frame:], axis=1)
+    # triggering random event and assign sale or not, if sale then fill with mean, if no maintain with zero
+    local_y_pred = np.zeros(shape=(local_nof_features_for_training, local_forecast_horizon_days))
+    random_event_array = np.random.rand(local_nof_features_for_training, local_forecast_horizon_days)
+    for time_serie, day in it.product(range(local_nof_features_for_training), range(local_forecast_horizon_days)):
+        if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
+            local_y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
+        else:
+            local_y_pred[time_serie: time_serie + 1, day] = random_event_array[time_serie, day]
+    return local_y_pred
+
+
 class in_block_high_loss_ts_forecast:
 
     def forecast(self, local_settings, local_raw_unit_sales, local_mse=None):
@@ -59,7 +82,7 @@ class in_block_high_loss_ts_forecast:
                                               allow_pickle=True)
             forecast_horizon_days = local_settings['forecast_horizon_days']
             max_selling_time = local_settings['max_selling_time']
-            poor_results_mse_threshold = local_settings['poor_results_mse_threshold']
+            neural_network_poor_results_mse_threshold = local_settings['neural_network_poor_results_mse_threshold']
             poor_result_time_serie_list = []
             time_series_treated = []
             nof_features_for_training = 0
@@ -70,7 +93,7 @@ class in_block_high_loss_ts_forecast:
                 poor_result_time_serie_list = [time_serie for time_serie in range(nof_features_for_training)]
             else:
                 for result in local_mse:
-                    if result[1] > poor_results_mse_threshold:
+                    if result[1] > neural_network_poor_results_mse_threshold:
                         nof_features_for_training += 1
                         poor_result_time_serie_list.append(int(result[0]))
                         nof_poor_result_time_series = len(poor_result_time_serie_list)
@@ -81,30 +104,17 @@ class in_block_high_loss_ts_forecast:
                     time_serie_iterator += 1
 
             # computing non_zero_frequencies by time_serie, this brings the probability_of_sale = 1 - zero_frequency
-            days_in_focus_frame = model_hyperparameters['days_in_focus_frame']
-            x_data = time_serie_data[:, -days_in_focus_frame:]
-            probability_of_sale_list = []
-            for time_serie in range(nof_features_for_training):
-                nof_nonzeros = np.count_nonzero(x_data[time_serie, :])
-                probability_of_sale_list.append(nof_nonzeros / days_in_focus_frame)
-            probability_of_sale_array = np.array(probability_of_sale_list)
-            # mean with zero included (test with zero excluded, but obtains poorer results)
-            mean_last_days_frame = np.mean(x_data[:, -days_in_focus_frame:], axis=1)
-            # triggering random event and assign sale or not, if sale then fill with mean, if no maintain with zero
-            y_pred = np.zeros(shape=(nof_features_for_training, days_in_focus_frame))
-            random_event_array = np.random.rand(nof_features_for_training, days_in_focus_frame)
-            for time_serie, day in it.product(range(nof_features_for_training), range(days_in_focus_frame)):
-                if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
-                    y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
-                else:
-                    y_pred[time_serie: time_serie + 1, day] = random_event_array[time_serie, day]
+            y_pred = random_event_realization(time_serie_data, model_hyperparameters, nof_features_for_training)
 
             # evaluating model and comparing with aggregated (by-group) LSTM
             print('evaluating the model trained..')
+            print(len(poor_result_time_serie_list))
             time_serie_iterator = 0
             improved_time_series_forecast = []
             time_series_not_improved = []
             improved_mse = []
+            local_stochastic_simulation_poor_result_threshold = \
+                model_hyperparameters['stochastic_simulation_poor_result_threshold']
             print('evaluating model error by time_serie')
             for time_serie in poor_result_time_serie_list:
                 # for time_serie in range(local_normalized_scaled_unit_sales.shape[0]):
@@ -113,7 +123,7 @@ class in_block_high_loss_ts_forecast:
                 # calculating error (MSE)
                 local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
                 if local_mse is None:
-                    previous_result = 100.
+                    previous_result = local_stochastic_simulation_poor_result_threshold
                 else:
                     previous_result = local_mse[:, 1][local_mse[:, 0] == time_serie].item()
                 time_series_treated.append([int(time_serie), previous_result, local_error_metric_mse])

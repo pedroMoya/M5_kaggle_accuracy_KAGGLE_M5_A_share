@@ -1,6 +1,7 @@
 # kaggle submit functionality
 import numpy as np
 import pandas as pd
+import itertools as it
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.experimental import PeepholeLSTMCell
@@ -14,6 +15,13 @@ from tensorflow.keras import callbacks as cb
 from sklearn.metrics import mean_squared_error
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import backend as kb
+
+# set random seed for reproducibility
+np.random.seed(42)
+tf.random.set_seed(42)
+
+# clear session
+kb.clear_session()
 
 
 class modified_mape(losses.Loss):
@@ -83,10 +91,15 @@ if __name__ == '__main__':
 
         # constants
         nof_groups = 3
+        forecast_horizon_based = True  # if False, input_interval is time_steps_days-based
         forecast_horizon_days = 28
-        time_steps_days = 56
-        moving_window_length = 56
-        amplification_factor = 1.0
+        time_steps_days = 28
+        moving_window_length = 28
+        if forecast_horizon_based:
+            input_interval = forecast_horizon_days
+        else:
+            input_interval = time_steps_days
+        days_in_focus_frame = 28
 
         # load data
         raw_data_sales = pd.read_csv(''.join([sales_folder, 'sales_train_validation.csv']))
@@ -107,38 +120,6 @@ if __name__ == '__main__':
         nof_poor_result_ts_in_first_model = len(poor_result_time_serie_array)
         print('metadata loaded\n')
 
-        # load by-group time_serie aggregated models
-        forecasters_list = []
-        for group in range(nof_groups):
-            model_name = ''.join(['forecaster_group', str(group), '_.json'])
-            json_file = open(''.join([models_folder, model_name]), 'r')
-            model_json = json_file.read()
-            json_file.close()
-            model_group = models.model_from_json(model_json)
-            print('model structure loaded and compiled for group ', group)
-            model_group.load_weights(''.join([models_folder, 'model_group_', str(group), '_forecast_.h5']))
-            print('weights loaded for model group ', group)
-            # model_group.compile(optimizer='adam', loss='mse')
-            model_group.build(input_shape=(None, time_steps_days, np.shape(time_series_group[group][0])))
-            print('model for group', group, 'input_shape defined')
-            model_group.compile(optimizer='adam', loss='mse')
-            forecasters_list.append(model_group)
-            # model_group.summary()
-        print('by group models loaded and built\n')
-
-        # load in-block model
-        model_name = 'forecaster.json'
-        json_file = open(''.join([models_in_block_folder, model_name]), 'r')
-        model_json = json_file.read()
-        json_file.close()
-        model_in_block = models.model_from_json(model_json)
-        print('in-block forecast model loaded')
-        model_in_block.load_weights(''.join([models_in_block_folder, '_high_loss_time_serie_model_forecaster_.h5']))
-        model_in_block.compile(optimizer='adam', loss='mse')
-        model_in_block.build(input_shape=(None, time_steps_days, nof_poor_result_ts_in_first_model))
-        print('weights loaded and input_shape build done for in-block model\n')
-        # model_in_block.summary()
-
         # preprocess data
         print('preprocess was externally made, but the reverse rescaling and denormalize needs some computations')
         nof_time_series = raw_unit_sales.shape[0]
@@ -152,81 +133,40 @@ if __name__ == '__main__':
         mean_unit_complete_time_serie = np.array(mean_unit_complete_time_serie)
         print('data preparation done\n')
 
-        # make time_series by-group forecasts
-        print('starting forecasts')
-        nof_groups = len(groups_list)
+        # applying model: stochastic simulation, zero_counts and Bernoulli processes
+        print('starting -stochastic simulation- forecast model, applying to all time_series')
+        # computing non_zero_frequencies by time_serie, this brings the probability_of_sale = 1 - zero_frequency
+        nof_features_for_training = nof_time_series
+        x_data = raw_unit_sales[:, -days_in_focus_frame:]
+        probability_of_sale_list = []
         forecasts = np.zeros(shape=(nof_time_series * 2, forecast_horizon_days))
-        for group in range(nof_groups):
-            time_series_in_group = time_series_group[:, [0]][time_series_group[:, [1]] == group]
-            group_data = groups_list[group]
-            x_test = group_data[:, -time_steps_days:]
-            x_test = x_test.reshape(1, x_test.shape[1], x_test.shape[0])
-            print('x_test input for group', group, 'array prepared and ready')
-            forecaster = forecasters_list[group]
-            point_forecast_normalized = forecaster.predict(x_test)
-            print('group ', group, 'forecast done')
-            # inverse reshape
-            point_forecast_reshaped = point_forecast_normalized.reshape((point_forecast_normalized.shape[2],
-                                                                         point_forecast_normalized.shape[1]))
-            # take forecast_horizon days
-            point_forecast_normalized = point_forecast_normalized[:, -forecast_horizon_days:] * amplification_factor
-            # inverse transform (first moving_windows denormalizing and then general rescaling)
-            time_serie_normalized_window_mean = np.mean(groups_list[group][:, -moving_window_length:], axis=1)
-            denormalized_array = window_based_denormalizer(point_forecast_reshaped,
-                                                           time_serie_normalized_window_mean,
-                                                           forecast_horizon_days)
-            group_time_serie_unit_sales_mean = []
-            for time_serie in time_series_in_group:
-                group_time_serie_unit_sales_mean.append(mean_unit_complete_time_serie[time_serie])
-            point_forecast = general_mean_rescaler(denormalized_array,
-                                                   np.array(group_time_serie_unit_sales_mean), forecast_horizon_days)
-            point_forecast = point_forecast.reshape(np.shape(point_forecast)[1], np.shape(point_forecast)[2])
-            for time_serie_iterator in range(np.shape(point_forecast)[0]):
-                forecasts[time_series_in_group[time_serie_iterator], :] = point_forecast[time_serie_iterator, :]
-        print('time_serie by-group forecasts done\n')
-
-        # applies a specific trained  model for time_series with forecast high loss after using the first model
-        print('starting specific (in-block) (with high loss in previous steps) time_series forecast')
-        x_input = scaled_unit_sales[poor_result_time_serie_array, -time_steps_days:]
-        print(np.shape(x_input))
-        x_input = x_input.reshape((1, np.shape(x_input)[1], np.shape(x_input)[0]))
-        print('a')
-        y_pred_normalized = model_in_block.predict(x_input)
-        print(y_pred_normalized.shape)
-        y_pred_normalized_reshaped = y_pred_normalized.reshape((y_pred_normalized.shape[2],
-                                                                y_pred_normalized.shape[1]))
-        y_pred_normalized = y_pred_normalized[:, -forecast_horizon_days:]
-        print(y_pred_normalized_reshaped.shape)
-        window = scaled_unit_sales[poor_result_time_serie_array, -time_steps_days:]
-        print(window.shape)
-        time_serie_normalized_window_mean = np.mean(window, axis=1)
-        print(time_serie_normalized_window_mean.shape)
-        denormalized_array = window_based_denormalizer(y_pred_normalized_reshaped,
-                                                       time_serie_normalized_window_mean,
-                                                       forecast_horizon_days)
-        print(denormalized_array.shape)
-        print('d')
-        mean_unit_time_serie = mean_unit_complete_time_serie[time_serie]
-        print('e')
-        point_forecast = general_mean_rescaler(denormalized_array, np.array(mean_unit_time_serie),
-                                               forecast_horizon_days)
-        print('f')
-        # point_forecast = point_forecast.reshape((np.shape(point_forecast)[1], np.shape(point_forecast)[0]))
-        print(point_forecast.shape)
-        # add in-block model forecast to corresponding time_series
-        time_serie_iterator = 0
-        for time_serie in improved_time_series_forecast_array:
-            forecasts[time_serie, :] = point_forecast[time_serie_iterator, :] * amplification_factor
-            print('l')
-            time_serie_iterator += 1
-        print('in-block time_serie forecasts done')
+        for time_serie in range(nof_features_for_training):
+            nof_nonzeros = np.count_nonzero(x_data[time_serie, :])
+            probability_of_sale_list.append(nof_nonzeros / days_in_focus_frame)
+        probability_of_sale_array = np.array(probability_of_sale_list)
+        # mean with zero included (test with zero excluded, but obtains poorer results)
+        mean_last_days_frame = np.mean(x_data[:, -days_in_focus_frame:], axis=1)
+        # standard deviation based confidence
+        confidence_unit = np.std(x_data[:, -days_in_focus_frame:], axis=1)
+        # triggering random event and assign sale or not, if sale then fill with mean, if no maintain with zero
+        y_pred = np.zeros(shape=(nof_features_for_training, forecast_horizon_days))
+        random_event_array = np.random.rand(nof_features_for_training, forecast_horizon_days)
+        for time_serie, day in it.product(range(nof_features_for_training), range(forecast_horizon_days)):
+            if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
+                y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
+            else:
+                y_pred[time_serie: time_serie + 1, day] = random_event_array[time_serie, day]
+        # filling with the new point_forecasts obtained
+        for time_serie in range(nof_time_series):
+            forecasts[time_serie, -forecast_horizon_days:] = y_pred[time_serie, -forecast_horizon_days:]
+        print('StochasticModel computed and forecasts done\n')
 
         # submit results
         forecast_data_frame = np.genfromtxt(''.join([sales_folder, 'sample_submission.csv']), delimiter=',', dtype=None,
                                             encoding=None)
         forecast_data_frame[1:, 1:] = forecasts
         pd.DataFrame(forecast_data_frame).to_csv('submission.csv', index=False, header=None)
-        print('submission done')
+        print('submission created')
 
     except Exception as ee:
         print("Controlled error in main block___'___main_____'____")
