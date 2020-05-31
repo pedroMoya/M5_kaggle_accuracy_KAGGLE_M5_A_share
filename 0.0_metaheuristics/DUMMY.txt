@@ -1,0 +1,159 @@
+The M5 competition turns out a very, very complex problem, like many of the others kaggle challenges..
+In the pursue of 1) don't get lost and 2) a more ambitious generalization,
+I decided to command this machine learning journey with a solid guideline.
+
+In a freestyle way (see in anothers dummies files to more insights about this "no-limits" idea),
+at the center of this piece of software, reside a biological and physical inspired approach, implemented by:
+- emulating some quantum mechanic's advantages (like entanglement and superposition)
+- using selection of best fitting by evolution (population, individuals, chromosomes, genes, alleles, crossing-over)
+
+
+Principal references:
+1)
+"Quantum-Inspired Acromyrmex Evolutionary Algorithm" (*)
+Montiel, O., Rubio, Y., Olvera, C., Rivera A.
+Sci Rep. 2019 Aug 21;9(1):12181. doi: 10.1038/s41598-019-48409-5.
+https://rdcu.be/b3up7
+Obtaining efficient optimisation algorithms has become the focus of much research interest since
+current developing trends in machine learning, traffic management, and other cutting-edge
+applications require complex optimised models containing a huge number of parameters. At
+present, computers based on the classical Turing-machine are inefficient when intent to solve
+optimisation tasks in complex and wicked problems. As a solution, quantum computers that
+should satisfy the Deutsch-Church-Turing principle have been proposed but this technology is still
+at an early stage. quantum-inspired algorithms (QIA) have emerged trying to fill-up an existing gap
+between the theoretical advances in quantum computation and real quantum computers. QIA use
+classical computers to simulate some physical phenomena such as superposition and
+entanglement to perform quantum computations. This paper proposes the quantum-inspired
+Acromyrmex evolutionary algorithm (QIAEA) as a highly efficient global optimisation method for
+complex systems. We present comparative statistical analyses that demonstrate how this nature-
+inspired proposal outperforms existing outstanding quantum-inspired evolutionary algorithms
+when testing benchmark functions.
+...
+.
+...
+An efficient software implementation of quantum algorithms requires quantum computers
+capable of satisfying the Deutsch-Church-Turing principle, which states that “every finitely
+realizable physical system can be perfectly simulated by a universal model computing machine
+operating by finite means”(10).
+(*) This paper is under a Creative Commons Attribution 4.0 International License.
+
+2)
+"Solving Combinatorial Optimization problems with Quantum inspired Evolutionary Algorithm Tuned using a Novel Heuristic Method"
+Mani, N., Srivastava G., Mani, A.
+https://arxiv.org/pdf/1612.08109
+JOUR 2016/12/23
+
+Quantum inspired Evolutionary Algorithms were proposed more than a decade ago and have
+been employed for solving a wide range of difficult search and optimization problems. A number
+of changes have been proposed to improve performance of canonical QEA. However, canonical
+QEA is one of the few evolutionary algorithms, which uses a search operator with relatively large
+number of parameters. It is well known that performance of evolutionary algorithms is dependent
+on specific value of parameters for a given problem. The advantage of having large number of
+parameters in an operator is that the search process can be made more powerful even with a
+single operator without requiring a combination of other operators for exploration and
+exploitation. However, the tuning of operators with large number of parameters is complex and
+computationally expensive. This paper proposes a novel heuristic method for tuning parameters of
+canonical QEA. The tuned QEA outperforms canonical QEA on a class of discrete combinatorial
+optimization problems which, validates the design of the proposed parameter tuning framework.
+The proposed framework can be used for tuning other algorithms with both large and small
+number of tunable parameters.
+...
+.
+...
+Parameter Tuning is an important part in the designing process of an Evolutionary Algorithm as it affects
+efficacy of the search process. It is said that most of the effort in designing an EA for solving a set of
+problems is spent in parameter tuning [27]. It is a difficult optimization problem in itself as it is usually poorly
+structured, ill-defined and complex in nature [27], [28]. Further, the best set of parameter values can be
+guaranteed to be found only after exhaustive search in the entire parameter-space,
+however, such a strategy may not be practically feasible due to the huge amount of resources and time
+involved. Parameter tuning is essentially a problem of Design of Experiments (DOE) and analysis of results
+obtained from the experiments to arrive at the best parameter vector. Traditionally, there are four well known
+strategies for design of experiments viz., Ad-hoc, Factorial, Fractional Factorial and Random design of
+experiments [29].
+
+3)
+“Parameter tuning for configuring and analyzing evolutionary algorithms”
+Eiben A., Smit S.
+Swarm and Evolutionary Computation, Volume 1, Issue 1, March 2011, Pages 19–31.
+https://www.researchgate.net/publication/257739788_Parameter_tuning_for_configuring_and_analyzing_evolutionary_algorithms
+
+A decision to use an evolutionary algorithm (EA) implies that the user adopts
+the main design decisions that led to the general evolutionary algorithm
+framework. That is, the decisions to use a population, manipulated by selection,
+recombination, and mutation operators follow automatically, the user
+only needs to specify "a few" details. In the sequel we use the term parameters to denote these details.
+In these terms, designing an EA for a given application amounts to selecting
+good values for the parameters. For instance, the definition of an
+EA might include setting the parameter crossoveroperator to onepoint,
+the parameter crossoverrate to 0.5, and the parameter populationsize to
+100. In principle, this is a sound naming convention, but intuitively there is
+a difference between choosing a good crossover operator from a given list of
+three operators and choosing a good value for the related crossover rate pc E [0, 1].
+This difference can be formalized if we distinguish parameters by their
+domains. The parameter crossoveroperator has a finite domain with no
+sensible distance metric or ordering, e.g., {onepoint, uniform, averaging},
+whereas the domain of the parameter pc is a subset of R with the natural
+structure for real numbers. This difference is essential for searchability. For
+parameters with a domain that has a distance metric, or is at least partially
+ordered, one can use heuristic search and optimization methods to find optimal
+values. For the first type of parameters this is not possible because
+the domain has no exploitable structure. The only option in this case is
+sampling.
+The difference between two types of parameters has already been noted in
+evolutionary computing, but various authors use various naming conventions.
+For instance, [4] uses the names qualitative, and quantitative parameters, [5]
+distinguishes symbolic and numeric parameters, [6] calls them categorical
+and numerical, while [7] refers to structural and behavioral parameters. Furthermore,
+[8] calls unstructured parameters components and the elements of
+their domains operators. In the corresponding terminology, a parameter is
+instantiated by a value, while a component is instantiated by allocating an
+operator to it. In the context of statistics and data mining one distinguishes
+two types of variables (rather than parameters) depending on the presence
+of an ordered structure, but a universal terminology is lacking here too.
+Commonly used names are nominal vs. ordinal and categorical vs. ordered
+variables.
+
+4)
+"Bio-inspired computation: Where we stand and what's next"
+Del Ser J., Osabab E., Molina D., Yange X., Salcedo-Sanz S., Camachog D., Dash S., Suganthan P., Coello C., Herrera F.
+Swarm and Evolutionary Computation, Volume 48, August 2019, Pages 220-250.
+http://jrlab.science/new-q1-publication-bio-inspired-computation-where-we-stand-and-whats-next
+
+In recent years, the research community has witnessed an explosion of literature dealing with the mimicking
+of behavioral patterns and social phenomena observed in nature towards efficiently solving complex computational
+tasks. This trend has been especially dramatic in what relates to optimization problems, mainly due to the
+unprecedented complexity of problem instances, arising from a diverse spectrum of domains such as transportation,
+logistics, energy, climate, social networks, health and industry 4.0, among many others. Notwithstanding
+this upsurge of activity, research in this vibrant topic should be steered towards certain areas that, despite their
+eventual value and impact on the field of bio-inspired computation, still remain insufficiently explored to date.
+The main purpose of this paper is to outline the state of the art and to identify open challenges concerning the
+most relevant areas within bio-inspired optimization. An analysis and discussion are also carried out over the
+general trajectory followed in recent years by the community working in this field, thereby highlighting the need
+for reaching a consensus and joining forces towards achieving valuable insights into the understanding of this
+family of optimization techniques.
+
+5) Sales Demand Forecast in E-commerce using a Long Short-Term Memory Neural Network Methodology
+    Kasun Bandara and Peibei Shi and Christoph Bergmeir and Hansika Hewamalage and Quoc Tran and Brian Seaman
+    year={2019}, eprint={1901.04028v2}, archivePrefix={arXiv}, primaryClass={cs.LG} https://arxiv.org/abs/1901.04028v2
+
+    Simply seems an (non-trivial) introduction to M5 competition!
+
+6) Forecasting Randomly Distributed Zero-Inflated Time Series,
+   Folia Oeconomica Stetinensia, 17(1), 7-19. doi: https://doi.org/10.1515/foli-2017-0001
+   Doszyń, M. (2017).
+
+   After conclude that a lot of time series occurs randomly, a stochastic simulation and Bernoulli processes is applied
+
+<zero>
+
+ \       /
+  \     /
+   \.-./
+  (o\^/o)  _   _   _     __
+   ./ \.\ ( )-( )-( ) .-'  '-.
+    {-} \(//  ||   \\/ (   )) '-.
+         //-__||__.-\\.       .-'
+        (/    ()     \)'-._.-'
+        ||    ||      \\
+MJP     ('    ('       ')
+https://www.asciiart.eu/animals/insects/ants

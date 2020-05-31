@@ -1,0 +1,35 @@
+in _1_prepare_data.py (and the same for the similar one piece in _3_predict.py)
+lines xxx-xxx
+the code is more clearly exposed here:
+intent:
+    in order to classify according a relevant M5 criteria, the money-sales data must serve to grouping,
+    some problem aroused from one data source day_based and other week_based,
+    a time_variable adjust and translate algorithm is needed..
+step by step:
+    run row by row and week by week the numpy 2D array "sell_prices"
+    check if the current week is not included (outside) the selling time, jump to next
+    check if is the last week inside the selling time, using the last_days array for exact remainder days
+    in any other case, use the 7 days block with the days numbers correspondent to the current week
+    concatenate a string to obtain the item_full_name of the current item: (item + underscore + store + suffix)
+    search the row (unique item -> time_serie) in raw_data_sales array that contains this item_full_name
+    assign the item_price for each day in the week (in sell_price) to the exact equal position in price_x_sale
+    after the loop,  update price_x_sale by an element-wise multiply of price_x_sale and raw_unit_sales
+code:
+        # with more named variables but substantially slower than the obfuscated version...
+        for week_sell_price in range(np.shape(sell_prices)[0]):
+            week_id = sell_prices[week_sell_price, 2]
+            week_number = weeks_numbers[week_id]
+            days = days_from_week[week_number]
+            if weeks_numbers[week_number] > weeks_with_data:
+                continue
+            elif weeks_numbers[week_number] == weeks_with_data:
+                days = last_days
+            else:
+                days = days_from_week[week_number]
+            item = sell_prices[week_sell_price, 1]
+            store = sell_prices[week_sell_price, 0]
+            item_full_name = ''.join([item, '_', store, '_validation'])
+            time_serie = np.where(raw_data_sales[:, 0] == item_full_name)[0][0]
+            price = sell_prices[week_sell_price, 3]
+            price_x_sale[time_serie, days[0]: days[-1] + 1] = price
+        price_x_sale = np.multiply(raw_unit_sales, price_x_sale)

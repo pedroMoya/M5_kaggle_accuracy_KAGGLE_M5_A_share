@@ -1,0 +1,23 @@
+{
+  "learning_rate": [1.0, 0.01, 0.001, 0.000175, 0.00001],
+  "optimizer": ["adam", "sgd", "ftrl"],
+  "batch_size": [1, 4, 8, 16, 32, 44],
+  "epochs": [250, 500, 1500],
+  "stride_window_walk": [1, 7, 14, 28, 56],
+  "days_in_focus_frame": [7, 14, 28, 42, 56, 84],
+  "activation_1": ["softsign", "relu", "tanh"],
+  "activation_2": ["softsign", "relu", "tanh"],
+  "activation_3": ["softsign", "relu", "tanh"],
+  "activation_4": ["softsign", "relu", "tanh"],
+  "units_layer_1": [1, 16, 48, 96],
+  "units_layer_2": [1, 16, 48, 96],
+  "units_layer_3": [1, 16, 48, 96],
+  "units_layer_4": [1, 16, 48, 96],
+  "loss_1": ["mse", "m_mape", "customized_loss_function"],
+  "dropout_layer_1": [0.0, 0.1, 0.125],
+  "dropout_layer_2": [0.0, 0.1, 0.125],
+  "dropout_layer_3": [0.0, 0.1, 0.125],
+  "dropout_layer_4": [0.0, 0.1, 0.125],
+  "model_type": ["Bidirectional_PeepHole_LSTM", "PeepHole_Encode_Decode",
+    "Bidirectional_PeepHoleLSTM_Encode_Decode", "Mix_Bid_PeepHole_LSTM_Dense_ANN"]
+}

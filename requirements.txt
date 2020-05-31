@@ -1,0 +1,6 @@
+numpy~=1.18.2
+pandas~=1.0.3
+scikit-learn~=0.22.2.post1
+tensorflow~=2.2.0rc2
+# cuda~=10.1
+# cudnn=10.1-windows10-x64-v7.6.5.32
