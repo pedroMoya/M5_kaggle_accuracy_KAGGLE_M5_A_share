@@ -1,0 +1,12 @@
+/.idea/
+/1.2_log/
+/2_RAW_DATA_DIR/
+/3_CLEAN_DATA_DIR/
+/4_TRAIN_DATA_PATH/
+/5.1_STATE_OF_ART_BENCHMARKS/
+/6_CHECKPOINTS_DIR/
+/7_TEST_DATA_PATH/
+/9.2_OTHERS_OUTPUTS/
+/backups/
+/venv/
+/.git - Acceso directo.lnk

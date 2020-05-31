@@ -1,3 +1,11 @@
+for Kaggle M5 competition Accuracy
+Sharing scripts, preprocessing, models, training, submit
+
+large_files:
+https://drive.google.com/drive/folders/1NltzL-MqnKU7EJdAsmASDj2mznhIKgBX?usp=sharing
+submit script:
+https://www.kaggle.com/pedromoya/submit-motor
+
 Local development/test/production environment:
 Machine
 
