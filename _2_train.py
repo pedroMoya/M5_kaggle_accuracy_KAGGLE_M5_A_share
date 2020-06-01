@@ -170,7 +170,8 @@ def train():
                                      ' data dimensions does not match settings']))
                 return False
             else:
-                print('warning, please check: forecast horizon is included within training data')
+                print(''.join(['\x1b[0;2;41m', 'Warning', '\x1b[0m']))
+                print('please check: forecast horizon is included within training data')
             print('raw data input collected and check of data dimensions passed (train_module)')
 
         # load clean data (divided in groups) and groups data
@@ -184,11 +185,7 @@ def train():
             nof_time_series_list = [np.shape(window_normalized_scaled_unit_sales)[0]]
             max_selling_time_list = [local_script_settings['max_selling_time']]
             groups_list = [window_normalized_scaled_unit_sales]
-            if local_settings['first_train_approach'] == "stochastic_simulation":
-                nof_groups = 1
-                time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
-                                                            'time_series_not_improved.npy']), allow_pickle=True)
-                groups_list = [window_normalized_scaled_unit_sales[time_series_not_improved]]
+            nof_groups = 1
         else:
             scaled_unit_sales_g1 = np.load(''.join([local_script_settings['train_data_path'], 'group1.npy']))
             scaled_unit_sales_g2 = np.load(''.join([local_script_settings['train_data_path'], 'group2.npy']))
@@ -220,6 +217,9 @@ def train():
             in_block_time_series_forecast = in_block_high_loss_ts_forecast()
             time_series_reviewed = in_block_time_series_forecast.forecast(local_settings=local_script_settings,
                                                                           local_raw_unit_sales=raw_unit_sales)
+            time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
+                                                        'time_series_not_improved.npy']), allow_pickle=True)
+            groups_list = [window_normalized_scaled_unit_sales[time_series_not_improved, :]]
             print('-time_serie specific (in-block) forecast- completed, success: ', time_series_reviewed)
         elif local_script_settings['first_train_approach'] != 'neural_network':
             print('first_train_approach parameter in settings not defined or unknown')
@@ -292,7 +292,7 @@ def train():
                 if model_hyperparameters['model_type'] == 'Pure_ANN':
                     # model Bidirectional_PeepHole_LSTM
                     print('model: Pure_ANN')
-                    # first LSTM layer
+                    # first layer
                     if model_hyperparameters['units_layer_1'] > 0:
                         forecaster.add(layers.Dense(units=model_hyperparameters['units_layer_1'],
                                                     activation=model_hyperparameters['activation_1'],
@@ -300,19 +300,19 @@ def train():
                                                                  nof_features_in_group),
                                                     activity_regularizer=activation_regularizer))
                         forecaster.add(layers.Dropout(rate=float(model_hyperparameters['dropout_layer_1'])))
-                    # second LSTM layer
+                    # second layer
                     if model_hyperparameters['units_layer_2'] > 0:
                         forecaster.add(layers.Dense(units=model_hyperparameters['units_layer_2'],
                                                     activation=model_hyperparameters['activation_2'],
                                                     activity_regularizer=activation_regularizer))
                         forecaster.add(layers.Dropout(rate=float(model_hyperparameters['dropout_layer_2'])))
-                    # third LSTM layer
+                    # third layer
                     if model_hyperparameters['units_layer_3'] > 0:
                         forecaster.add(layers.Dense(units=model_hyperparameters['units_layer_3'],
                                                     activation=model_hyperparameters['activation_3'],
                                                     activity_regularizer=activation_regularizer))
                         forecaster.add(layers.Dropout(rate=float(model_hyperparameters['dropout_layer_3'])))
-                    #  fourth LSTM layer
+                    #  fourth layer
                     if model_hyperparameters['units_layer_4'] > 0:
                         forecaster.add(layers.Dense(units=model_hyperparameters['units_layer_4'],
                                                     activation=model_hyperparameters['activation_4'],
@@ -322,7 +322,7 @@ def train():
                     forecaster.add(layers.Dense(units=nof_features_in_group))
                 elif model_hyperparameters['model_type'] == 'PeepHole_Encode_Decode':
                     # Model PeepHole_encode_decode LSTM model
-                    # first LSTM layer
+                    # first layer
                     print('model: PeepHoleLSTM_Encode_Decode')
                     if model_hyperparameters['units_layer_1'] > 0:
                         forecaster.add(layers.RNN(
@@ -333,7 +333,7 @@ def train():
                                              dropout=float(model_hyperparameters['dropout_layer_1'])),
                             return_sequences=False))
                         forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # second LSTM layer
+                    # second layer
                     if model_hyperparameters['units_layer_2'] > 0:
                         forecaster.add(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_2'],
@@ -341,7 +341,7 @@ def train():
                                              dropout=float(model_hyperparameters['dropout_layer_2'])),
                             return_sequences=False))
                         forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # third LSTM layer
+                    # third layer
                     if model_hyperparameters['units_layer_3'] > 0:
                         forecaster.add(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_3'],
@@ -349,7 +349,7 @@ def train():
                                              dropout=float(model_hyperparameters['dropout_layer_3'])),
                             return_sequences=False))
                         forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # fourth LSTM layer
+                    # fourth layer
                     if model_hyperparameters['units_layer_4'] > 0:
                         forecaster.add(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_4'],
@@ -361,7 +361,7 @@ def train():
                     forecaster.add(TimeDistributed(layers.Dense(units=nof_features_in_group)))
                 elif model_hyperparameters['model_type'] == 'Bidirectional_PeepHoleLSTM_Encode_Decode':
                     print('current model: Bidirectional_PeepHoleLSTM_Encode_Decode')
-                    # first LSTM layer
+                    # first layer
                     if model_hyperparameters['units_layer_1'] > 0:
                         forecaster.add(layers.Bidirectional(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_1'],
@@ -372,7 +372,7 @@ def train():
                                              dropout=float(model_hyperparameters['dropout_layer_1'])),
                             return_sequences=False)))
                         forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # second LSTM layer
+                    # second layer
                     if model_hyperparameters['units_layer_2'] > 0:
                         forecaster.add(layers.Bidirectional(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_2'],
@@ -381,7 +381,7 @@ def train():
                                              dropout=float(model_hyperparameters['dropout_layer_2'])),
                             greturn_sequences=False)))
                         forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # third LSTM layer
+                    # third layer
                     if model_hyperparameters['units_layer_3'] > 0:
                         forecaster.add(layers.Bidirectional(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_3'],
@@ -390,7 +390,7 @@ def train():
                                              dropout=float(model_hyperparameters['dropout_layer_3'])),
                             return_sequences=False)))
                         forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # fourth LSTM layer
+                    # fourth layer
                     if model_hyperparameters['units_layer_4'] > 0:
                         forecaster.add(layers.Bidirectional(layers.RNN(
                             PeepholeLSTMCell(units=model_hyperparameters['units_layer_4'],
@@ -412,7 +412,7 @@ def train():
                                                                  nof_features_in_group),
                                                     activity_regularizer=activation_regularizer))
                         forecaster.add(layers.Dropout(rate=float(model_hyperparameters['dropout_layer_1'])))
-                    # second LSTM layer
+                    # second layer
                     forecaster.add(layers.Bidirectional(layers.RNN(
                         PeepholeLSTMCell(units=model_hyperparameters['units_layer_2'],
                                          activation=model_hyperparameters['activation_2'],
@@ -420,7 +420,7 @@ def train():
                                          dropout=float(model_hyperparameters['dropout_layer_2'])),
                         return_sequences=False)))
                     forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
-                    # third LSTM layer
+                    # third layer
                     if model_hyperparameters['units_layer_3'] > 0:
                         forecaster.add(layers.Dense(units=model_hyperparameters['units_layer_3'],
                                                     activation=model_hyperparameters['activation_3'],

@@ -263,8 +263,7 @@ def predict():
                 time_series_in_group = time_series_not_improved
             # print(time_series_in_group.shape)
             # print(time_series_in_group)
-            x_test = window_normalized_scaled_unit_sales[
-                     [time_serie for time_serie in time_series_in_group], -time_steps_days:]
+            x_test = window_normalized_scaled_unit_sales[time_series_in_group, -time_steps_days:]
             x_test = x_test.reshape(1, x_test.shape[1], x_test.shape[0])
             print('x_test shape: ', np.shape(x_test))
 
@@ -353,34 +352,6 @@ def predict():
                 print('error in meta_heuristic evaluation submodule')
             else:
                 print('model evaluated got better results than previous ones')
-            # save the evaluation of models
-            time_series_error_mse = np.array(time_series_error_mse)
-            time_series_error_mod_mape = np.array(time_series_error_mod_mape)
-            time_series_error_mape = np.array(time_series_error_mape)
-            y_ground_truth_array = np.array(y_ground_truth_array)
-            y_pred_array = np.array(y_pred_array)
-            np.save(''.join([local_script_settings['models_evaluation_path'], '_y_ground_truth_array_']),
-                    y_ground_truth_array)
-            np.savetxt(''.join([local_script_settings['models_evaluation_path'], '_y_pred_array_.csv']),
-                       y_pred_array, fmt='%10.15f', delimiter=',', newline='\n')
-            np.save(''.join([local_script_settings['models_evaluation_path'], '_y_ground_truth_array_']),
-                    y_ground_truth_array)
-            np.savetxt(''.join([local_script_settings['models_evaluation_path'], '_y_pred_array_.csv']),
-                       y_pred_array, fmt='%10.15f', delimiter=',', newline='\n')
-            np.save(''.join([local_script_settings['models_evaluation_path'], 'ts_error_MSE_']), time_series_error_mse)
-            np.savetxt(''.join([local_script_settings['models_evaluation_path'], 'ts_error_MSE_.csv']),
-                       time_series_error_mse, fmt='%10.15f', delimiter=',', newline='\n')
-            np.save(''.join([local_script_settings['models_evaluation_path'], 'ts_error_Mod_MAPE_']),
-                    time_series_error_mod_mape)
-            np.savetxt(''.join([local_script_settings['models_evaluation_path'], 'ts_error_Mod_MAPE_.csv']),
-                       time_series_error_mod_mape, fmt='%10.15f', delimiter=',', newline='\n')
-            np.save(''.join([local_script_settings['models_evaluation_path'], 'ts_error_MAPE_']),
-                    time_series_error_mape)
-            np.savetxt(''.join([local_script_settings['models_evaluation_path'], 'ts_error_MAPE_.csv']),
-                       time_series_error_mape, fmt='%10.15f', delimiter=',', newline='\n')
-            print('models evaluation metrics for each time serie forecast saved to file')
-            logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
-                                 ' successful saved error metrics']))
 
         # treating time series with mediocre to bad forecasts (high loss) calling the specific submodule
         if local_script_settings['repeat_training_in_block'] == "True" \
@@ -390,6 +361,14 @@ def predict():
                                                                           local_raw_unit_sales=raw_unit_sales,
                                                                           local_mse=time_series_error_mse)
             print('last step -time_serie specific (in-block) forecast- completed, success: ', time_series_reviewed)
+        # evaluate external csv file submission (in 9.3_OTHERS_INPUTS folder)
+        if local_script_settings['external_submission_evaluation'] == "True":
+            external_submission_evaluation = submission_tester()
+            external_submission_reviewed = external_submission_evaluation.evaluate(local_settings=local_script_settings,
+                                                                          local_raw_unit_sales=raw_unit_sales,
+                                                                          local_mse=time_series_error_mse)
+            print('last step -time_serie specific (in-block) forecast- completed, success: ',
+                  external_submission_evaluation)
 
     except Exception as e1:
         print('Error in predict module')

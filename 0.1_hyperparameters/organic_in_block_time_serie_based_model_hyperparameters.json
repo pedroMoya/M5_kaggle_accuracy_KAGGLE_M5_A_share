@@ -3,5 +3,6 @@
   "comment": "dealing_with_zeros_and_randomness",
   "days_in_focus_frame": 28,
   "forecast_horizon_days": 28,
-  "stochastic_simulation_poor_result_threshold": 1.0
+  "stochastic_simulation_poor_result_threshold": 1.0,
+  "event_iterations": 500
 }

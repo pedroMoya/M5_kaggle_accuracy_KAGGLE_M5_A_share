@@ -103,8 +103,30 @@ class in_block_high_loss_ts_forecast:
                     time_serie_data[time_serie_iterator, :] = local_raw_unit_sales[time_serie, :]
                     time_serie_iterator += 1
 
-            # computing non_zero_frequencies by time_serie, this brings the probability_of_sale = 1 - zero_frequency
-            y_pred = random_event_realization(time_serie_data, model_hyperparameters, nof_features_for_training)
+            # obtaining representative samples, and assuming a uniform Normal distribution..
+            event_iterations = model_hyperparameters['event_iterations']
+            mean_stochastic_simulations = []
+            median_stochastic_simulations = []
+            standard_deviation_stochastic_simulations = []
+            for event in range(event_iterations):
+                y_pred = random_event_realization(time_serie_data, model_hyperparameters, nof_features_for_training)
+                standard_deviation_stochastic_simulations.append(np.std(y_pred, axis=1))
+                mean_stochastic_simulations.append(np.mean(y_pred, axis=1))
+                median_stochastic_simulations.append(np.median(y_pred, axis=1))
+            # this statistical values brings confidence interval for the "uncertainty" branch of this competition
+            standard_deviation_stochastic_simulations = np.array(standard_deviation_stochastic_simulations)
+            mean_stochastic_simulations = np.array(mean_stochastic_simulations)
+            median_stochastic_simulations = np.array(median_stochastic_simulations)
+            mean_stochastic_simulations = np.mean(mean_stochastic_simulations, axis=0)
+            median_stochastic_simulations = np.mean(median_stochastic_simulations, axis=0)
+            y_pred_launched = np.divide(np.add(mean_stochastic_simulations, median_stochastic_simulations), 2.)
+            standard_deviation_stochastic_simulations = np.mean(standard_deviation_stochastic_simulations, axis=0)
+            y_pred = []
+            for time_serie in range(nof_features_for_training):
+                mu, sigma = median_stochastic_simulations[time_serie], \
+                            standard_deviation_stochastic_simulations[time_serie]
+                y_pred.append(np.random.normal(mu, sigma, forecast_horizon_days))
+            y_pred = np.array(y_pred)
 
             # evaluating model and comparing with aggregated (by-group) LSTM
             print('evaluating the model trained..')
