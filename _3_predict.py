@@ -26,6 +26,7 @@ try:
     from high_loss_identified_ts_forecast_module import individual_high_loss_ts_forecast
     from organic_in_block_high_loss_identified_ts_forecast_module import in_block_high_loss_ts_forecast
     from model_analyzer import model_structure
+    from submission_evaluator import submission_tester
     if local_script_settings['metaheuristic_optimization'] == "True":
         with open(''.join(
                 [local_script_settings['metaheuristics_path'], 'organic_settings.json'])) as local_json_file:
@@ -148,19 +149,12 @@ def predict():
                                'forecast_settings.json'])) as local_f_json_file:
                 forecast_settings = json.loads(local_f_json_file.read())
                 local_f_json_file.close()
-        #     number_of_time_series_g1 = forecast_settings['number_of_time_series_g1']
-        #     number_of_time_series_g2 = forecast_settings['number_of_time_series_g2']
-        #     number_of_time_series_g3 = forecast_settings['number_of_time_series_g3']
-        # nof_time_series_list = [number_of_time_series_g1, number_of_time_series_g2, number_of_time_series_g3]
-        # lines before not used, yet
-        # max_selling_time_g1 = np.shape(scaled_unit_sales_g1)[1]
-        # max_selling_time_g2 = np.shape(scaled_unit_sales_g2)[1]
-        # max_selling_time_g3 = np.shape(scaled_unit_sales_g3)[1]
-        # max_selling_time_list = [max_selling_time_g1, max_selling_time_g2, max_selling_time_g3]
 
-        # execute model_analysis submodule: input: a h5 format full model, output: architecture in JSON format
-        # export a png image of the model plot
-        #
+        # checking if forecast and evaluation was done previously in one-by-one time_serie model training submodule
+        if local_script_settings['neural_network_training_time_serie_schema'] == 'individual_time_serie':
+            print('forecasts done previously (in submodule train_and_predict one_by_one time_serie schema)')
+            return True
+
         if local_script_settings['model_analyzer'] == 'on':
             analyzer = model_structure()
             model_name = '_high_loss_time_serie_model_forecaster_in_block_.h5'
@@ -251,6 +245,7 @@ def predict():
         # if needed, could be checked that x_test_from_prepare == x_test --> [[True]] * shape
         nof_groups = local_script_settings['number_of_groups']
         forecasts = []
+        time_series_not_improved = np.array([time_serie for time_serie in range(nof_time_series)])
         if local_script_settings['first_train_approach'] == 'stochastic_simulation':
             nof_groups = 1
             time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
@@ -308,6 +303,7 @@ def predict():
         logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                              ' correct forecasting process']))
         forecasts = np.array(forecasts)
+
         # evaluation of models forecasts according to day-wise comparison
         # forecaster(x_test) <=> y_pred
         print('\nmodels evaluation\nusing MEAN SQUARED ERROR, '
@@ -361,14 +357,17 @@ def predict():
                                                                           local_raw_unit_sales=raw_unit_sales,
                                                                           local_mse=time_series_error_mse)
             print('last step -time_serie specific (in-block) forecast- completed, success: ', time_series_reviewed)
-        # evaluate external csv file submission (in 9.3_OTHERS_INPUTS folder)
+        # evaluate external o internal csv file submission (in 9.3_OTHERS_INPUTS folder)
         if local_script_settings['external_submission_evaluation'] == "True":
-            external_submission_evaluation = submission_tester()
-            external_submission_reviewed = external_submission_evaluation.evaluate(local_settings=local_script_settings,
-                                                                          local_raw_unit_sales=raw_unit_sales,
-                                                                          local_mse=time_series_error_mse)
+            submission_evaluation = submission_tester()
+            external_submission_reviewed = submission_evaluation.evaluate_external_submit(
+                local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales,
+                local_mse=time_series_error_mse)
+            internal_submission_reviewed = submission_evaluation.evaluate_internal_submit(
+                forecasts, local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales,
+                local_mse=time_series_error_mse)
             print('last step -time_serie specific (in-block) forecast- completed, success: ',
-                  external_submission_evaluation)
+                  internal_submission_reviewed)
 
     except Exception as e1:
         print('Error in predict module')

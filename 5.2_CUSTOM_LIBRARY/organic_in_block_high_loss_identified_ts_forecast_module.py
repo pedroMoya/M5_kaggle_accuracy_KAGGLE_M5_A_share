@@ -135,6 +135,7 @@ class in_block_high_loss_ts_forecast:
             improved_time_series_forecast = []
             time_series_not_improved = []
             improved_mse = []
+            not_improved_mse = []
             local_stochastic_simulation_poor_result_threshold = \
                 model_hyperparameters['stochastic_simulation_poor_result_threshold']
             print('evaluating model error by time_serie')
@@ -161,9 +162,12 @@ class in_block_high_loss_ts_forecast:
                     # no better results with time serie specific model training
                     # print('MSE not improved from: ', previous_result, '\t current mse: ', local_error_metric_mse)
                     time_series_not_improved.append(int(time_serie))
+                    not_improved_mse.append(local_error_metric_mse)
                 time_serie_iterator += 1
             time_series_treated = np.array(time_series_treated)
             improved_mse = np.array(improved_mse)
+            not_improved_mse = np.array(not_improved_mse)
+            average_mse_not_improved_ts = np.mean(not_improved_mse)
             average_mse_in_block_forecast = np.mean(time_series_treated[:, 2])
             average_mse_improved_ts = np.mean(improved_mse)
             print('poor result time serie list len:', len(poor_result_time_serie_list))
@@ -171,6 +175,7 @@ class in_block_high_loss_ts_forecast:
             print('number of time series with better results with this forecast: ',
                   len(improved_time_series_forecast))
             print('mean_mse of time series with better results with this forecast: ', average_mse_improved_ts)
+            print('mean_mse of time series with worse results with this forecast: ', average_mse_not_improved_ts)
             print('not improved time series =', len(time_series_not_improved))
             improved_time_series_forecast = np.array(improved_time_series_forecast)
             time_series_not_improved = np.array(time_series_not_improved)

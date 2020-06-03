@@ -46,14 +46,23 @@ kb.clear_session()
 
 class submission_tester:
 
-    def evaluate(self, local_settings, local_raw_unit_sales, local_mse=None):
+    def evaluate_external_submit(self, local_settings, local_raw_unit_sales, local_mse=None):
         try:
             print('evaluation of submission (read and evaluate TESTsubmit.csv file in 9.3_OTHERS_INPUTS folder)')
 
+        except Exception as submodule_error:
+            print('internal submission evaluation submodule_error: ', submodule_error)
+            logger.info('error in evaluation of external submit TESTsubmit.csv')
+            logger.error(str(submodule_error), exc_info=True)
+            return False
+
+    def evaluate_internal_submit(self, local_forecasts, local_settings, local_raw_unit_sales, local_mse=None):
+        try:
+            print('evaluation of submission (corresponding to local script processes)')
 
         except Exception as submodule_error:
-            print('submission evaluation submodule_error: ', submodule_error)
-            logger.info('error in evaluation of submit TESTsubmit.csv')
+            print('internal (local) submission evaluation submodule_error: ', submodule_error)
+            logger.info('error in evaluation of local submit TEST')
             logger.error(str(submodule_error), exc_info=True)
             return False
         return True

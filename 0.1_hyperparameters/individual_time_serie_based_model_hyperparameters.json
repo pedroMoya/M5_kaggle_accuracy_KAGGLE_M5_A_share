@@ -1,4 +1,5 @@
 {
+  "last_time_serie_trained": 12929,
   "current_model_name": "_LSTM_only_1_feature",
   "model_type": "Mix_Bid_PeepHole_LSTM_Dense_ANN",
   "one_by_one_feature_training_done": "True",

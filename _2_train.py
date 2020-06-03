@@ -33,6 +33,7 @@ try:
     sys.path.insert(1, local_settings['custom_library_path'])
     from metaheuristic_module import tuning_metaheuristic
     from organic_in_block_high_loss_identified_ts_forecast_module import in_block_high_loss_ts_forecast
+    from individual_ts_neural_network_training_and_forecast import neural_network_time_serie_schema
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
     print(ee1)
@@ -175,6 +176,7 @@ def train():
             print('raw data input collected and check of data dimensions passed (train_module)')
 
         # load clean data (divided in groups) and groups data
+        nof_time_series = raw_unit_sales.shape[0]
         nof_groups = local_script_settings['number_of_groups']
         window_normalized_scaled_unit_sales = np.load(''.join([local_script_settings['train_data_path'],
                                                                'x_train_source.npy']))
@@ -225,6 +227,7 @@ def train():
             print('first_train_approach parameter in settings not defined or unknown')
             return False
         else:
+            time_series_not_improved = np.array([time_serie for time_serie in range(nof_time_series)])
             print('assuming first_train_approach as neural_network')
         if local_script_settings['repeat_training'] == "False":
             print("settings indicates don't repeat neural_network training")
@@ -427,11 +430,13 @@ def train():
                                                     activity_regularizer=activation_regularizer))
                         forecaster.add(layers.Dropout(rate=float(model_hyperparameters['dropout_layer_3'])))
                     # fourth layer (DENSE)
-                    if model_hyperparameters['units_layer_4'] > 0:
-                        forecaster.add(layers.Dense(units=model_hyperparameters['units_layer_4'],
-                                                    activation=model_hyperparameters['activation_4'],
-                                                    activity_regularizer=activation_regularizer))
-                        forecaster.add(layers.Dropout(rate=float(model_hyperparameters['dropout_layer_4'])))
+                    forecaster.add(layers.Bidirectional(layers.RNN(
+                        PeepholeLSTMCell(units=model_hyperparameters['units_layer_4'],
+                                         activation=model_hyperparameters['activation_4'],
+                                         activity_regularizer=activation_regularizer,
+                                         dropout=float(model_hyperparameters['dropout_layer_4'])),
+                        return_sequences=False)))
+                    forecaster.add(RepeatVector(model_hyperparameters['repeat_vector']))
                     # final layer
                     forecaster.add(layers.Dense(units=nof_features_in_group))
                 else:
@@ -491,6 +496,7 @@ def train():
                  for last_day in day_in_year[:-1]
                  for day in range(last_day + window_output_length,
                                   last_day + window_output_length - days_in_focus_frame, -stride_window_walk)]
+
                 # border condition, take care with last year, working with last data available, yeah really!!
                 [x_train.append(np.concatenate(
                     (group[:, day - window_output_length: day],
@@ -567,6 +573,9 @@ def train():
                                            save_best_only=True, mode='min')
             callbacks = [callback1, callback2]
 
+            print(x_train.shape)
+            print(y_train.shape)
+
             x_train = x_train.reshape((np.shape(x_train)[0], np.shape(x_train)[2], np.shape(x_train)[1]))
             y_train = y_train.reshape((np.shape(y_train)[0], np.shape(y_train)[2], np.shape(y_train)[1]))
             print('input_x_shape: ', np.shape(x_train))
@@ -574,12 +583,20 @@ def train():
 
             # train for each group
             forecaster = forecaster_models_list[group_iterator]
-            forecaster.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, workers=workers,
-                           callbacks=callbacks, shuffle=False)
+            if local_script_settings['neural_network_training_time_serie_schema'] == 'individual_time_serie':
+                model_trainer = neural_network_time_serie_schema()
+                train_model = model_trainer.train_and_predict(local_script_settings, x_train, y_train, raw_unit_sales,
+                                                              model_hyperparameters, time_series_not_improved)
+                if train_model:
+                    print('successfully model training and forecasting, in an individual time_serie schema')
+                    return True
+                else:
+                    print('error at model training and forecasting, in an individual time_serie schema')
+                    return False
+            else:
+                forecaster.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, workers=workers,
+                               callbacks=callbacks, shuffle=False)
             forecaster.summary()  # print summary (informative, but if says "shape = multiple"; probably useless!!)
-
-            # store time_serie trained and group
-            # model_by_group_trained.append([time_serie, group_iterator])
 
             # save model for this time serie
             forecaster.save(''.join([local_script_settings['models_path'],
