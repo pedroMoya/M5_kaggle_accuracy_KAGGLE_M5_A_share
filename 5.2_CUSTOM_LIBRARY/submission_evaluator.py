@@ -4,6 +4,7 @@ import logging
 import logging.handlers as handlers
 import json
 import itertools as it
+import pandas as pd
 import numpy as np
 import tensorflow as tf
 
@@ -48,11 +49,16 @@ class submission_tester:
 
     def evaluate_external_submit(self, local_settings, local_raw_unit_sales, local_mse=None):
         try:
-            print('evaluation of submission (read and evaluate TESTsubmit.csv file in 9.3_OTHERS_INPUTS folder)')
+            print('evaluation of submission (read and evaluate TESTsubmission.csv file in 9.3_OTHERS_INPUTS folder)')
+            # open csv file
+            external_submit = pd.read_csv(''.join([local_settings['others_inputs_path'], 'TESTsubmission.csv']))
+            external_submit = external_submit.iloc[1:, 1:].values
+            ground_truth_submit = pd.read_csv(''.join([local_settings['raw_data_path'], 'TESTsubmission.csv']))
+
 
         except Exception as submodule_error:
             print('internal submission evaluation submodule_error: ', submodule_error)
-            logger.info('error in evaluation of external submit TESTsubmit.csv')
+            logger.info('error in evaluation of external submit TESTsubmission.csv')
             logger.error(str(submodule_error), exc_info=True)
             return False
 
@@ -62,7 +68,7 @@ class submission_tester:
 
         except Exception as submodule_error:
             print('internal (local) submission evaluation submodule_error: ', submodule_error)
-            logger.info('error in evaluation of local submit TEST')
+            logger.info('error in evaluation of local submission')
             logger.error(str(submodule_error), exc_info=True)
             return False
         return True

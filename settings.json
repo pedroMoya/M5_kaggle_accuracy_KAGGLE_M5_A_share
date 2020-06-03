@@ -50,5 +50,6 @@
   "test_data_path": "./7_TEST_DATA_PATH/",
   "submission_path": "./8_SUBMISSION_DIR/",
   "models_evaluation_path": "./9.1_MODELS_EVALUATION/",
-  "others_outputs_path": "./9.2_OTHERS_OUTPUTS/"
+  "others_outputs_path": "./9.2_OTHERS_OUTPUTS/",
+  "others_inputs_path": "./9.3_OTHERS_INPUTS/"
 }
