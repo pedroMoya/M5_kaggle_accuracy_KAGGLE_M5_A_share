@@ -1,0 +1,317 @@
+error in evaluation of external submit TESTsubmission.csv
+Found input variables with inconsistent numbers of samples: [1941, 28]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 109, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 64, in test_forecasts
+    error_metric_mse = mean_squared_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1941, 28]
+error in evaluation of local submission
+'(0, slice(None, None, None))' is an invalid key
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 129, in evaluate_internal_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 62, in test_forecasts
+    y_truth_ts = local_y_truth[time_serie, :]
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 2800, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexes\base.py", line 2646, in get_loc
+    return self._engine.get_loc(key)
+  File "pandas\_libs\index.pyx", line 111, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 116, in pandas._libs.index.IndexEngine.get_loc
+TypeError: '(0, slice(None, None, None))' is an invalid key
+error in evaluation of external submit TESTsubmission.csv
+Found input variables with inconsistent numbers of samples: [1941, 28]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 111, in evaluate_external_submit
+    forecasts_evaluation.append(test_forecasts(y_pred, y_truth))
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 64, in test_forecasts
+    error_metric_mse = mean_squared_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1941, 28]
+error in evaluation of local submission
+'(0, slice(None, None, None))' is an invalid key
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 134, in evaluate_internal_submit
+    forecasts_evaluation.append(test_forecasts(y_pred, y_truth))
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 62, in test_forecasts
+    y_truth_ts = local_y_truth[time_serie, :]
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 2800, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexes\base.py", line 2646, in get_loc
+    return self._engine.get_loc(key)
+  File "pandas\_libs\index.pyx", line 111, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 116, in pandas._libs.index.IndexEngine.get_loc
+TypeError: '(0, slice(None, None, None))' is an invalid key
+error in evaluation of external submit TESTsubmission.csv
+index 30490 is out of bounds for axis 0 with size 30490
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 109, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 62, in test_forecasts
+    y_truth_ts = local_y_truth[local_time_serie, :]
+IndexError: index 30490 is out of bounds for axis 0 with size 30490
+error in evaluation of local submission
+'(slice(None, None, None), slice(-28, None, None))' is an invalid key
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 129, in evaluate_internal_submit
+    y_truth = ground_truth_submit[:, -local_forecast_horizon_days:]
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 2800, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexes\base.py", line 2646, in get_loc
+    return self._engine.get_loc(key)
+  File "pandas\_libs\index.pyx", line 111, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 116, in pandas._libs.index.IndexEngine.get_loc
+TypeError: '(slice(None, None, None), slice(-28, None, None))' is an invalid key
+error in evaluation of local submission
+'(slice(None, None, None), slice(-28, None, None))' is an invalid key
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 130, in evaluate_internal_submit
+    y_truth = ground_truth_submit[:, -local_forecast_horizon_days:]
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 2800, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexes\base.py", line 2646, in get_loc
+    return self._engine.get_loc(key)
+  File "pandas\_libs\index.pyx", line 111, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 116, in pandas._libs.index.IndexEngine.get_loc
+TypeError: '(slice(None, None, None), slice(-28, None, None))' is an invalid key
+error in evaluation of local submission
+y_true and y_pred have different number of output (1!=28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 132, in evaluate_internal_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 65, in test_forecasts
+    error_metric_mse = mean_squared_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 95, in _check_reg_targets
+    raise ValueError("y_true and y_pred have different number of output "
+ValueError: y_true and y_pred have different number of output (1!=28)
+error in evaluation of local submission
+y_true and y_pred have different number of output (1!=28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 132, in evaluate_internal_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 65, in test_forecasts
+    error_metric_mse = mean_squared_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 95, in _check_reg_targets
+    raise ValueError("y_true and y_pred have different number of output "
+ValueError: y_true and y_pred have different number of output (1!=28)
+error in evaluation of external submit TESTsubmission.csv
+Input contains NaN, infinity or a value too large for dtype('float64').
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 110, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 65, in test_forecasts
+    error_metric_mse = mean_squared_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 86, in _check_reg_targets
+    y_pred = check_array(y_pred, ensure_2d=False, dtype=dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 577, in check_array
+    _assert_all_finite(array,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 57, in _assert_all_finite
+    raise ValueError(
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+error in evaluation of external submit TESTsubmission.csv
+[Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/external_submission_evaluation.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 116, in evaluate_external_submit
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'external_submission_evaluation.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/external_submission_evaluation.csv'
+error in evaluation of external submit TESTsubmission.csv
+Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 114, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 66, in test_forecasts
+    error_metric_mod_mape = 100 * customized_mod_mape(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\losses.py", line 143, in __call__
+    losses = self.call(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2734, in _maybe_define_function
+    args, kwargs = self._function_spec.canonicalize_function_inputs(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2231, in canonicalize_function_inputs
+    inputs = _convert_numpy_inputs(inputs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2255, in _convert_numpy_inputs
+    flat_inputs[index] = constant_op.constant(value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 261, in constant
+    return _constant_impl(value, dtype, shape, name, verify_shape=False,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 270, in _constant_impl
+    t = convert_to_eager_tensor(value, ctx, dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 96, in convert_to_eager_tensor
+    return ops.EagerTensor(value, ctx.device_name, dtype)
+ValueError: Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+error in evaluation of external submit TESTsubmission.csv
+Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 114, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 66, in test_forecasts
+    error_metric_mod_mape = 100 * customized_mod_mape(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\losses.py", line 143, in __call__
+    losses = self.call(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2734, in _maybe_define_function
+    args, kwargs = self._function_spec.canonicalize_function_inputs(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2231, in canonicalize_function_inputs
+    inputs = _convert_numpy_inputs(inputs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2255, in _convert_numpy_inputs
+    flat_inputs[index] = constant_op.constant(value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 261, in constant
+    return _constant_impl(value, dtype, shape, name, verify_shape=False,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 270, in _constant_impl
+    t = convert_to_eager_tensor(value, ctx, dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 96, in convert_to_eager_tensor
+    return ops.EagerTensor(value, ctx.device_name, dtype)
+ValueError: Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+error in evaluation of local submission
+[Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/internal_submission_evaluation.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 139, in evaluate_internal_submit
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'internal_submission_evaluation.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/internal_submission_evaluation.csv'
+error in evaluation of external submit TESTsubmission.csv
+Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 115, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 67, in test_forecasts
+    error_metric_mod_mape = 100 * customized_mod_mape(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\losses.py", line 143, in __call__
+    losses = self.call(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2734, in _maybe_define_function
+    args, kwargs = self._function_spec.canonicalize_function_inputs(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2231, in canonicalize_function_inputs
+    inputs = _convert_numpy_inputs(inputs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2255, in _convert_numpy_inputs
+    flat_inputs[index] = constant_op.constant(value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 261, in constant
+    return _constant_impl(value, dtype, shape, name, verify_shape=False,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 270, in _constant_impl
+    t = convert_to_eager_tensor(value, ctx, dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 96, in convert_to_eager_tensor
+    return ops.EagerTensor(value, ctx.device_name, dtype)
+ValueError: Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+error in evaluation of external submit TESTsubmission.csv
+Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 115, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 68, in test_forecasts
+    error_metric_mape = mean_absolute_percentage_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\losses.py", line 1262, in mean_absolute_percentage_error
+    y_pred = ops.convert_to_tensor_v2(y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\ops.py", line 1278, in convert_to_tensor_v2
+    return convert_to_tensor(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\ops.py", line 1341, in convert_to_tensor
+    ret = conversion_func(value, dtype=dtype, name=name, as_ref=as_ref)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_conversion_registry.py", line 52, in _default_conversion_function
+    return constant_op.constant(value, dtype, name=name)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 261, in constant
+    return _constant_impl(value, dtype, shape, name, verify_shape=False,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 270, in _constant_impl
+    t = convert_to_eager_tensor(value, ctx, dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 96, in convert_to_eager_tensor
+    return ops.EagerTensor(value, ctx.device_name, dtype)
+ValueError: Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+error in evaluation of external submit TESTsubmission.csv
+Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 100, in evaluate_external_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 65, in test_forecasts
+    error_metric_mape = mean_absolute_percentage_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\losses.py", line 1262, in mean_absolute_percentage_error
+    y_pred = ops.convert_to_tensor_v2(y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\ops.py", line 1278, in convert_to_tensor_v2
+    return convert_to_tensor(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\ops.py", line 1341, in convert_to_tensor
+    ret = conversion_func(value, dtype=dtype, name=name, as_ref=as_ref)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_conversion_registry.py", line 52, in _default_conversion_function
+    return constant_op.constant(value, dtype, name=name)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 261, in constant
+    return _constant_impl(value, dtype, shape, name, verify_shape=False,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 270, in _constant_impl
+    t = convert_to_eager_tensor(value, ctx, dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\constant_op.py", line 96, in convert_to_eager_tensor
+    return ops.EagerTensor(value, ctx.device_name, dtype)
+ValueError: Failed to convert a NumPy array to a Tensor (Unsupported object type int).
+error in evaluation of local submission
+ufunc 'subtract' did not contain a loop with signature matching types (dtype('<U31'), dtype('<U31')) -> dtype('<U31')
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 108, in evaluate_internal_submit
+    forecasts_evaluation = test_forecasts(y_pred, y_truth)
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 64, in test_forecasts
+    error_metric_mse = mean_squared_error(y_truth_ts, y_pred_ts)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 254, in mean_squared_error
+    output_errors = np.average((y_true - y_pred) ** 2, axis=0,
+numpy.core._exceptions.UFuncTypeError: ufunc 'subtract' did not contain a loop with signature matching types (dtype('<U31'), dtype('<U31')) -> dtype('<U31')
+error in evaluation of local submission
+[Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/internal_submission_evaluation.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 110, in evaluate_internal_submit
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'internal_submission_evaluation.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/internal_submission_evaluation.csv'
+error in evaluation of external submit TESTsubmission.csv
+[Errno 2] File ./9.3_OTHERS_INPUTS/TESTsubmission.csv does not exist: './9.3_OTHERS_INPUTS/TESTsubmission.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 76, in evaluate_external_submit
+    external_submit = pd.read_csv(''.join([local_settings['others_inputs_path'], 'TESTsubmission.csv']))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\io\parsers.py", line 676, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\io\parsers.py", line 448, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\io\parsers.py", line 880, in __init__
+    self._make_engine(self.engine)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\io\parsers.py", line 1114, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\io\parsers.py", line 1891, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas\_libs\parsers.pyx", line 374, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] File ./9.3_OTHERS_INPUTS/TESTsubmission.csv does not exist: './9.3_OTHERS_INPUTS/TESTsubmission.csv'

@@ -86,6 +86,9 @@ def train():
         with open('./settings.json') as local_r_json_file:
             local_script_settings = json.loads(local_r_json_file.read())
             local_r_json_file.close()
+        if local_script_settings['only_evaluations'] == "True":
+            print('follow settings specifications, training is skipped')
+            return True
         if local_script_settings['metaheuristic_optimization'] == "True":
             print('changing settings control to metaheuristic optimization')
             with open(''.join(

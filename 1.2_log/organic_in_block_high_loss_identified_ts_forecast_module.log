@@ -288,3 +288,83 @@ Traceback (most recent call last):
   File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
     open(fname, 'wt').close()
 PermissionError: [Errno 13] Permission denied: './9.1_MODELS_EVALUATION/time_series_forecast_results.csv'
+error in forecast of in-block time_series
+bad operand type for unary -: 'dict'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 138, in forecast
+    y_pred = random_event_realization(time_serie_data, model_hyperparameters, nof_features_for_training,
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 51, in random_event_realization
+    x_data = local_time_serie_data[:, -local_days_in_focus_frame:]
+TypeError: bad operand type for unary -: 'dict'
+error in forecast of in-block time_series
+'days_in_focus_frame'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 137, in forecast
+    days_in_focus_frame = local_settings['days_in_focus_frame']
+KeyError: 'days_in_focus_frame'
+error in forecast of in-block time_series
+'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 156, in forecast
+    y_pred.append(np.random.normal(mu, sigma, forecast_horizon_days))
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+error in forecast of in-block time_series
+too many indices for array
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 177, in forecast
+    local_point_forecast = y_pred[time_serie_iterator:time_serie_iterator + 1, -forecast_horizon_days:]
+IndexError: too many indices for array
+error in forecast of in-block time_series
+too many indices for array
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 177, in forecast
+    local_point_forecast = y_pred[time_serie_iterator:time_serie_iterator + 1, -forecast_horizon_days:]
+IndexError: too many indices for array
+error in forecast of in-block time_series
+Input contains NaN, infinity or a value too large for dtype('float64').
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 187, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 86, in _check_reg_targets
+    y_pred = check_array(y_pred, ensure_2d=False, dtype=dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 577, in check_array
+    _assert_all_finite(array,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 57, in _assert_all_finite
+    raise ValueError(
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+error in forecast of in-block time_series
+Input contains NaN, infinity or a value too large for dtype('float64').
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 187, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 86, in _check_reg_targets
+    y_pred = check_array(y_pred, ensure_2d=False, dtype=dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 577, in check_array
+    _assert_all_finite(array,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 57, in _assert_all_finite
+    raise ValueError(
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+error in forecast of in-block time_series
+Input contains NaN, infinity or a value too large for dtype('float64').
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 187, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 86, in _check_reg_targets
+    y_pred = check_array(y_pred, ensure_2d=False, dtype=dtype)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 577, in check_array
+    _assert_all_finite(array,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 57, in _assert_all_finite
+    raise ValueError(
+ValueError: Input contains NaN, infinity or a value too large for dtype('float64').
+error in forecast of in-block time_series
+could not broadcast input array from shape (10,28) into shape (28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 159, in forecast
+    forecasts[time_serie, :] = y_pred
+ValueError: could not broadcast input array from shape (10,28) into shape (28)
