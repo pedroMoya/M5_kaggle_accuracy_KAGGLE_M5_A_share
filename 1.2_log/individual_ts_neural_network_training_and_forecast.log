@@ -1,0 +1,906 @@
+error in training and forecast-individual time_serie schema
+'forecast_horizons_day'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 108, in train_and_predict
+    local_forecast_horizon_days = local_settings['forecast_horizons_day']
+KeyError: 'forecast_horizons_day'
+error in training and forecast-individual time_serie schema
+'moving_window_length'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 206, in train_and_predict
+    local_moving_window_length = local_model_hyperparameters['moving_window_length']
+KeyError: 'moving_window_length'
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 12931]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 210, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 12931]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [8, 12931]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 210, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [8, 12931]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [8, 12931]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 211, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [8, 12931]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [8, 28]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 211, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [8, 28]
+
+error in training and forecast-individual time_serie schema
+[Errno 2] No such file or directory: './5.0_MODELS_DIR/generic_forecaster_individual_ts.jsonw'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 205, in train_and_predict
+    with open(''.join([local_settings['models_path'],
+FileNotFoundError: [Errno 2] No such file or directory: './5.0_MODELS_DIR/generic_forecaster_individual_ts.jsonw'
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 208, in train_and_predict
+    json_file.close()
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 611, in _call
+    return self._stateless_fn(*args, **kwds)  # pylint: disable=not-callable
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2419, in __call__
+    graph_function, args, kwargs = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2774, in _maybe_define_function
+    return self._define_function_with_shape_relaxation(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2705, in _define_function_with_shape_relaxation
+    graph_function = self._create_graph_function(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+'last_time_serie_trained'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 209, in train_and_predict
+    last_time_serie_trained = local_model_hyperparameters['last_time_serie_trained']
+KeyError: 'last_time_serie_trained'
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 218, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 218, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 218, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 218, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 218, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 220, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 222, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 218, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+
+error in training and forecast-individual time_serie schema
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 219, in train_and_predict
+    local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:212 assert_input_compatibility
+        raise ValueError(
+
+    ValueError: Input 0 of layer sequential_1 is incompatible with the layer: expected axis -1 of input shape to have value 1 but received input with shape [None, 28, 0]
+

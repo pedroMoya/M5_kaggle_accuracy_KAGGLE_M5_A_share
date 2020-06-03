@@ -1,0 +1,55 @@
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+SavedModel file does not exist at: ./5.0_MODELS_DIR/specific_time_serie_700model_forecast_.h5/{saved_model.pbtxt|saved_model.pb}
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\high_loss_identified_ts_forecast_module.py", line 298, in forecast
+    forecaster = models.load_model(''.join([local_settings['models_path'], model_name]),
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\save.py", line 189, in load_model
+    loader_impl.parse_saved_model(filepath)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\saved_model\loader_impl.py", line 110, in parse_saved_model
+    raise IOError("SavedModel file does not exist at: %s/{%s|%s}" %
+OSError: SavedModel file does not exist at: ./5.0_MODELS_DIR/specific_time_serie_700model_forecast_.h5/{saved_model.pbtxt|saved_model.pb}
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\high_loss_identified_ts_forecast_module.py", line 347, in forecast
+    time_series_individually_treated.append(int(time_serie))
+AttributeError: 'numpy.ndarray' object has no attribute 'append'

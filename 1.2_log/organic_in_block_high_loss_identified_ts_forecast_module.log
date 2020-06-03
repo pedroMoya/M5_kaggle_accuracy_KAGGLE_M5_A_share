@@ -1,0 +1,290 @@
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'moving_window_length'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 61, in forecast
+    moving_window_length = local_settings['moving_window_length']
+KeyError: 'moving_window_length'
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Found input variables with inconsistent numbers of samples: [1, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 107, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1, 0]
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Found input variables with inconsistent numbers of samples: [1, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 107, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1, 0]
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+cannot reshape array of size 0 into shape (1,28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 105, in forecast
+    if local_point_forecast.shape != (1, forecast_horizon_days):
+ValueError: cannot reshape array of size 0 into shape (1,28)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+cannot reshape array of size 0 into shape (1,28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 107, in forecast
+    local_point_forecast.reshape(1, forecast_horizon_days)
+ValueError: cannot reshape array of size 0 into shape (1,28)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Found input variables with inconsistent numbers of samples: [1, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 108, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1, 0]
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Found input variables with inconsistent numbers of samples: [1, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 109, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1, 0]
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+invalid index to scalar variable.
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 97, in forecast
+    y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
+IndexError: invalid index to scalar variable.
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 65, in forecast
+    for result in local_mse:
+TypeError: 'NoneType' object is not iterable
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 65, in forecast
+    for result in local_mse:
+TypeError: 'NoneType' object is not iterable
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 65, in forecast
+    for result in local_mse:
+TypeError: 'NoneType' object is not iterable
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+too many indices for array
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 129, in forecast
+    average_mse_in_block_forecast = np.mean(time_series_treated[:, 2])
+IndexError: too many indices for array
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 119, in forecast
+    time_series_treated.append([int(time_serie), previous_result, local_error_metric_mse])
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 120, in forecast
+    time_series_treated.append([int(time_serie), previous_result, local_error_metric_mse])
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 121, in forecast
+    time_series_treated.append([int(time_serie), previous_result, local_error_metric_mse])
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 153, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 153, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+y_true and y_pred have different number of output (28!=7)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 120, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 95, in _check_reg_targets
+    raise ValueError("y_true and y_pred have different number of output "
+ValueError: y_true and y_pred have different number of output (28!=7)
+error in forecast of in-block time_series
+'forecast_horizon_days'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 107, in forecast
+    y_pred = random_event_realization(time_serie_data, model_hyperparameters, nof_features_for_training)
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 50, in random_event_realization
+    local_forecast_horizon_days = local_model_hyperparameters['forecast_horizon_days']
+KeyError: 'forecast_horizon_days'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 154, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 154, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 154, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 154, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 154, in forecast
+    np.save(''.join([local_settings['models_evaluation_path'], 'poor_result_time_serie_array']),
+  File "<__array_function__ internals>", line 5, in save
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 541, in save
+    fid = open(file, "wb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/poor_result_time_serie_array.npy'
+error in forecast of in-block time_series
+argument of type 'NoneType' is not iterable
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 128, in forecast
+    if local_error_metric_mse < previous_result or local_mse in None:
+TypeError: argument of type 'NoneType' is not iterable
+error in forecast of in-block time_series
+'stochastic_simulation_poor_result_threshold'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 117, in forecast
+    local_settings['stochastic_simulation_poor_result_threshold']
+KeyError: 'stochastic_simulation_poor_result_threshold'
+error in forecast of in-block time_series
+'poor_results_mse_threshold'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 85, in forecast
+    poor_results_mse_threshold = model_hyperparameters['poor_results_mse_threshold']
+KeyError: 'poor_results_mse_threshold'
+error in forecast of in-block time_series
+'stochastic_simulation_poor_result_threshold'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 116, in forecast
+    local_settings['stochastic_simulation_poor_result_threshold']
+KeyError: 'stochastic_simulation_poor_result_threshold'
+error in forecast of in-block time_series
+'stochastic_simulation_poor_result_threshold'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 118, in forecast
+    local_settings['stochastic_simulation_poor_result_threshold']
+KeyError: 'stochastic_simulation_poor_result_threshold'
+error in forecast of in-block time_series
+'event_iterations'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 107, in forecast
+    event_iterations = model_hyperparameters['event_iterations']
+KeyError: 'event_iterations'
+error in forecast of in-block time_series
+'event_iterations'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 107, in forecast
+    event_iterations = model_hyperparameters['event_iterations']
+KeyError: 'event_iterations'
+error in forecast of in-block time_series
+module 'numpy' has no attribute 'sdt'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 114, in forecast
+    standard_deviation_stochastic_simulations = np.sdt(y_pred_launched, axis=1)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\__init__.py", line 219, in __getattr__
+    raise AttributeError("module {!r} has no attribute "
+AttributeError: module 'numpy' has no attribute 'sdt'
+error in forecast of in-block time_series
+Found input variables with inconsistent numbers of samples: [1, 0]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 134, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1, 0]
+error in forecast of in-block time_series
+index 5 is out of bounds for axis 0 with size 5
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 120, in forecast
+    mu, sigma = y_pred_seeds[time_serie], standard_deviation_stochastic_simulations[time_serie]
+IndexError: index 5 is out of bounds for axis 0 with size 5
+error in forecast of in-block time_series
+index 5 is out of bounds for axis 0 with size 5
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 121, in forecast
+    mu, sigma = y_pred_seeds[time_serie], standard_deviation_stochastic_simulations[time_serie]
+IndexError: index 5 is out of bounds for axis 0 with size 5
+error in forecast of in-block time_series
+list index out of range
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 124, in forecast
+    mu, sigma = y_pred_seeds[time_serie], standard_deviation_stochastic_simulations[time_serie]
+IndexError: list index out of range
+error in forecast of in-block time_series
+list index out of range
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 125, in forecast
+    mu, sigma = y_pred_seeds[time_serie], standard_deviation_stochastic_simulations[time_serie]
+IndexError: list index out of range
+error in forecast of in-block time_series
+[Errno 13] Permission denied: './9.1_MODELS_EVALUATION/time_series_forecast_results.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\organic_in_block_high_loss_identified_ts_forecast_module.py", line 192, in forecast
+    np.savetxt(''.join([local_settings['models_evaluation_path'], 'time_series_forecast_results.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.1_MODELS_EVALUATION/time_series_forecast_results.csv'

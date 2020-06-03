@@ -1,0 +1,898 @@
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+cannot reshape array of size 34151040 into shape (1,16940,72)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 285, in forecast
+    x_train = x_train.reshape((1, np.shape(x_train)[1], np.shape(x_train)[0]))
+ValueError: cannot reshape array of size 34151040 into shape (1,16940,72)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+cannot reshape array of size 32406220 into shape (1913,1)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 320, in forecast
+    time_serie_data = time_serie_data.reshape(np.shape(time_serie_data)[1], 1)
+ValueError: cannot reshape array of size 32406220 into shape (1913,1)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Found input variables with inconsistent numbers of samples: [1, 16940]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 333, in forecast
+    local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 251, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\metrics\_regression.py", line 84, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\sklearn\utils\validation.py", line 211, in check_consistent_length
+    raise ValueError("Found input variables with inconsistent numbers of"
+ValueError: Found input variables with inconsistent numbers of samples: [1, 16940]
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+axis1: axis 1 is out of bounds for array of dimension 1
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 310, in forecast
+    y_truth = y_truth.swapaxes(1, 0)
+numpy.AxisError: axis1: axis 1 is out of bounds for array of dimension 1
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+tuple index out of range
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 320, in forecast
+    time_serie_data = time_serie_data.reshape(np.shape(time_serie_data)[2], np.shape(time_serie_data)[1])
+IndexError: tuple index out of range
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+cannot reshape array of size 32406220 into shape (1913,1)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 321, in forecast
+    time_serie_data = time_serie_data.reshape(np.shape(time_serie_data)[1], np.shape(time_serie_data)[0])
+ValueError: cannot reshape array of size 32406220 into shape (1913,1)
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+tuple index out of range
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 321, in forecast
+    time_serie_data = time_serie_data.reshape(np.shape(time_serie_data)[2], np.shape(time_serie_data)[1])
+IndexError: tuple index out of range
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+index 1 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 321, in forecast
+    time_serie_normalized_window_mean = np.mean(time_serie_data[time_serie, -moving_window_length:])
+IndexError: index 1 is out of bounds for axis 0 with size 1
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+index 16941 is out of bounds for axis 0 with size 16940
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 321, in forecast
+    time_serie_normalized_window_mean = np.mean(time_serie_data[time_serie, -moving_window_length:])
+IndexError: index 16941 is out of bounds for axis 0 with size 16940
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+index 16941 is out of bounds for axis 0 with size 16940
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 322, in forecast
+    time_serie_normalized_window_mean = np.mean(time_serie_data[time_serie, -moving_window_length:])
+IndexError: index 16941 is out of bounds for axis 0 with size 16940
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+index 13811 is out of bounds for axis 0 with size 13550
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 322, in forecast
+    time_serie_normalized_window_mean = np.mean(time_serie_data[time_serie, -moving_window_length:])
+IndexError: index 13811 is out of bounds for axis 0 with size 13550
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+boolean index did not match indexed array along dimension 0; dimension is 30490 but corresponding boolean dimension is 2
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 338, in forecast
+    previous_result = local_mse[local_mse[:][0] == time_serie][1]
+IndexError: boolean index did not match indexed array along dimension 0; dimension is 30490 but corresponding boolean dimension is 2
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+local variable 'time_serie_data' referenced before assignment
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 309, in forecast
+    time_serie_data = time_serie_data.reshape((1, time_serie_data.shape[1], time_serie_data.shape[0]))
+UnboundLocalError: local variable 'time_serie_data' referenced before assignment
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+Traceback (most recent call last):
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1447, in savetxt
+    v = format % tuple(row) + newline
+TypeError: only size-1 arrays can be converted to Python scalars
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 381, in forecast
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'forecasts.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1449, in savetxt
+    raise TypeError("Mismatch between array dtype ('%s') and "
+TypeError: Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+Traceback (most recent call last):
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1447, in savetxt
+    v = format % tuple(row) + newline
+TypeError: only size-1 arrays can be converted to Python scalars
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 381, in forecast
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'forecasts.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1449, in savetxt
+    raise TypeError("Mismatch between array dtype ('%s') and "
+TypeError: Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+Traceback (most recent call last):
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1447, in savetxt
+    v = format % tuple(row) + newline
+TypeError: only size-1 arrays can be converted to Python scalars
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 381, in forecast
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'forecasts.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1449, in savetxt
+    raise TypeError("Mismatch between array dtype ('%s') and "
+TypeError: Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+Traceback (most recent call last):
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1447, in savetxt
+    v = format % tuple(row) + newline
+TypeError: only size-1 arrays can be converted to Python scalars
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 381, in forecast
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'forecasts.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1449, in savetxt
+    raise TypeError("Mismatch between array dtype ('%s') and "
+TypeError: Mismatch between array dtype ('object') and format specifier ('%10.15f,%10.15f')
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+[Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/forecasts.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 381, in forecast
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'forecasts.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/forecasts.csv'
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+local variable 'forecasts' referenced before assignment
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 371, in forecast
+    forecasts = np.array(forecasts)
+UnboundLocalError: local variable 'forecasts' referenced before assignment
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 15825), found shape=[8, 28, 30490]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 307, in forecast
+    forecaster_in_block.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, workers=workers,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 785, in fit
+    tmp_logs = train_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:505 train_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:465 train_step  **
+        y_pred = self(x, training=True)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 15825), found shape=[8, 28, 30490]
+
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Shapes (30490, 4) and (13550, 4) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 313, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (30490, 4) and (13550, 4) are incompatible
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Shapes (30490, 4) and (13550, 4) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 313, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (30490, 4) and (13550, 4) are incompatible
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Shapes (30490, 4) and (13550, 4) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 313, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (30490, 4) and (13550, 4) are incompatible
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+Shapes (30490, 4) and (13550, 4) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 315, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (30490, 4) and (13550, 4) are incompatible
+error in forecast of individual (high_loss_identified_ts_forecast submodule)
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 13550), found shape=[None, 28, 30490]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 326, in forecast
+    y_pred_normalized = forecaster_in_block.predict(x_input)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 13550), found shape=[None, 28, 30490]
+
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 13550), found shape=[None, 28, 30490]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 326, in forecast
+    y_pred_normalized = forecaster_in_block.predict(x_input)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 13550), found shape=[None, 28, 30490]
+
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 13550), found shape=[None, 28, 30490]
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 328, in forecast
+    time_serie_data = time_serie_data.reshape((1, time_serie_data.shape[1], time_serie_data.shape[0]))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+ValueError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:531 __call__
+        return super(Bidirectional, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\wrappers.py:644 call
+        y = self.forward_layer(forward_inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:885 __call__
+        input_spec.assert_input_compatibility(self.input_spec, inputs,
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\input_spec.py:224 assert_input_compatibility
+        raise ValueError('Input ' + str(input_index) +
+
+    ValueError: Input 0 is incompatible with layer forward_rnn: expected shape=(None, None, 13550), found shape=[None, 28, 30490]
+
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+[Errno 13] Permission denied: './9.1_MODELS_EVALUATION/time_series_forecast_results.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 393, in forecast
+    np.savetxt(''.join([local_settings['models_evaluation_path'], 'time_series_forecast_results.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.1_MODELS_EVALUATION/time_series_forecast_results.csv'
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+'numpy.ndarray' object has no attribute 'append'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 367, in forecast
+    time_series_treated.append([int(time_serie), previous_result, local_error_metric_mse])
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+You must compile your model before training/testing. Use `model.compile(optimizer, loss)`.
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 321, in forecast
+    forecaster_in_block.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, workers=workers,
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 66, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 725, in fit
+    self._assert_compile_was_called()
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1572, in _assert_compile_was_called
+    raise RuntimeError('You must compile your model before '
+RuntimeError: You must compile your model before training/testing. Use `model.compile(optimizer, loss)`.
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16493,56) into shape (16493)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 294, in forecast
+    y_train = np.array(y_train)
+ValueError: could not broadcast input array from shape (16493,56) into shape (16493)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16488,56) into shape (16488)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 294, in forecast
+    y_train = np.array(y_train)
+ValueError: could not broadcast input array from shape (16488,56) into shape (16488)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16493,56) into shape (16493)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 294, in forecast
+    y_train = np.array(y_train)
+ValueError: could not broadcast input array from shape (16493,56) into shape (16493)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 294, in forecast
+    y_train = np.array(y_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 297, in forecast
+    y_train = np.array(y_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 294, in forecast
+    y_train_broadcasts = np.array(y_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+all the input arrays must have same number of dimensions, but the array at index 0 has 2 dimension(s) and the array at index 1 has 1 dimension(s)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 258, in forecast
+    [x_train.append(np.concatenate(
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 258, in <listcomp>
+    [x_train.append(np.concatenate(
+  File "<__array_function__ internals>", line 5, in concatenate
+ValueError: all the input arrays must have same number of dimensions, but the array at index 0 has 2 dimension(s) and the array at index 1 has 1 dimension(s)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+all the input arrays must have same number of dimensions, but the array at index 0 has 2 dimension(s) and the array at index 1 has 1 dimension(s)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 258, in forecast
+    [x_train.append(np.concatenate(
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 258, in <listcomp>
+    [x_train.append(np.concatenate(
+  File "<__array_function__ internals>", line 5, in concatenate
+ValueError: all the input arrays must have same number of dimensions, but the array at index 0 has 2 dimension(s) and the array at index 1 has 1 dimension(s)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 299, in forecast
+    x_train_broadcasts = np.array(x_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+list indices must be integers or slices, not tuple
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 299, in forecast
+    [print(day) for day in x_train[1, :]]
+TypeError: list indices must be integers or slices, not tuple
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+list indices must be integers or slices, not tuple
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 299, in forecast
+    print(x_train[1, :])
+TypeError: list indices must be integers or slices, not tuple
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 302, in forecast
+    x_train_broadcasts = np.array(x_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 302, in forecast
+    x_train_broadcasts = np.array(x_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+could not broadcast input array from shape (16604,28) into shape (16604)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 302, in forecast
+    x_train_broadcasts = np.array(x_train)
+ValueError: could not broadcast input array from shape (16604,28) into shape (16604)
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17311, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17311, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (17444, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (17444, 1) and (17677, 1) are incompatible
+error in forecast of in-block time_series (high_loss_identified_ts_forecast submodule)
+Shapes (15924, 1) and (17677, 1) are incompatible
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\in_block_high_loss_identified_ts_forecast_module.py", line 342, in forecast
+    forecaster_in_block.load_weights(''.join([local_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (15924, 1) and (17677, 1) are incompatible
