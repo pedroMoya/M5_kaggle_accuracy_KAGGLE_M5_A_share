@@ -1,7 +1,7 @@
 {
   "comment": "organic_settings overwrite settings.json",
-  "version": "1.4",
-  "mode": "dev",
+  "version": "1.5",
+  "mode": "test",
   "machine": "local",
   "only_evaluations": "False",
   "submission_evaluation": "True",

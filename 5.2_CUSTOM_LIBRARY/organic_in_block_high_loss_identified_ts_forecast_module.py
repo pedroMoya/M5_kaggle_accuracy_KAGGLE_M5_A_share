@@ -154,9 +154,12 @@ class in_block_high_loss_ts_forecast:
             for time_serie in range(nof_features_for_training):
                 mu, sigma = median_stochastic_simulations[time_serie], \
                             standard_deviation_stochastic_simulations[time_serie]
-                y_pred = [np.random.normal(mu, sigma, forecast_horizon_days) for random_sample in range(random_samples)]
+                y_pred = [np.multiply(np.random.normal(mu, sigma, forecast_horizon_days),
+                                      0.7 + np.random.sample(forecast_horizon_days))
+                          for random_sample in range(random_samples)]
                 y_pred = np.sum(np.array(y_pred), axis=0)
                 y_pred = np.divide(y_pred, random_samples)
+                print(y_pred)
                 forecasts[time_serie, :] = y_pred
             print('StochasticModel computed and forecasts done\n')
 
