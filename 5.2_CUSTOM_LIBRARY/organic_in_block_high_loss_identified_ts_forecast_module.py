@@ -56,6 +56,7 @@ def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
     probability_of_sale_array = np.array(probability_of_sale_list)
     # mean with zero included (test with zero excluded, but obtains poorer results)
     mean_last_days_frame = np.mean(x_data[:, -local_days_in_focus_frame:], axis=1)
+    median_last_days_frame = np.median(x_data[:, -local_days_in_focus_frame:], axis=1)
     # triggering random event and assign sale or not, if sale then fill with mean, if no maintain with zero
     local_y_pred = np.zeros(shape=(local_nof_features_for_training, local_forecast_horizon_days))
     random_event_array_normal = np.random.rand(local_nof_features_for_training, local_forecast_horizon_days)
@@ -155,7 +156,7 @@ class in_block_high_loss_ts_forecast:
                 mu, sigma = median_stochastic_simulations[time_serie], \
                             standard_deviation_stochastic_simulations[time_serie]
                 y_pred = [np.multiply(np.random.normal(mu, sigma, forecast_horizon_days),
-                                      0.7 + np.random.sample(forecast_horizon_days))
+                                      0.5 + np.random.sample(forecast_horizon_days))
                           for random_sample in range(random_samples)]
                 y_pred = np.sum(np.array(y_pred), axis=0)
                 y_pred = np.divide(y_pred, random_samples)

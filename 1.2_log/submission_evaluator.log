@@ -315,3 +315,12 @@ Traceback (most recent call last):
   File "pandas\_libs\parsers.pyx", line 374, in pandas._libs.parsers.TextReader.__cinit__
   File "pandas\_libs\parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
 FileNotFoundError: [Errno 2] File ./9.3_OTHERS_INPUTS/TESTsubmission.csv does not exist: './9.3_OTHERS_INPUTS/TESTsubmission.csv'
+error in evaluation of external submit TESTsubmission.csv
+[Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/external_submission_evaluation.csv'
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\submission_evaluator.py", line 88, in evaluate_external_submit
+    np.savetxt(''.join([local_settings['others_outputs_path'], 'external_submission_evaluation.csv']),
+  File "<__array_function__ internals>", line 5, in savetxt
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 1377, in savetxt
+    open(fname, 'wt').close()
+PermissionError: [Errno 13] Permission denied: './9.2_OTHERS_OUTPUTS/external_submission_evaluation.csv'
