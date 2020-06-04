@@ -62,7 +62,7 @@ def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
     random_event_array_normal = np.random.rand(local_nof_features_for_training, local_forecast_horizon_days)
     pareto_dist = np.random.pareto(3, (local_nof_features_for_training, local_forecast_horizon_days))
     pareto_dist_normalized = pareto_dist / np.amax(pareto_dist)
-    random_event_array = np.divide(np.add(4 * pareto_dist_normalized, 3 * random_event_array_normal), 7.)
+    random_event_array = np.divide(np.add(11 * pareto_dist_normalized, 2 * random_event_array_normal), 13.)
     for time_serie, day in it.product(range(local_nof_features_for_training), range(local_forecast_horizon_days)):
         if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
             local_y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]

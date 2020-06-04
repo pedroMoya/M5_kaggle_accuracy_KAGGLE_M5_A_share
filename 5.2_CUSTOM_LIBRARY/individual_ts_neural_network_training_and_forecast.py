@@ -212,8 +212,8 @@ class neural_network_time_serie_schema:
             # local_time_series_not_improved = local_time_series_not_improved[index_last_time_serie_trained + 1:]
             # print(local_time_series_not_improved.shape)
             local_y_pred_list = []
-            local_time_serie_iterator = 8000
-            for time_serie in local_time_series_not_improved[8000: 14000]:
+            local_time_serie_iterator = 0  # 8000-14000
+            for time_serie in local_time_series_not_improved[0: 1]:
                 print('training time_serie:', time_serie)
                 local_x, local_y = local_x_train[:, :, local_time_serie_iterator: local_time_serie_iterator + 1], \
                                    local_y_train[:, :, local_time_serie_iterator: local_time_serie_iterator + 1]
