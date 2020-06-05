@@ -51,7 +51,7 @@ kb.clear_session()
 
 def test_forecasts(local_y_pred, local_y_truth):
     print('y_truth shape:', local_y_truth.shape, 'y_pred_shape:', type(local_y_truth))
-    print('y_truth type:', local_y_pred.shape, 'y_pred type:', type(local_y_pred))
+    print('y_pred shape:', local_y_pred.shape, 'y_pred type:', type(local_y_pred))
     # evaluation of models forecasts according to day-wise comparison
     # forecaster(y_truth) <=> y_pred
     print('\nmodels evaluation\nusing MEAN SQUARED ERROR, '

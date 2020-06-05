@@ -1,4 +1,4 @@
-# preparing data (cleaning raw data and saving to file)
+# preparing data (cleaning raw data, aggregating and saving to file)
 
 # importing python libraries and opening settings
 try:

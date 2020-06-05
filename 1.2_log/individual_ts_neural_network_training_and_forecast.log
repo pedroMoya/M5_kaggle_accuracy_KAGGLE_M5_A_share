@@ -1102,3 +1102,27 @@ Traceback (most recent call last):
   File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 243, in train_and_predict
     local_point_forecast_reshaped = local_point_forecast_normalized.reshape(
 ValueError: cannot reshape array of size 784 into shape (1,28)
+error in training and forecast-individual time_serie schema
+cannot reshape array of size 784 into shape (1,28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 243, in train_and_predict
+    local_point_forecast_reshaped = local_point_forecast_normalized.reshape(
+ValueError: cannot reshape array of size 784 into shape (1,28)
+error in training and forecast-individual time_serie schema
+cannot reshape array of size 784 into shape (1,28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 243, in train_and_predict
+    local_point_forecast_reshaped = local_point_forecast_normalized.reshape(
+ValueError: cannot reshape array of size 784 into shape (1,28)
+error in training and forecast-individual time_serie schema
+cannot reshape array of size 3762416 into shape (1,28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 243, in train_and_predict
+    local_point_forecast_reshaped = local_point_forecast_normalized.reshape(
+ValueError: cannot reshape array of size 3762416 into shape (1,28)
+error in training and forecast-individual time_serie schema
+cannot reshape array of size 784 into shape (1,28)
+Traceback (most recent call last):
+  File "./5.2_CUSTOM_LIBRARY\individual_ts_neural_network_training_and_forecast.py", line 243, in train_and_predict
+    local_point_forecast_reshaped = local_point_forecast_normalized.reshape(
+ValueError: cannot reshape array of size 784 into shape (1,28)

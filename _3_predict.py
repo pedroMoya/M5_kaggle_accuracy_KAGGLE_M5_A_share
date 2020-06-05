@@ -1,5 +1,4 @@
-# open clean data, conform data structures
-# training and saving models
+# read and prepare input data, execute model(s) and save forecasts
 
 # importing python libraries and opening settings
 try:
@@ -119,7 +118,7 @@ def predict():
     try:
         print('\n~predict module~')
         # from 1th june, here get real unit_sales for days d_1914 to d_1941,
-        # for model optimization, but avoiding without overfitting
+        # for model optimization, but avoiding overfitting
 
         # open predict settings
         with open(''.join([local_script_settings['test_data_path'], 'forecast_settings.json'])) as local_f_json_file:

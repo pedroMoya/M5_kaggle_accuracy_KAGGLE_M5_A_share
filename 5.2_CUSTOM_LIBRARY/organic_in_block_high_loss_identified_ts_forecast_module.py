@@ -114,7 +114,8 @@ class in_block_high_loss_ts_forecast:
             time_series_treated = []
             nof_features_for_training = 0
             nof_poor_result_time_series = nof_features_for_training
-            if local_mse is None:
+            specific_time_series_train_criteria = local_settings['specific_time_series_train_criteria']
+            if local_mse is None or specific_time_series_train_criteria == "always":
                 nof_features_for_training = local_raw_unit_sales.shape[0]
                 time_serie_data = local_raw_unit_sales
                 poor_result_time_serie_list = [time_serie for time_serie in range(nof_features_for_training)]
@@ -152,16 +153,20 @@ class in_block_high_loss_ts_forecast:
             median_stochastic_simulations = np.mean(median_stochastic_simulations, axis=0)
             y_pred_launched = np.divide(np.add(mean_stochastic_simulations, median_stochastic_simulations), 2.)
             standard_deviation_stochastic_simulations = np.mean(standard_deviation_stochastic_simulations, axis=0)
+            y_pred = []
             for time_serie in range(nof_features_for_training):
                 mu, sigma = median_stochastic_simulations[time_serie], \
                             standard_deviation_stochastic_simulations[time_serie]
-                y_pred = [np.multiply(np.random.normal(mu, sigma, forecast_horizon_days),
-                                      0.5 + np.random.sample(forecast_horizon_days))
-                          for random_sample in range(random_samples)]
-                y_pred = np.sum(np.array(y_pred), axis=0)
-                y_pred = np.divide(y_pred, random_samples)
-                print(y_pred)
-                forecasts[time_serie, :] = y_pred
+                y_pred.append(np.random.normal(mu, sigma, forecast_horizon_days))
+            y_pred = np.array(y_pred)
+            forecasts[:nof_features_for_training, :] = y_pred
+                # y_pred = [np.multiply(np.random.normal(mu, sigma, forecast_horizon_days),
+                #                       0.5 + np.random.sample(forecast_horizon_days))
+                #           for random_sample in range(random_samples)]
+                # y_pred = np.sum(np.array(y_pred), axis=0)
+                # y_pred = np.divide(y_pred, random_samples)
+                # print(y_pred)
+                # forecasts[time_serie, :] = y_pred
             print('StochasticModel computed and forecasts done\n')
 
             # saving submission as organic_submission.csv
