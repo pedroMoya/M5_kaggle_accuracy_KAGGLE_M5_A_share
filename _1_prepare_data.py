@@ -100,8 +100,8 @@ def prepare():
     # preproccessing core
     try:
         # open raw_data
-        raw_data_sales = pd.read_csv(''.join([local_script_settings['raw_data_path'],
-                                              'sales_train_validation.csv']))
+        raw_data_filename = 'sales_train_evaluation.csv'
+        raw_data_sales = pd.read_csv(''.join([local_script_settings['raw_data_path'], raw_data_filename]))
         print('raw sales data accessed')
 
         # open sell prices and calendar data

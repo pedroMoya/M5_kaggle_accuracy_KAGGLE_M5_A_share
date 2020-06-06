@@ -24565,3 +24565,58 @@ IndexError: tuple index out of range
 04.Jun 2020 06:45:38 correct LSTM model creation and compilation
 
 04.Jun 2020 20:57:44 correct LSTM model creation and compilation
+
+05.Jun 2020 16:33:29 correct LSTM model creation and compilation
+
+05.Jun 2020 21:01:22 time series number (by group) saved to forecast settings
+
+05.Jun 2020 21:01:22 correct model training, correct saving of model and weights
+
+05.Jun 2020 21:01:22 settings modified and saved
+
+05.Jun 2020 21:37:19 correct model training, correct saving of model and weights
+
+05.Jun 2020 21:37:19 settings modified and saved
+
+05.Jun 2020 21:40:17 correct model training, correct saving of model and weights
+
+05.Jun 2020 21:40:17 settings modified and saved
+
+05.Jun 2020 21:45:43 correct model training, correct saving of model and weights
+
+05.Jun 2020 21:45:43 settings modified and saved
+
+05.Jun 2020 21:50:12 correct model training, correct saving of model and weights
+
+05.Jun 2020 21:50:12 settings modified and saved
+
+05.Jun 2020 21:53:22 correct model training, correct saving of model and weights
+
+05.Jun 2020 21:53:22 settings modified and saved
+
+05.Jun 2020 22:05:44 correct model training, correct saving of model and weights
+
+05.Jun 2020 22:05:44 settings modified and saved
+
+05.Jun 2020 22:37:02 model training error
+'organic_in_block_estochastic_simulation' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 194, in train
+    time_series_reviewed = stochastic_simulation.train(local_settings=local_script_settings,
+AttributeError: 'organic_in_block_estochastic_simulation' object has no attribute 'train'
+
+05.Jun 2020 22:38:37 correct model training, correct saving of model and weights
+
+05.Jun 2020 22:38:37 settings modified and saved
+
+05.Jun 2020 22:41:56 correct model training, correct saving of model and weights
+
+05.Jun 2020 22:41:56 settings modified and saved
+
+05.Jun 2020 22:47:18 correct model training, correct saving of model and weights
+
+05.Jun 2020 22:47:18 settings modified and saved
+
+05.Jun 2020 22:47:30 correct model training, correct saving of model and weights
+
+05.Jun 2020 22:47:30 settings modified and saved
