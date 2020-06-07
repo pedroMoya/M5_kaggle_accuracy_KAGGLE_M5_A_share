@@ -226,7 +226,7 @@ def train():
         print('second model trained, with success -->', training_nn_review)
 
         # closing train module
-        print('complete training module ended')
+        print('full training module ended')
         if training_nn_review and time_series_ss_review:
             logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                                  ' correct model training, correct saving of model and weights']))

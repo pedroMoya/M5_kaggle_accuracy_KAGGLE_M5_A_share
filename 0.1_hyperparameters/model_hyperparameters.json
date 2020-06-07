@@ -33,7 +33,7 @@
   "loss_3": "None",
   "metrics1": "mse",
   "metrics2": "None",
-  "epochs": 30,
+  "epochs": 2,
   "batch_size": 16,
   "early_stopping_patience": 2,
   "workers": 6,

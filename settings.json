@@ -6,7 +6,7 @@
   "control": "handler",
   "only_evaluations": "False",
   "submission_evaluation": "True",
-  "skip_neural_network_forecaster_in_predict_module": "True",
+  "skip_neural_network_forecaster_in_predict_module": "False",
   "first_train_approach": "stochastic_simulation",
   "model_analyzer": "off",
   "neural_network_training_time_serie_schema": "individual_time_serie",

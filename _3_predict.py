@@ -22,8 +22,6 @@ try:
         local_json_file.close()
     sys.path.insert(1, local_script_settings['custom_library_path'])
     from metaheuristic_module import tuning_metaheuristic
-    from high_loss_identified_ts_forecast_module import individual_high_loss_ts_forecast
-    from organic_in_block_high_loss_identified_ts_forecast_module import in_block_high_loss_ts_forecast
     from model_analyzer import model_structure
     from submission_evaluator import submission_tester
     if local_script_settings['metaheuristic_optimization'] == "True":
@@ -168,12 +166,7 @@ def predict():
         raw_unit_sales = raw_data_sales.iloc[:, 6:].values
         max_selling_time = np.shape(raw_unit_sales)[1]
         local_settings_max_selling_time = local_script_settings['max_selling_time']
-        print('max_selling_time(test) inferred by raw data shape:', max_selling_time)
-        print('max_selling_time(train) based in settings info:', local_settings_max_selling_time)
-        print('It is expected that max_selling_time(train) were at least 28 days lesser than max_selling_time(test)')
-        if local_settings_max_selling_time + 28 <= max_selling_time:
-            print('...and this condition is met')
-        elif local_settings_max_selling_time < max_selling_time:
+        if local_settings_max_selling_time < max_selling_time:
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
         elif max_selling_time != local_settings_max_selling_time:
             print("settings doesn't match data dimensions, it must be rechecked before continue(_predict_module)")
@@ -188,7 +181,6 @@ def predict():
                 print('to avoid overfitting')
             elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
                 print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
-                print('settings indicate that this is the last stage!')
             else:
                 print('continuing the training, but a mismatch was found within max_selling and forecast_horizon days')
         print('raw data input collected and check of data dimensions passed (train_module)')
@@ -221,18 +213,18 @@ def predict():
                 time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
                                                             'time_series_not_improved.npy']), allow_pickle=True)
                 # managing that only 1 group will be used
-                time_series_group = np.array([[time_serie, 1] for time_serie in time_series_not_improved])
-                groups_list = [raw_unit_sales[time_series_not_improved, :]]
+                time_series_group = np.array([[time_serie, 0] for time_serie in time_series_not_improved])
+                groups_list = [raw_unit_sales]
             for group in range(nof_groups):
                 # print(time_series_group.shape)
                 time_series_in_group = time_series_group[:, [0]][time_series_group[:, [1]] == group]
-                # this code is replaced for the managing that only 1 group will be used about six line above
+                # this commented code is replaced for "the managing that only 1 group will be used" about six line above
                 # if local_script_settings['first_train_approach'] == 'stochastic_simulation':
                 #     time_series_in_group = time_series_not_improved
                 print('time_series group shape, len:', time_series_in_group.shape, len(time_series_in_group))
                 x_input = groups_list[group][time_series_in_group, -time_steps_days:]
                 x_input = x_input.reshape(1, x_input.shape[1], x_input.shape[0])
-                print('x_test shape: ', np.shape(x_input))
+                print('x_input shape: ', np.shape(x_input))
 
                 # load model and make forecast for the time serie
                 if nof_groups > 1:
@@ -241,55 +233,69 @@ def predict():
                                                             '_forecast_.h5']),
                                                    custom_objects={'modified_mape': modified_mape,
                                                                    'customized_loss': customized_loss})
+                    # this full-group model was not obtained better results
+                    point_forecast_original = forecaster.predict(x_input)
+                    print('forecast shape: ', np.shape(point_forecast_original))
+                    print('group: ', group, '\ttime_serie: all ones belonging to this group')
+
                 else:
-                    # one model and one group with all the time series
-                    forecaster = models.load_model(''.join([local_script_settings['models_path'],
-                                                            'generic_forecaster_template_individual_ts.h5']),
-                                                   custom_objects={'modified_mape': modified_mape,
-                                                                   'customized_loss': customized_loss})
-                point_forecast_original = forecaster.predict(x_input)
-                print('forecast shape: ', np.shape(point_forecast_original))
-                print('group: ', group, '\ttime_serie: all ones belonging to this group')
+                    # one model and one group with all the time series, one template for all, but with different weights
+                    # forecaster = models.load_model(''.join([local_script_settings['models_path'],
+                    #                                         'generic_forecaster_template_individual_ts.h5']),
+                    #                                custom_objects={'modified_mape': modified_mape,
+                    #                                                'customized_loss': customized_loss})
+                    model_name = ''.join(['generic_forecaster_template_individual_ts.json'])
+                    json_file = open(''.join([local_script_settings['models_path'], model_name]), 'r')
+                    model_json = json_file.read()
+                    json_file.close()
+                    forecaster = models.model_from_json(model_json)
+                    print('model structure loaded')
+                    forecaster.summary()
+                    for time_serie in time_series_not_improved:
+                        # load weights of respective time_serie model
+                        print('group: ', group, '\ttime_serie:', time_serie)
+                        forecaster.load_weights(''.join([local_script_settings['models_path'],
+                                                         '/weights_zero_removed/_individual_ts_',
+                                                         str(time_serie), '_model_weights_.h5']))
+                        point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+                        print('forecast shape: ', np.shape(point_forecast_original))
+                        # inverse reshape
+                        point_forecast = point_forecast_original.reshape(point_forecast_original.shape[1])
+                        point_forecast = point_forecast[-forecast_horizon_days:]
+                        print('point_forecast shape:', point_forecast.shape)
+                        all_forecasts[time_serie, :] = point_forecast
 
-                # inverse reshape
-                point_forecast = point_forecast_original.reshape((point_forecast_original.shape[2],
-                                                                  point_forecast_original.shape[1]))
-                point_forecast = point_forecast[:, -forecast_horizon_days:]
-                all_forecasts[time_series_in_group, :] = point_forecast
+                    # save points forecast of NN model
+                    np.savetxt(''.join([local_script_settings['others_outputs_path'], 'point_forecast_',
+                                        '_group_', str(group), '_only_NN_.csv']), point_forecast, fmt='%10.15f',
+                               delimiter=',', newline='\n')
+                    print('point forecasts saved to file')
 
-                # save points forecast
-                np.savetxt(''.join([local_script_settings['others_outputs_path'], 'point_forecast_',
-                                    '_group_', str(group), '_.csv']), point_forecast, fmt='%10.15f',
-                           delimiter=',', newline='\n')
-                print('point forecasts saved to file')
+                    # inserting zeros as was determinate by first model (stochastic simulation)
+                    zero_loc = np.load(''.join([local_script_settings['train_data_path'], 'zero_localizations.npy']),
+                                       allow_pickle=True)
+                    all_forecasts[zero_loc[:, 0], zero_loc[:, 1]] = 0
 
-            # inserting zeros as was determinate by first model (stochastic simulation)
-            zero_loc = np.load(''.join([local_script_settings['train_data_path'], 'zero_localizations.npy']),
-                               allow_pickle=True)
-            if local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1913days':
-                all_forecasts[zero_loc[:, 0], zero_loc[:, 1]] = 0
-            elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
-                all_forecasts[30490 + zero_loc[:, 0], zero_loc[:, 1]] = 0
 
-        # saving consolidated submission
-        submission = np.genfromtxt(''.join([local_script_settings['raw_data_path'], 'sample_submission.csv']),
-                                   delimiter=',', dtype=None, encoding=None)
-        if local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1913days':
-            submission[1:, 1:] = all_forecasts
-            submission[30491:, 1:] = 7
-        elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
-            # fill validation rows with the real data used for training, and evaluation rows with the forecasts
-            submission[1:30490, 1:] = raw_unit_sales[:, -forecast_horizon_days]
-            submission[30491:, 1:] = all_forecasts
-        pd.DataFrame(submission).to_csv(''.join([local_script_settings['submission_path'], 'submission.csv']),
-                                        index=False, header=None)
-        np.savetxt(''.join([local_script_settings['others_outputs_path'],
-                            'point_forecast_ss_and_or_nn_models_applied_.csv']),
-                   all_forecasts, fmt='%10.15f', delimiter=',', newline='\n')
-        print('forecast saved, submission file built and stores')
-        print("forecast subprocess ended successfully")
-        logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
-                             ' correct forecasting process']))
+                # saving consolidated submission
+                submission = np.genfromtxt(''.join([local_script_settings['raw_data_path'], 'sample_submission.csv']),
+                                           delimiter=',', dtype=None, encoding=None)
+                if local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1913days':
+                    submission[1:, 1:] = all_forecasts
+                    submission[30491:, 1:] = 7  # only checking reach that data
+                elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+                    # fill validation rows with the real data used for training, and evaluation rows with the forecasts
+                    submission[1:30490, 1:] = raw_unit_sales[:, -forecast_horizon_days]
+                    submission[30491:, 1:] = all_forecasts[:30490, -forecast_horizon_days]
+                pd.DataFrame(submission).to_csv(''.join([local_script_settings['submission_path'], 'submission.csv']),
+                                                index=False, header=None)
+                np.savetxt(''.join([local_script_settings['others_outputs_path'],
+                                    'point_forecast_ss_and_or_nn_models_applied_.csv']),
+                           all_forecasts, fmt='%10.15f', delimiter=',', newline='\n')
+                print('forecast saved, submission file built and stores')
+                print("forecast subprocess ended successfully")
+                logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
+                                     ' correct forecasting process']))
     except Exception as e1:
         print('Error in predict module')
         print(e1)

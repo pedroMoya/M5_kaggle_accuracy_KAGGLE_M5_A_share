@@ -89,11 +89,12 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
     print('dealing with zeros....')
     for time_serie in range(local_nof_series):
         row = local_unit_sales[time_serie, :]
-        local_max = np.amax(row)
-        local_min = np.amin(row)
+        local_max = np.amax(row) + 1
         row[row == 0] = local_max
-        row[row == max] = local_min
+        local_min = np.amin(row)
+        row[row == local_max] = local_min
         local_unit_sales[time_serie, :] = row
+
     # creating x_train and y_train arrays
     local_nof_selling_days = local_unit_sales.shape[1]
     local_last_learning_day_in_year = np.mod(local_nof_selling_days, 365)
@@ -102,39 +103,53 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
     local_window_input_length = local_settings_arg['moving_window_input_length']
     local_window_output_length = local_settings_arg['moving_window_output_length']
     local_moving_window_length = local_window_input_length + local_window_output_length
-    local_nof_years = local_settings_arg['number_of_years_ceil']
     local_time_steps_days = local_settings_arg['time_steps_days']
-    # nof_moving_windows = np.int32(nof_selling_days / moving_window_length)
-    local_remainder_days = np.mod(local_nof_selling_days, local_moving_window_length)
-    local_window_first_days = [first_day
-                               for first_day in range(0, local_nof_selling_days, local_moving_window_length)]
-    local_length_window_walk = len(local_window_first_days)
-    # last_window_start = window_first_days[length_window_walk - 1]
-    if local_remainder_days != 0:
-        local_window_first_days[local_length_window_walk - 1] = local_nof_selling_days - local_moving_window_length
-    local_day_in_year = []
-    [local_day_in_year.append(local_last_learning_day_in_year + year * 365) for year in range(local_nof_years)]
+    # nof_moving_windows = np.int32(nof_selling_days / moving_window_length)  # not used but useful (:-/)
+
+    # checking consistence within time_step_days and moving_window
+    if local_time_steps_days != local_moving_window_length:
+        print('time_steps_days and moving_window_length are not equals, that is not consistent with the preprocessing')
+        print('please check it: reconcile values or rewrite the code in x_train and y_train generation for this change')
+        return False  # a controlled error will occur
+    local_nof_years = local_settings_arg['number_of_years_ceil']
     local_stride_window_walk = local_hyperparameters['stride_window_walk']
 
-    # ensure that each time_step has the same length and no data loss at border condition
+    # ensure that each time_step has the same length (shape of source data) with no data loss at border condition..
+    # simply concatenate at the start of the array the mean of the last 2 time_steps, to complete the shape needed
     print('dealing with last time_step_days')
     rest = np.ceil(local_nof_selling_days / local_time_steps_days) * local_time_steps_days - local_nof_selling_days
     if rest != 0:
         local_mean_block = np.zeros(shape=(local_nof_series, int(rest)))
         for time_serie in range(local_nof_series):
             local_mean_block[time_serie, :] = np.mean(local_unit_sales[time_serie, - 2 * local_time_steps_days:])
-        local_unit_sales = np.concatenate((local_unit_sales, local_mean_block), axis=1)
+        local_unit_sales = np.concatenate((local_mean_block, local_unit_sales), axis=1)
         print(local_unit_sales.shape)
+
+    # checking that adjustments was done well
+    local_nof_selling_days = local_unit_sales.shape[1]  # necessary as local_unit_sales was concatenated
+    local_remainder_days = np.mod(local_nof_selling_days, local_moving_window_length)
+    if local_remainder_days != 0:
+        print('an error in reshaping input data at creating x_train and y_train has occurred')
+        print('please recheck before continue')
+        return False  # this will return a controlled error,
+    local_day_in_year = []
+    [local_day_in_year.append(local_last_learning_day_in_year + year * 365) for year in range(local_nof_years)]
+
+    # building this mild no-triviality 3D arrays for training
     print('defining x_train')
     x_train = []
     if local_settings_arg['train_model_input_data_approach'] == "all":
-        [x_train.append(local_unit_sales[:, day - local_time_steps_days: day - local_window_output_length])
+        [x_train.append(local_unit_sales[:, day: day + local_time_steps_days])
          for day in range(local_unit_sales, local_max_selling_time, local_stride_window_walk)]
     elif local_settings_arg['train_model_input_data_approach'] == "focused":
         [x_train.append(local_unit_sales[:, day: day + local_time_steps_days])
          for last_day in local_day_in_year[:-1]
          for day in range(last_day + local_window_output_length,
                           last_day + local_window_output_length - local_days_in_focus_frame, -local_stride_window_walk)]
+        # border condition, take care with last year, working with last data available
+        [x_train.append(local_unit_sales[:, day - local_moving_window_length: day])
+         for last_day in local_day_in_year[-1:]
+         for day in range(last_day, last_day - local_days_in_focus_frame, -local_stride_window_walk)]
     else:
         logging.info("\ntrain_model_input_data_approach is not defined")
         print('-a problem occurs with the data_approach settings')
@@ -142,16 +157,40 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
     print('defining y_train')
     y_train = []
     if local_settings_arg['train_model_input_data_approach'] == "all":
-        [y_train.append(local_unit_sales[:, day - local_time_steps_days: day])
+        [y_train.append(local_unit_sales[:,
+                        day + local_stride_window_walk: day + local_time_steps_days + local_stride_window_walk])
          for day in range(local_time_steps_days, local_max_selling_time, local_stride_window_walk)]
     elif local_settings_arg['train_model_input_data_approach'] == "focused":
-        [y_train.append(local_unit_sales[:, day: day + local_time_steps_days])
+        [y_train.append(local_unit_sales[:,
+                        day - local_stride_window_walk: day + local_time_steps_days - local_stride_window_walk])
          for last_day in local_day_in_year[:-1]
          for day in range(last_day + local_window_output_length,
                           last_day + local_window_output_length - local_days_in_focus_frame, -local_stride_window_walk)]
-        x_train = np.array(x_train)
-        y_train = np.array(y_train)
+        # border condition, take care with last year, working with last data available
+        [y_train.append(local_unit_sales[:,
+                        day - local_moving_window_length - local_stride_window_walk: day - local_stride_window_walk])
+         for last_day in local_day_in_year[-1:]
+         for day in range(last_day, last_day - local_days_in_focus_frame, -local_stride_window_walk)]
+    x_train = np.array(x_train)
+    y_train = np.array(y_train)
+
+    # saving for human-eye review and reassurance; x_train and y_train are 3Ds arrays so...taking the last element
+    last_time_step_x_train = x_train[-1:, :, :]
+    last_time_step_x_train = last_time_step_x_train.reshape(last_time_step_x_train.shape[1],
+                                                            last_time_step_x_train.shape[2])
+    last_time_step_y_train = y_train[-1:, :, :]
+    last_time_step_y_train = last_time_step_y_train.reshape(last_time_step_y_train.shape[1],
+                                                            last_time_step_y_train.shape[2])
+    np.savetxt(''.join([local_settings_arg['train_data_path'], 'x_train.csv']),
+               last_time_step_x_train, fmt='%10.15f', delimiter=',', newline='\n')
+    np.savetxt(''.join([local_settings_arg['train_data_path'], 'y_train.csv']),
+               last_time_step_y_train, fmt='%10.15f', delimiter=',', newline='\n')
     return x_train, y_train
+
+
+def simple_normalization(local_array, local_max):
+    normalized_array = np.divide(local_array, local_max.clip(0.0001))
+    return normalized_array
 
 
 # classes definitions
@@ -180,6 +219,11 @@ class neural_network_time_serie_schema:
 
     def train(self, local_settings, local_raw_unit_sales, local_model_hyperparameters, local_time_series_not_improved):
         try:
+            # data normalization
+            local_forecast_horizon_days = local_settings['forecast_horizon_days']
+            # local_raw_unit_sales_max = np.amax(local_raw_unit_sales[:, -2 * local_forecast_horizon_days:], axis=1)
+            # local_raw_unit_sales_max = local_raw_unit_sales_max.reshape(local_raw_unit_sales_max.shape[0], 1)
+            # local_raw_unit_sales = simple_normalization(local_raw_unit_sales, local_raw_unit_sales_max)
             # obtaining x_train and y_train
             local_x_train, local_y_train = build_x_y_train_arrays(local_raw_unit_sales, local_settings,
                                                                   local_model_hyperparameters,
@@ -268,7 +312,7 @@ class neural_network_time_serie_schema:
                                  activity_regularizer=local_activation_regularizer,
                                  dropout=float(local_model_hyperparameters['dropout_layer_4'])),
                 return_sequences=False)))
-            local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+            # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # final layer
             local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
             local_base_model.compile(optimizer=local_optimizer_function,
@@ -286,62 +330,42 @@ class neural_network_time_serie_schema:
                                'generic_forecaster_template_individual_ts.json']), 'w') as json_file:
                 json_file.write(local_base_model_json)
                 json_file.close()
+            local_base_model.summary()
             local_y_pred_list = []
             local_time_serie_iterator = 0
-            print(local_y_train)
-            # for time_serie in local_time_series_not_improved:
-            for time_serie in range(3):
+            local_time_series_not_improved = local_time_series_not_improved[0: 2]  # capping for test code
+            for time_serie in local_time_series_not_improved:
+                # ----------------------key_point---------------------------------------------------------------------
+                # take note that each loop the weights and states of previous training are conserved
+                # that's probably save times and (in aggregated or ordered) connected time series will improve results
+                # ----------------------key_point---------------------------------------------------------------------
                 print('training time_serie:', time_serie)
-                local_x, local_y = local_x_train[:, local_time_serie_iterator: local_time_serie_iterator + 1, :], \
-                                   local_y_train[:, local_time_serie_iterator: local_time_serie_iterator + 1, :]
-                print(local_x.shape)
+                local_x, local_y = local_x_train[:, time_serie: time_serie + 1, :], \
+                                   local_y_train[:, time_serie: time_serie + 1, :]
                 local_x = local_x.reshape(local_x.shape[0], local_x.shape[2], 1)
                 local_y = local_y.reshape(local_y.shape[0], local_y.shape[2], 1)
-                print(local_x.shape)
                 local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
                                      workers=local_workers, callbacks=local_callbacks, shuffle=False)
                 local_base_model.save_weights(''.join([local_settings['models_path'],
                                                        '/weights_zero_removed/_individual_ts_',
                                                        str(time_serie), '_model_weights_.h5']))
-                local_x_input = local_x[-local_forecast_horizon_days:]
-                print(local_x_input.shape)
+                local_x_input = local_raw_unit_sales[time_serie: time_serie + 1, -local_forecast_horizon_days:]
+                local_x_input = local_x_input.reshape(1, local_x_input.shape[1], 1)
+                print('x_input shape:', local_x_input.shape)
                 local_y_pred = local_base_model.predict(local_x_input)
-                print(local_y_pred.shape)
+                print('x_input:\n', local_x_input)
+                print('y_pred shape:', local_y_pred.shape)
+                local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
+                print('ts:', time_serie)
+                print(local_y_pred)
                 local_y_pred_list.append(local_y_pred)
-            local_point_forecast_normalized = np.array(local_y_pred_list)
-            print('forecast shape: ', np.shape(local_point_forecast_normalized))
+                local_time_serie_iterator += 1
+            local_point_forecast_array = np.array(local_y_pred_list)
+            local_point_forecast_normalized = local_point_forecast_array.reshape(
+                (local_point_forecast_array.shape[0], local_point_forecast_array.shape[1]))
+            local_point_forecast = local_point_forecast_normalized
 
-            # inverse reshape
-            local_window_normalized_scaled_unit_sales = np.load(''.join([local_settings['train_data_path'],
-                                                                         'x_train_source.npy']))
-            local_nof_time_series = local_raw_unit_sales.shape[0]
-            local_nof_selling_days = local_raw_unit_sales.shape[1]
-            local_mean_unit_complete_time_serie = []
-            local_scaled_unit_sales = np.zeros(shape=(local_nof_time_series, local_nof_selling_days))
-            for time_serie in range(local_nof_time_series):
-                local_scaled_time_serie = general_mean_scaler(local_raw_unit_sales[time_serie: time_serie + 1, :])[0]
-                local_mean_unit_complete_time_serie.append(
-                    general_mean_scaler(local_raw_unit_sales[time_serie: time_serie + 1, :])[1])
-                local_scaled_unit_sales[time_serie: time_serie + 1, :] = local_scaled_time_serie
-            local_mean_unit_complete_time_serie = np.array(local_mean_unit_complete_time_serie)
-            local_point_forecast_reshaped = local_point_forecast_normalized.reshape(
-                (local_point_forecast_normalized.shape[2], local_point_forecast_normalized.shape[1]))
-            # inverse transform (first moving_windows denormalizing and then general rescaling)
-            local_time_serie_normalized_window_mean = np.mean(local_window_normalized_scaled_unit_sales[:,
-                                                              -local_moving_window_length:], axis=1)
-
-            local_denormalized_array = window_based_denormalizer(local_point_forecast_reshaped,
-                                                                 local_time_serie_normalized_window_mean,
-                                                                 local_time_steps_days)
-            local_time_serie_unit_sales_mean = []
-            [local_time_serie_unit_sales_mean.append(local_mean_unit_complete_time_serie[time_serie])
-             for time_serie in local_time_series_not_improved]
-            local_point_forecast = general_mean_rescaler(local_denormalized_array,
-                                                         np.array(local_time_serie_unit_sales_mean),
-                                                         local_time_steps_days)
-            local_point_forecast = local_point_forecast.reshape(np.shape(local_point_forecast)[1],
-                                                                np.shape(local_point_forecast)[2])
-            local_point_forecast = local_point_forecast[:, -local_forecast_horizon_days:]
+            # local_point_forecast = np.multiply(local_point_forecast_normalized, local_raw_unit_sales_max[0:3])
 
             # save points forecast
             np.savetxt(''.join([local_settings['others_outputs_path'], 'point_forecast_stochastic_simulation.csv']),
