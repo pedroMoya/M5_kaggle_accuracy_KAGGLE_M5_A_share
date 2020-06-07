@@ -115,7 +115,7 @@ def window_based_denormalizer(local_window_array, local_last_window_mean, local_
     return window_based_denormalized_array
 
 
-def evaluation():
+def evaluate():
     try:
         print('\n~evaluation module~')
         # from 1th june, here get real unit_sales for days d_1914 to d_1941,

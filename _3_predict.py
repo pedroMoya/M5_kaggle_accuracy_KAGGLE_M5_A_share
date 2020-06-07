@@ -149,14 +149,9 @@ def predict():
                 forecast_settings = json.loads(local_f_json_file.read())
                 local_f_json_file.close()
 
-        # checking if forecast and evaluation was done previously in one-by-one time_serie model training submodule
-        if local_script_settings['neural_network_training_time_serie_schema'] == 'individual_time_serie' and \
-                local_script_settings['only_evaluations'] == "False":
-            print('forecasts done previously (in submodule train_and_predict one_by_one time_serie schema)')
-            return True
-
         if local_script_settings['model_analyzer'] == 'on':
             analyzer = model_structure()
+            # requires hdf5 format
             model_name = '_high_loss_time_serie_model_forecaster_in_block_.h5'
             analysis_result = analyzer.analize(model_name, local_script_settings)
             if analysis_result:
@@ -165,74 +160,38 @@ def predict():
                 print('error at model_analysis submodule')
 
         # open raw_data
-        raw_data_sales = pd.read_csv(''.join([local_script_settings['raw_data_path'],
-                                              'sales_train_validation.csv']))
+        raw_data_filename = 'sales_train_evaluation.csv'
+        raw_data_sales = pd.read_csv(''.join([local_script_settings['raw_data_path'], raw_data_filename]))
         print('raw sales data accessed')
 
         # extract data and check  dimensions
-        time_steps_days = local_script_settings['time_steps_days']
         raw_unit_sales = raw_data_sales.iloc[:, 6:].values
-        # raw_unit_sales_full = raw_unit_sales
         max_selling_time = np.shape(raw_unit_sales)[1]
         local_settings_max_selling_time = local_script_settings['max_selling_time']
-        if local_settings_max_selling_time < max_selling_time:
+        print('max_selling_time(test) inferred by raw data shape:', max_selling_time)
+        print('max_selling_time(train) based in settings info:', local_settings_max_selling_time)
+        print('It is expected that max_selling_time(train) were at least 28 days lesser than max_selling_time(test)')
+        if local_settings_max_selling_time + 28 <= max_selling_time:
+            print('...and this condition is met')
+        elif local_settings_max_selling_time < max_selling_time:
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
         elif max_selling_time != local_settings_max_selling_time:
-            print("settings doesn't match data dimensions, it must be rechecked")
+            print("settings doesn't match data dimensions, it must be rechecked before continue(_predict_module)")
             logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                                  ' data dimensions does not match settings']))
             return False
         else:
-            print('warning, please check: forecast horizon is included within training data')
-        print('raw data input collected and check of data dimensions passed')
-
-        # data general_mean based - rescaling
-        # preproccessing exactly according the way _1_prepare_data algorithm does
-        print('preproccessing data, -preprocess must include all data for computing-')
-        print('in the same way that was prepared before training')
-        nof_time_series = raw_unit_sales.shape[0]
-        nof_selling_days = raw_unit_sales.shape[1]
-        mean_unit_complete_time_serie = []
-        scaled_unit_sales = np.zeros(shape=(nof_time_series, nof_selling_days))
-        for time_serie in range(nof_time_series):
-            scaled_time_serie = general_mean_scaler(raw_unit_sales[time_serie: time_serie + 1, :])[0]
-            mean_unit_complete_time_serie.append(general_mean_scaler(raw_unit_sales[time_serie: time_serie + 1, :])[1])
-            scaled_unit_sales[time_serie: time_serie + 1, :] = scaled_time_serie
-        mean_unit_complete_time_serie = np.array(mean_unit_complete_time_serie)
-        print('shape of the preprocessed data array:', np.shape(scaled_unit_sales))
-        print('successful rescaling of unit_sale data')
-
-        # data normalization based in moving window
-        window_input_length = local_script_settings['moving_window_input_length']
-        window_output_length = local_script_settings['moving_window_output_length']
-        moving_window_length = window_input_length + window_output_length
-        # nof_moving_windows = np.int32(nof_selling_days / moving_window_length)
-        remainder_days = np.mod(nof_selling_days, moving_window_length)
-        window_first_days = [first_day
-                             for first_day in range(0, nof_selling_days, moving_window_length)]
-        length_window_walk = len(window_first_days)
-        last_window_start = window_first_days[length_window_walk - 1]
-        if remainder_days != 0:
-            window_first_days[length_window_walk - 1] = nof_selling_days - moving_window_length
-        window_normalized_scaled_unit_sales = np.zeros(shape=(nof_time_series, nof_selling_days))
-        mean_scaled_window_time_serie = []
-        for time_serie in range(nof_time_series):
-            normalized_time_serie = []
-            for window_start_day in window_first_days:
-                window_array = scaled_unit_sales[
-                               time_serie: time_serie + 1,
-                               window_start_day: window_start_day + moving_window_length]
-                normalized_window_array = window_based_normalizer(window_array)[0]
-                mean_scaled_window_time_serie.append(window_based_normalizer(window_array)[1])
-                if window_start_day == last_window_start:
-                    normalized_time_serie.append(normalized_window_array[-remainder_days:])
-                else:
-                    normalized_time_serie.append(normalized_window_array)
-            exact_length_time_serie = np.array(normalized_time_serie).flatten()[: nof_selling_days]
-            window_normalized_scaled_unit_sales[time_serie: time_serie + 1, :] = exact_length_time_serie
-        mean_scaled_window_time_serie = np.array(mean_scaled_window_time_serie)
-        print('input data normalization done')
-        print('last preproccesing step finished (..ready for make forecasts..)')
+            if local_script_settings['competition_stage'] != 'submitting_after_June_1th_using_1941days':
+                print(''.join(['\x1b[0;2;41m', 'Warning', '\x1b[0m']))
+                print('please check: forecast horizon days will be included within training data')
+                print('It was expected that the last 28 days were not included..')
+                print('to avoid overfitting')
+            elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+                print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
+                print('settings indicate that this is the last stage!')
+            else:
+                print('continuing the training, but a mismatch was found within max_selling and forecast_horizon days')
+        print('raw data input collected and check of data dimensions passed (train_module)')
 
         # make forecast --> '28 days future predictions for unit_sales', organized in groups
         forecast_horizon_days = local_script_settings['forecast_horizon_days']
@@ -242,144 +201,95 @@ def predict():
         # x_test_from_prepare = x_test_from_prepare.reshape(1, x_test_from_prepare.shape[1],
         #                                                   x_test_from_prepare.shape[0])
         # in order to not carrie dependencies, _3_predict.py module preprocess again from raw data
-        # if needed, could be checked that x_test_from_prepare == x_test --> [[True]] * shape
+        # if needed, could be checked with: x_test_from_prepare == x_test  // output --> [[True]] * shape
         nof_groups = local_script_settings['number_of_groups']
-        forecasts = []
-        time_series_not_improved = np.array([time_serie for time_serie in range(nof_time_series)])
-
+        # if only neural_network (Not stochastic_simulation as first approach), ALL time_series are not_improved...
+        nof_time_series = raw_unit_sales.shape[0]
+        print('number of time_series:', nof_time_series)
+        time_series_not_improved = [time_serie for time_serie in range(nof_time_series)]
         if local_script_settings['skip_neural_network_forecaster_in_predict_module'] == "True":
             print('by settings settled, skipping neural_network forecaster')
-            # all_forecasts = np.genfromtxt(''.join([local_script_settings['raw_data_path'], 'sample_submission.csv']),
-            #                               delimiter=',', dtype=None, encoding=None)
-            all_forecasts = pd.read_csv(''.join([local_script_settings['raw_data_path'], 'sample_submission.csv']))
-            all_forecasts = all_forecasts.iloc[1:, 1:].values
+            print('using only first model for forecasting')
+            # reading stochastic simulation forecasts
+            all_forecasts = np.load(''.join([local_script_settings['train_data_path'],
+                                             'stochastic_simulation_forecasts.npy']))
         else:
+            all_forecasts = np.zeros(shape=(nof_time_series * 2, forecast_horizon_days))
+            time_steps_days = local_script_settings['time_steps_days']
             if local_script_settings['first_train_approach'] == 'stochastic_simulation':
                 nof_groups = 1
                 time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
                                                             'time_series_not_improved.npy']), allow_pickle=True)
-                groups_list = [window_normalized_scaled_unit_sales[time_series_not_improved, :]]
-            all_forecasts = np.zeros(shape=(nof_time_series, forecast_horizon_days))
+                # managing that only 1 group will be used
+                time_series_group = np.array([[time_serie, 1] for time_serie in time_series_not_improved])
+                groups_list = [raw_unit_sales[time_series_not_improved, :]]
             for group in range(nof_groups):
                 # print(time_series_group.shape)
                 time_series_in_group = time_series_group[:, [0]][time_series_group[:, [1]] == group]
-                if local_script_settings['first_train_approach'] == 'stochastic_simulation':
-                    time_series_in_group = time_series_not_improved
-                # print(time_series_in_group.shape)
-                # print(time_series_in_group)
-                x_test = window_normalized_scaled_unit_sales[time_series_in_group, -time_steps_days:]
-                x_test = x_test.reshape(1, x_test.shape[1], x_test.shape[0])
-                print('x_test shape: ', np.shape(x_test))
+                # this code is replaced for the managing that only 1 group will be used about six line above
+                # if local_script_settings['first_train_approach'] == 'stochastic_simulation':
+                #     time_series_in_group = time_series_not_improved
+                print('time_series group shape, len:', time_series_in_group.shape, len(time_series_in_group))
+                x_input = groups_list[group][time_series_in_group, -time_steps_days:]
+                x_input = x_input.reshape(1, x_input.shape[1], x_input.shape[0])
+                print('x_test shape: ', np.shape(x_input))
 
                 # load model and make forecast for the time serie
-                forecaster = models.load_model(''.join([local_script_settings['models_path'],
-                                                        'model_group_', str(group),
-                                                        '_forecast_.h5']),
-                                               custom_objects={'modified_mape': modified_mape,
-                                                               'customized_loss': customized_loss})
-                point_forecast_normalized = forecaster.predict(x_test)
-                print('forecast shape: ', np.shape(point_forecast_normalized))
+                if nof_groups > 1:
+                    forecaster = models.load_model(''.join([local_script_settings['models_path'],
+                                                            'model_group_', str(group),
+                                                            '_forecast_.h5']),
+                                                   custom_objects={'modified_mape': modified_mape,
+                                                                   'customized_loss': customized_loss})
+                else:
+                    # one model and one group with all the time series
+                    forecaster = models.load_model(''.join([local_script_settings['models_path'],
+                                                            'generic_forecaster_template_individual_ts.h5']),
+                                                   custom_objects={'modified_mape': modified_mape,
+                                                                   'customized_loss': customized_loss})
+                point_forecast_original = forecaster.predict(x_input)
+                print('forecast shape: ', np.shape(point_forecast_original))
                 print('group: ', group, '\ttime_serie: all ones belonging to this group')
-                # inverse reshape
-                point_forecast_reshaped = point_forecast_normalized.reshape((point_forecast_normalized.shape[2],
-                                                                             point_forecast_normalized.shape[1]))
 
-                # inverse transform (first moving_windows denormalizing and then general rescaling)
-                time_serie_normalized_window_mean = np.mean(groups_list[group][:, -moving_window_length:], axis=1)
-                group_time_serie_window_scaled_sales_mean = [
-                    mean_scaled_window_time_serie[[time_serie for time_serie in time_series_in_group]]]
-                # print(point_forecast_reshaped.shape)
-                # print(time_serie_normalized_window_mean.shape)
-                # print(np.shape(group_time_serie_window_scaled_sales_mean))
-                denormalized_array = window_based_denormalizer(point_forecast_reshaped,
-                                                               time_serie_normalized_window_mean,
-                                                               time_steps_days)
-                group_time_serie_unit_sales_mean = []
-                for time_serie in time_series_in_group:
-                    group_time_serie_unit_sales_mean.append(mean_unit_complete_time_serie[time_serie])
-                point_forecast = general_mean_rescaler(denormalized_array,
-                                                       np.array(group_time_serie_unit_sales_mean), time_steps_days)
-                # point_forecast = np.ceil(point_forecast[0, :, :])
-                point_forecast = point_forecast.reshape(np.shape(point_forecast)[1], np.shape(point_forecast)[2])
+                # inverse reshape
+                point_forecast = point_forecast_original.reshape((point_forecast_original.shape[2],
+                                                                  point_forecast_original.shape[1]))
                 point_forecast = point_forecast[:, -forecast_horizon_days:]
                 all_forecasts[time_series_in_group, :] = point_forecast
-                forecasts.append(point_forecast)
+
                 # save points forecast
                 np.savetxt(''.join([local_script_settings['others_outputs_path'], 'point_forecast_',
                                     '_group_', str(group), '_.csv']), point_forecast, fmt='%10.15f',
                            delimiter=',', newline='\n')
                 print('point forecasts saved to file')
-            print("forecast subprocess ended successfully")
-            logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
-                                 ' correct forecasting process']))
-            forecasts = np.array(forecasts)
 
-            # evaluation of models forecasts according to day-wise comparison
-            # forecaster(x_test) <=> y_pred
-            print('\nmodels evaluation\nusing MEAN SQUARED ERROR, '
-                  'MODIFIED-MEAN ABSOLUTE PERCENTAGE ERROR and MEAN ABSOLUTE ERROR')
-            print('{:^19s}{:^19s}{:^19s}{:^19s}'.format('time_serie', 'error_metric_MSE',
-                                                        'error_metric_Mod_MAPE', 'error_metric_MAPE'))
-            time_series_error_mse = []
-            time_series_error_mod_mape = []
-            time_series_error_mape = []
-            y_ground_truth_array = []
-            y_pred_array = []
-            customized_mod_mape = modified_mape()
-            if local_script_settings['first_train_approach'] == 'stochastic_simulation':
-                nof_groups = 1
-            for group in range(nof_groups):
-                time_series_in_group = time_series_group[:, [0]][time_series_group[:, [1]] == group]
-                if local_script_settings['first_train_approach'] == 'stochastic_simulation':
-                    time_series_in_group = time_series_not_improved
-                time_serie_iterator = 0
-                for time_serie in time_series_in_group:
-                    y_ground_truth = raw_unit_sales[time_serie, -forecast_horizon_days:]
-                    y_pred = forecasts[group][time_serie_iterator, -forecast_horizon_days:].flatten()
-                    error_metric_mse = mean_squared_error(y_ground_truth, y_pred)
-                    error_metric_mod_mape = 100 * customized_mod_mape(y_ground_truth, y_pred)
-                    error_metric_mape = mean_absolute_percentage_error(y_ground_truth, y_pred)
-                    # print('{:^19d}{:^19f}{:^19f}{:^19f}'.format(time_serie, error_metric_mse,
-                    #                                             error_metric_mod_mape, error_metric_mape))
-                    time_series_error_mse.append([time_serie, error_metric_mse])
-                    time_series_error_mod_mape.append(error_metric_mod_mape)
-                    time_series_error_mape.append(error_metric_mape)
-                    y_ground_truth_array.append(y_ground_truth)
-                    y_pred_array.append(y_pred)
-                    time_serie_iterator += 1
-                print('model evaluation subprocess ended successfully')
-                mean_mse = np.mean([loss_mse[1] for loss_mse in time_series_error_mse])
-                print('time_serie mean mse: ', mean_mse)
-                if local_script_settings['metaheuristic_optimization'] == "True":
-                    model_evaluation = metaheuristic_predict.evaluation_brain(mean_mse, local_script_settings)
-                    if model_evaluation[0] and not model_evaluation[1]:
-                        print('model evaluated did not get better results than previous ones')
-                    elif not model_evaluation[0]:
-                        print('error in meta_heuristic evaluation submodule')
-                    else:
-                        print('model evaluated got better results than previous ones')
+            # inserting zeros as was determinate by first model (stochastic simulation)
+            zero_loc = np.load(''.join([local_script_settings['train_data_path'], 'zero_localizations.npy']),
+                               allow_pickle=True)
+            if local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1913days':
+                all_forecasts[zero_loc[:, 0], zero_loc[:, 1]] = 0
+            elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+                all_forecasts[30490 + zero_loc[:, 0], zero_loc[:, 1]] = 0
 
-            # treating time series with mediocre to bad forecasts (high loss) calling the specific submodule
-            if local_script_settings['repeat_training_in_block'] == "True" \
-                    and local_script_settings['first_train_approach'] != 'stochastic_simulation':
-                in_block_time_series_forecast = in_block_high_loss_ts_forecast()
-                time_series_reviewed = in_block_time_series_forecast.forecast(local_settings=local_script_settings,
-                                                                              local_raw_unit_sales=raw_unit_sales,
-                                                                              local_mse=time_series_error_mse)
-                print('last step -time_serie specific (in-block) forecast- completed, success: ', time_series_reviewed)
-
-        # evaluate external o internal csv file submission (in 9.3_OTHERS_INPUTS folder)
-        if local_script_settings['submission_evaluation'] == "True":
-            submission_evaluation = submission_tester()
-            external_submission_reviewed = submission_evaluation.evaluate_external_submit(
-                forecast_horizon_days, local_settings=local_script_settings)
-            internal_submission_reviewed = submission_evaluation.evaluate_internal_submit(
-                forecast_horizon_days, all_forecasts, local_settings=local_script_settings)
-            print('evaluation of external submission forecast- completed, success: ',
-                  external_submission_reviewed)
-            print('evaluation of internal submission forecast- completed, success: ',
-                  internal_submission_reviewed)
-
+        # saving consolidated submission
+        submission = np.genfromtxt(''.join([local_script_settings['raw_data_path'], 'sample_submission.csv']),
+                                   delimiter=',', dtype=None, encoding=None)
+        if local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1913days':
+            submission[1:, 1:] = all_forecasts
+            submission[30491:, 1:] = 7
+        elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+            # fill validation rows with the real data used for training, and evaluation rows with the forecasts
+            submission[1:30490, 1:] = raw_unit_sales[:, -forecast_horizon_days]
+            submission[30491:, 1:] = all_forecasts
+        pd.DataFrame(submission).to_csv(''.join([local_script_settings['submission_path'], 'submission.csv']),
+                                        index=False, header=None)
+        np.savetxt(''.join([local_script_settings['others_outputs_path'],
+                            'point_forecast_ss_and_or_nn_models_applied_.csv']),
+                   all_forecasts, fmt='%10.15f', delimiter=',', newline='\n')
+        print('forecast saved, submission file built and stores')
+        print("forecast subprocess ended successfully")
+        logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
+                             ' correct forecasting process']))
     except Exception as e1:
         print('Error in predict module')
         print(e1)

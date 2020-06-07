@@ -1,7 +1,7 @@
 {
   "last_time_serie_trained": "not_used_yet",
-  "current_model_name": "_LSTM_all_or_1_features",
-  "model_type": "Pure_ANN",
+  "current_model_name": "_special_LSTM_all_or_1_features",
+  "model_type": "ANN_LSTM x 2",
   "regularizers_l1_l2": "True",
   "l1": 0.001,
   "l2": 0.001,

@@ -72,36 +72,11 @@ class organic_in_block_estochastic_simulation:
                     as local_r_json_file:
                 model_hyperparameters = json.loads(local_r_json_file.read())
                 local_r_json_file.close()
-            local_time_series_group = np.load(''.join([local_settings['train_data_path'], 'time_serie_group.npy']),
-                                              allow_pickle=True)
-            forecast_horizon_days = local_settings['forecast_horizon_days']
-            max_selling_time = local_settings['max_selling_time']
-            neural_network_poor_results_mse_threshold = local_settings['neural_network_poor_results_mse_threshold']
-            poor_result_time_serie_list = []
-            time_series_treated = []
-            nof_features_for_training = 0
-            nof_poor_result_time_series = nof_features_for_training
-            specific_time_series_train_criteria = local_settings['specific_time_series_train_criteria']
-            if local_mse is None or specific_time_series_train_criteria == "all":
-                nof_features_for_training = local_raw_unit_sales.shape[0]
-                time_serie_data = local_raw_unit_sales
-                poor_result_time_serie_list = [time_serie for time_serie in range(nof_features_for_training)]
-            else:
-                for result in local_mse:
-                    if result[1] > neural_network_poor_results_mse_threshold:
-                        nof_features_for_training += 1
-                        poor_result_time_serie_list.append(int(result[0]))
-                        nof_poor_result_time_series = len(poor_result_time_serie_list)
-                time_serie_data = np.zeros(shape=(nof_poor_result_time_series, max_selling_time))
-                time_serie_iterator = 0
-                for time_serie in poor_result_time_serie_list:
-                    time_serie_data[time_serie_iterator, :] = local_raw_unit_sales[time_serie, :]
-                    time_serie_iterator += 1
 
             # obtaining representative samples, and assuming a uniform Normal distribution..and Pareto mixed
+            forecast_horizon_days = local_settings['forecast_horizon_days']
             event_iterations = model_hyperparameters['event_iterations']
             days_in_focus_frame = model_hyperparameters['days_in_focus_frame']
-            random_samples = model_hyperparameters['random_samples']
             nof_features_for_training = nof_time_series = local_raw_unit_sales.shape[0]
             x_data = local_raw_unit_sales[:, -days_in_focus_frame:]
             forecasts = np.zeros(shape=(nof_time_series * 2, forecast_horizon_days))
@@ -109,6 +84,7 @@ class organic_in_block_estochastic_simulation:
             mean_stochastic_simulations = []
             median_stochastic_simulations = []
             standard_deviation_stochastic_simulations = []
+            zero_loc = []
             # ---------------kernel----------------------------------
             for event in range(event_iterations):
                 y_pred, zero_loc = random_event_realization(x_data, days_in_focus_frame,
@@ -131,6 +107,9 @@ class organic_in_block_estochastic_simulation:
                 y_pred.append(np.random.normal(mu, sigma, forecast_horizon_days).clip(0))
             y_pred = np.array(y_pred)
             forecasts[:nof_features_for_training, :] = y_pred
+            if local_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+                forecasts[:nof_features_for_training, :] = local_raw_unit_sales[:, -forecast_horizon_days:]
+                forecasts[nof_features_for_training:, :] = y_pred
             # ---------------kernel----------------------------------
             print('StochasticModel computed and simulation done\n')
 
@@ -140,8 +119,11 @@ class organic_in_block_estochastic_simulation:
                                                 delimiter=',', dtype=None, encoding=None)
             forecast_data_frame[1:, 1:] = forecasts
             pd.DataFrame(forecasts).to_csv(''.join([local_settings['submission_path'],
-                                                    'stochastic_simulation_submission.csv']),
+                                                    'stochastic_simulation_forecasts.csv']),
                                            index=False, header=None)
+            zero_loc = np.array(zero_loc)
+            np.save(''.join([local_settings['train_data_path'],
+                             'stochastic_simulation_forecasts']), forecasts)
             print('stochastic_simulation_submission.csv saved')
             print('organic_in_block_stochastic simulation submodule has finished')
         except Exception as submodule_error:

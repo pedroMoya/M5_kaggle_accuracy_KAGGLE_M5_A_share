@@ -9693,3 +9693,233 @@ ValueError: in user code:
 
     ValueError: Input 0 of layer sequential is incompatible with the layer: expected axis -1 of input shape to have value 12931 but received input with shape [None, 28, 12771]
 
+
+06.Jun 2020 16:51:30 predict module error
+Must have equal len keys and value when setting with an ndarray
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 273, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 998, in _setitem_with_indexer
+    raise ValueError(
+ValueError: Must have equal len keys and value when setting with an ndarray
+
+06.Jun 2020 16:59:08 predict module error
+Must have equal len keys and value when setting with an ndarray
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 274, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 998, in _setitem_with_indexer
+    raise ValueError(
+ValueError: Must have equal len keys and value when setting with an ndarray
+
+06.Jun 2020 17:10:53 predict module error
+Must have equal len keys and value when setting with an ndarray
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 274, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 998, in _setitem_with_indexer
+    raise ValueError(
+ValueError: Must have equal len keys and value when setting with an ndarray
+
+06.Jun 2020 17:12:09 correct forecasting process
+
+06.Jun 2020 17:19:47 correct forecasting process
+
+06.Jun 2020 17:22:26 correct forecasting process
+
+06.Jun 2020 17:26:35 correct forecasting process
+
+06.Jun 2020 17:30:06 predict module error
+could not broadcast input array from shape (60980,27) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 278, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 1065, in _setitem_with_indexer
+    self.obj._data = self.obj._data.setitem(indexer=indexer, value=value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 561, in setitem
+    return self.apply("setitem", **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 442, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\blocks.py", line 914, in setitem
+    values[indexer] = value
+ValueError: could not broadcast input array from shape (60980,27) into shape (60980,28)
+
+06.Jun 2020 17:32:52 predict module error
+'numpy.ndarray' object is not callable
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 216, in predict
+    all_forecasts = all_forecasts.iloc[1:, 1:].values()
+TypeError: 'numpy.ndarray' object is not callable
+
+06.Jun 2020 17:33:57 predict module error
+could not broadcast input array from shape (60978,27) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 278, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 1065, in _setitem_with_indexer
+    self.obj._data = self.obj._data.setitem(indexer=indexer, value=value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 561, in setitem
+    return self.apply("setitem", **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 442, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\blocks.py", line 914, in setitem
+    values[indexer] = value
+ValueError: could not broadcast input array from shape (60978,27) into shape (60980,28)
+
+06.Jun 2020 17:36:56 predict module error
+could not broadcast input array from shape (60979,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 278, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 1065, in _setitem_with_indexer
+    self.obj._data = self.obj._data.setitem(indexer=indexer, value=value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 561, in setitem
+    return self.apply("setitem", **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 442, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\blocks.py", line 914, in setitem
+    values[indexer] = value
+ValueError: could not broadcast input array from shape (60979,28) into shape (60980,28)
+
+06.Jun 2020 17:41:24 predict module error
+[Errno 2] No such file or directory: './4_TRAIN_DATA_PATH/stochastic_simulation_forecast.npy'
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 214, in predict
+    all_forecasts = np.load(''.join([local_script_settings['train_data_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 428, in load
+    fid = open(os_fspath(file), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: './4_TRAIN_DATA_PATH/stochastic_simulation_forecast.npy'
+
+06.Jun 2020 17:45:16 predict module error
+cannot copy sequence with size 60980 to array axis with dimension 60979
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 277, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 1006, in _setitem_with_indexer
+    setter(item, value[:, i].tolist())
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 962, in setter
+    s._data = s._data.setitem(indexer=pi, value=v)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 561, in setitem
+    return self.apply("setitem", **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\managers.py", line 442, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\internals\blocks.py", line 905, in setitem
+    values[indexer] = value
+ValueError: cannot copy sequence with size 60980 to array axis with dimension 60979
+
+06.Jun 2020 17:47:40 predict module error
+Must have equal len keys and value when setting with an ndarray
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 278, in predict
+    submission_template.iloc[1:, 1:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 671, in __setitem__
+    self._setitem_with_indexer(indexer, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexing.py", line 998, in _setitem_with_indexer
+    raise ValueError(
+ValueError: Must have equal len keys and value when setting with an ndarray
+
+06.Jun 2020 17:52:39 predict module error
+'numpy.ndarray' object has no attribute 'to_csv'
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 281, in predict
+    submission_template.to_csv(''.join([local_script_settings['submission_path'], 'submission.csv']),
+AttributeError: 'numpy.ndarray' object has no attribute 'to_csv'
+
+06.Jun 2020 17:54:34 predict module error
+unhashable type: 'slice'
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 278, in predict
+    submission_template[0:, 0:] = all_forecasts
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 2938, in __setitem__
+    self._set_item(key, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 3000, in _set_item
+    value = self._sanitize_column(key, value)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\frame.py", line 3666, in _sanitize_column
+    if broadcast and key in self.columns and value.ndim == 1:
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\pandas\core\indexes\base.py", line 3899, in __contains__
+    hash(key)
+TypeError: unhashable type: 'slice'
+
+06.Jun 2020 18:00:36 correct forecasting process
+
+06.Jun 2020 18:09:49 correct forecasting process
+
+06.Jun 2020 18:23:14 correct forecasting process
+
+06.Jun 2020 18:47:39 correct forecasting process
+
+06.Jun 2020 18:50:58 correct forecasting process
+
+06.Jun 2020 18:52:23 correct forecasting process
+
+06.Jun 2020 18:55:03 correct forecasting process
+
+06.Jun 2020 19:00:43 correct forecasting process
+
+06.Jun 2020 19:03:58 correct forecasting process
+
+06.Jun 2020 19:06:37 correct forecasting process
+
+06.Jun 2020 19:10:56 correct forecasting process
+
+06.Jun 2020 19:12:12 correct forecasting process
+
+06.Jun 2020 19:15:47 correct forecasting process
+
+06.Jun 2020 19:20:21 correct forecasting process
+
+06.Jun 2020 19:23:10 correct forecasting process
+
+06.Jun 2020 19:24:19 correct forecasting process
+
+06.Jun 2020 19:25:59 correct forecasting process
+
+06.Jun 2020 19:28:47 correct forecasting process
+
+06.Jun 2020 19:29:35 correct forecasting process
+
+06.Jun 2020 19:32:12 correct forecasting process
+
+06.Jun 2020 19:36:53 correct forecasting process
+
+06.Jun 2020 19:39:38 correct forecasting process
+
+06.Jun 2020 19:43:09 correct forecasting process
+
+06.Jun 2020 19:44:59 correct forecasting process
+
+06.Jun 2020 19:46:10 correct forecasting process
+
+06.Jun 2020 19:47:30 correct forecasting process
+
+06.Jun 2020 19:51:31 correct forecasting process
+
+06.Jun 2020 19:54:47 correct forecasting process
+
+06.Jun 2020 19:57:04 correct forecasting process
+
+06.Jun 2020 19:59:16 correct forecasting process
+
+06.Jun 2020 20:01:51 correct forecasting process
+
+06.Jun 2020 21:15:04 correct forecasting process
+
+06.Jun 2020 22:04:13 correct forecasting process
+
+06.Jun 2020 22:09:25 correct forecasting process
+
+06.Jun 2020 22:25:47 correct forecasting process

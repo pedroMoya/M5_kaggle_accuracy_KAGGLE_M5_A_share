@@ -106,10 +106,18 @@ def train():
                     print('metaheuristic module initialized')
                     logger.info('metaheuristic tuning hyperparameters and best_results loaded')
 
+        # opening hyperparameters
         with open(''.join([local_script_settings['hyperparameters_path'], 'model_hyperparameters.json'])) \
                 as local_r_json_file:
             model_hyperparameters = json.loads(local_r_json_file.read())
             local_r_json_file.close()
+        with open(''.join([local_script_settings['hyperparameters_path'],
+                           'organic_in_block_time_serie_based_model_hyperparameters.json'])) \
+                as local_r_json_file:
+            organic_in_block_time_serie_based_model_hyperparameters = \
+                json.loads(local_r_json_file.read())
+            local_r_json_file.close()
+
         if local_script_settings['data_cleaning_done'] == 'True' and \
                 model_hyperparameters['time_steps_days'] != local_script_settings['time_steps_days']:
             model_hyperparameters['time_steps_days'] = local_script_settings['time_steps_days']
@@ -167,11 +175,11 @@ def train():
         print('max_selling_time(train) based in settings info:', local_settings_max_selling_time)
         print('It is expected that max_selling_time(train) were at least 28 days lesser than max_selling_time(test)')
         if local_settings_max_selling_time + 28 <= max_selling_time:
-            print('...and this condition is met')
+            print('and this condition is met')
         elif local_settings_max_selling_time < max_selling_time:
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
         elif max_selling_time != local_settings_max_selling_time:
-            print("settings doesn't match data dimensions, it must be rechecked before continue")
+            print("settings doesn't match data dimensions, it must be rechecked before continue(_train_module)")
             logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                                  ' data dimensions does not match settings']))
             return False
@@ -205,9 +213,8 @@ def train():
 
         # first model results, necessary here because time_series_not_improved is input to second model
         first_model_results = stochastic_simulation_results_analysis()
-        time_series_not_improved = first_model_results.evaluate_stochastic_simulation(local_script_settings,
-                                                                                      model_hyperparameters,
-                                                                                      raw_unit_sales)
+        time_series_not_improved = first_model_results.evaluate_stochastic_simulation(
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales)
 
         # _______________________SECOND_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN

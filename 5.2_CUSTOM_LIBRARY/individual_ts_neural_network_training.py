@@ -4,6 +4,7 @@ import logging
 import logging.handlers as handlers
 import json
 import itertools as it
+import pandas as pd
 import numpy as np
 import tensorflow as tf
 physical_devices = tf.config.list_physical_devices('GPU')
@@ -81,8 +82,19 @@ def window_based_denormalizer(local_window_array, local_last_window_mean, local_
 
 def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
                            local_hyperparameters, local_time_series_not_improved_arg):
-    x_tray, y_train = [[]] * 2
-    local_nof_selling_days = local_unit_sales.shape[1]
+    # replacing all zeros with the non_zero min of each time_serie
+    local_nof_series = local_unit_sales.shape[0]
+    # pretty sure that another better and pythonic way exist
+    # (change the zeros for the lesser value greater than zero row-wise)
+    print('dealing with zeros....')
+    for time_serie in range(local_nof_series):
+        row = local_unit_sales[time_serie, :]
+        local_max = np.amax(row)
+        local_min = np.amin(row)
+        row[row == 0] = local_max
+        row[row == max] = local_min
+        local_unit_sales[time_serie, :] = row
+    # creating x_train and y_train arrays
     local_nof_selling_days = local_unit_sales.shape[1]
     local_last_learning_day_in_year = np.mod(local_nof_selling_days, 365)
     local_max_selling_time = local_settings_arg['max_selling_time']
@@ -103,6 +115,16 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
     local_day_in_year = []
     [local_day_in_year.append(local_last_learning_day_in_year + year * 365) for year in range(local_nof_years)]
     local_stride_window_walk = local_hyperparameters['stride_window_walk']
+
+    # ensure that each time_step has the same length and no data loss at border condition
+    print('dealing with last time_step_days')
+    rest = np.ceil(local_nof_selling_days / local_time_steps_days) * local_time_steps_days - local_nof_selling_days
+    if rest != 0:
+        local_mean_block = np.zeros(shape=(local_nof_series, int(rest)))
+        for time_serie in range(local_nof_series):
+            local_mean_block[time_serie, :] = np.mean(local_unit_sales[time_serie, - 2 * local_time_steps_days:])
+        local_unit_sales = np.concatenate((local_unit_sales, local_mean_block), axis=1)
+        print(local_unit_sales.shape)
     print('defining x_train')
     x_train = []
     if local_settings_arg['train_model_input_data_approach'] == "all":
@@ -113,13 +135,6 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
          for last_day in local_day_in_year[:-1]
          for day in range(last_day + local_window_output_length,
                           last_day + local_window_output_length - local_days_in_focus_frame, -local_stride_window_walk)]
-        # border condition, take care with last year, working with last data available, yeah really!!
-        [x_train.append(np.concatenate(
-            (local_unit_sales[:, day - local_window_output_length: day],
-             np.zeros(shape=(local_time_series_not_improved_arg, local_time_steps_days - local_window_output_length))),
-            axis=1))
-            for last_day in local_day_in_year[-1:]
-            for day in range(last_day, last_day - local_days_in_focus_frame, -local_stride_window_walk)]
     else:
         logging.info("\ntrain_model_input_data_approach is not defined")
         print('-a problem occurs with the data_approach settings')
@@ -134,14 +149,9 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
          for last_day in local_day_in_year[:-1]
          for day in range(last_day + local_window_output_length,
                           last_day + local_window_output_length - local_days_in_focus_frame, -local_stride_window_walk)]
-        # border condition, take care with last year, working with last data available, yeah really!!
-        [y_train.append(np.concatenate(
-            (local_unit_sales[:, day - local_window_output_length: day],
-             np.zeros(shape=(local_time_series_not_improved_arg, local_time_steps_days - local_window_output_length))),
-            axis=1))
-            for last_day in local_day_in_year[-1:]
-            for day in range(last_day, last_day - local_days_in_focus_frame, -local_stride_window_walk)]
-    return x_tray, y_train
+        x_train = np.array(x_train)
+        y_train = np.array(y_train)
+    return x_train, y_train
 
 
 # classes definitions
@@ -175,7 +185,6 @@ class neural_network_time_serie_schema:
                                                                   local_model_hyperparameters,
                                                                   local_time_series_not_improved)
             local_forecast_horizon_days = local_settings['forecast_horizon_days']
-            local_nof_features = local_x_train.shape[0]
             local_features_for_each_training = 1
             print('starting neural network - individual time_serie training')
             # building architecture and compiling model_template
@@ -269,28 +278,35 @@ class neural_network_time_serie_schema:
             # save architecture, train models and predict (inside loop) storing weights
             local_moving_window_length = local_settings['moving_window_input_length'] + \
                                          local_settings['moving_window_output_length']
+            # save model architecture (template for specific models)
+            local_base_model.save(''.join([local_settings['models_path'],
+                                           'generic_forecaster_template_individual_ts.h5']))
             local_base_model_json = local_base_model.to_json()
             with open(''.join([local_settings['models_path'],
-                               'generic_forecaster_individual_ts.json']), 'w') as json_file:
+                               'generic_forecaster_template_individual_ts.json']), 'w') as json_file:
                 json_file.write(local_base_model_json)
                 json_file.close()
-            # last_time_serie_trained = local_model_hyperparameters['last_time_serie_trained']
-            # index_last_time_serie_trained = np.where(local_time_series_not_improved[:] == last_time_serie_trained)[0][0]
-            # print(index_last_time_serie_trained)
-            # local_time_series_not_improved = local_time_series_not_improved[index_last_time_serie_trained + 1:]
-            # print(local_time_series_not_improved.shape)
             local_y_pred_list = []
-            local_time_serie_iterator = 0  # 8000-14000
-            for time_serie in local_time_series_not_improved[0: 1]:
+            local_time_serie_iterator = 0
+            print(local_y_train)
+            # for time_serie in local_time_series_not_improved:
+            for time_serie in range(3):
                 print('training time_serie:', time_serie)
-                local_x, local_y = local_x_train[:, :, local_time_serie_iterator: local_time_serie_iterator + 1], \
-                                   local_y_train[:, :, local_time_serie_iterator: local_time_serie_iterator + 1]
+                local_x, local_y = local_x_train[:, local_time_serie_iterator: local_time_serie_iterator + 1, :], \
+                                   local_y_train[:, local_time_serie_iterator: local_time_serie_iterator + 1, :]
+                print(local_x.shape)
+                local_x = local_x.reshape(local_x.shape[0], local_x.shape[2], 1)
+                local_y = local_y.reshape(local_y.shape[0], local_y.shape[2], 1)
+                print(local_x.shape)
                 local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
                                      workers=local_workers, callbacks=local_callbacks, shuffle=False)
-                local_base_model.save_weights(''.join([local_settings['models_path'], '/weights_fixed/_individual_ts_',
+                local_base_model.save_weights(''.join([local_settings['models_path'],
+                                                       '/weights_zero_removed/_individual_ts_',
                                                        str(time_serie), '_model_weights_.h5']))
                 local_x_input = local_x[-local_forecast_horizon_days:]
-                local_y_pred = local_base_model(local_x_input)
+                print(local_x_input.shape)
+                local_y_pred = local_base_model.predict(local_x_input)
+                print(local_y_pred.shape)
                 local_y_pred_list.append(local_y_pred)
             local_point_forecast_normalized = np.array(local_y_pred_list)
             print('forecast shape: ', np.shape(local_point_forecast_normalized))
@@ -328,41 +344,9 @@ class neural_network_time_serie_schema:
             local_point_forecast = local_point_forecast[:, -local_forecast_horizon_days:]
 
             # save points forecast
-            np.savetxt(''.join([local_settings['others_outputs_path'], 'point_forecast_',
-                                '_.csv']), local_point_forecast, fmt='%10.15f', delimiter=',', newline='\n')
+            np.savetxt(''.join([local_settings['others_outputs_path'], 'point_forecast_stochastic_simulation.csv']),
+                       local_point_forecast, fmt='%10.15f', delimiter=',', newline='\n')
             print('point forecasts saved to file')
-
-            # evaluation of models forecasts according to day-wise comparison
-            # forecaster(x_test) <=> y_pred
-            print('\nmodels evaluation\nusing MEAN SQUARED ERROR, '
-                  'MODIFIED-MEAN ABSOLUTE PERCENTAGE ERROR and MEAN ABSOLUTE ERROR')
-            print('{:^19s}{:^19s}{:^19s}{:^19s}'.format('time_serie', 'error_metric_MSE',
-                                                        'error_metric_Mod_MAPE', 'error_metric_MAPE'))
-            local_time_series_error_mse = []
-            local_time_series_error_mod_mape = []
-            local_time_series_error_mape = []
-            local_y_ground_truth_array = []
-            local_y_pred_array = []
-            local_customized_mod_mape = modified_mape()
-            local_time_series_in_group = local_time_series_not_improved
-            local_time_serie_iterator = 0
-            for time_serie in local_time_series_in_group:
-                local_y_ground_truth = local_raw_unit_sales[time_serie, -local_forecast_horizon_days:]
-                local_y_pred = local_point_forecast[local_time_serie_iterator, -local_forecast_horizon_days:].flatten()
-                local_error_metric_mse = mean_squared_error(local_y_ground_truth, local_y_pred)
-                local_error_metric_mod_mape = 100 * local_customized_mod_mape(local_y_ground_truth, local_y_pred)
-                local_error_metric_mape = mean_absolute_percentage_error(local_y_ground_truth, local_y_pred)
-                # print('{:^19d}{:^19f}{:^19f}{:^19f}'.format(time_serie, error_metric_mse,
-                #                                             error_metric_mod_mape, error_metric_mape))
-                local_time_series_error_mse.append([time_serie, local_error_metric_mse])
-                local_time_series_error_mod_mape.append(local_error_metric_mod_mape)
-                local_time_series_error_mape.append(local_error_metric_mape)
-                local_y_ground_truth_array.append(local_y_ground_truth)
-                local_y_pred_array.append(local_y_pred)
-                local_time_serie_iterator += 1
-            print('individual time_serie models evaluation ended successfully')
-            mean_mse = np.mean([loss_mse[1] for loss_mse in local_time_series_error_mse])
-            print('time_serie mean mse: ', mean_mse)
             print('submodule for build, train and forecast time_serie individually finished successfully')
             return True
         except Exception as submodule_error:
