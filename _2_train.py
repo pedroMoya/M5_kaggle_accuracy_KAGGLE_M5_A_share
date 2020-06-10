@@ -176,7 +176,7 @@ def train():
         print('It is expected that max_selling_time(train) were at least 28 days lesser than max_selling_time(test)')
         if local_settings_max_selling_time + 28 <= max_selling_time:
             print('and this condition is met')
-        elif local_settings_max_selling_time < max_selling_time:
+            raw_unit_sales_ground_truth = raw_unit_sales
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
         elif max_selling_time != local_settings_max_selling_time:
             print("settings doesn't match data dimensions, it must be rechecked before continue(_train_module)")
@@ -192,6 +192,8 @@ def train():
             elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
                 print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
                 print('settings indicate that this is the last stage!')
+                print('caution: take in consideration that evaluations in this point are not useful, '
+                      'because will be made using the last data (the same used in training)')
             else:
                 print('continuing the training, but a mismatch was found within max_selling and forecast_horizon days')
         print('raw data input collected and check of data dimensions passed (train_module)')
@@ -214,7 +216,8 @@ def train():
         # first model results, necessary here because time_series_not_improved is input to second model
         first_model_results = stochastic_simulation_results_analysis()
         time_series_not_improved = first_model_results.evaluate_stochastic_simulation(
-            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales)
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+            raw_unit_sales_ground_truth)
 
         # _______________________SECOND_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN

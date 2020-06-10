@@ -24,7 +24,8 @@ logger.addHandler(logHandler)
 
 class stochastic_simulation_results_analysis:
 
-    def evaluate_stochastic_simulation(self, local_settings, local_model_hyperparameters, local_raw_unit_sales):
+    def evaluate_stochastic_simulation(self, local_settings, local_model_hyperparameters, local_raw_unit_sales,
+                                       local_raw_unit_sales_ground_truth):
         try:
             # evaluating model and for comparing with threshold defined in settings
             # (organic_in_block_time_serie_based_model_hyperparameters.json)
@@ -45,7 +46,7 @@ class stochastic_simulation_results_analysis:
             nof_time_series = local_raw_unit_sales.shape[0]
             for time_serie in range(nof_time_series):
                 # for time_serie in range(local_normalized_scaled_unit_sales.shape[0]):
-                y_truth = local_raw_unit_sales[time_serie: time_serie + 1, -local_forecast_horizon_days:]
+                y_truth = local_raw_unit_sales_ground_truth[time_serie: time_serie + 1, -local_forecast_horizon_days:]
                 local_point_forecast = local_forecasts[time_serie_iterator:time_serie_iterator + 1, :]
                 # calculating error (MSE)
                 local_error_metric_mse = mean_squared_error(y_truth, local_point_forecast)

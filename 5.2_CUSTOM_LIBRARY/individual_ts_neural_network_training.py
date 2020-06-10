@@ -88,12 +88,8 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
     # (change the zeros for the lesser value greater than zero row-wise)
     print('dealing with zeros....')
     for time_serie in range(local_nof_series):
-        row = local_unit_sales[time_serie, :]
-        local_max = np.amax(row) + 1
-        row[row == 0] = local_max
-        local_min = np.amin(row)
-        row[row == local_max] = local_min
-        local_unit_sales[time_serie, :] = row
+        row_with_control_of_zeros = cof_zeros(local_unit_sales[time_serie, :])
+        local_unit_sales[time_serie, :] = row_with_control_of_zeros
 
     # creating x_train and y_train arrays
     local_nof_selling_days = local_unit_sales.shape[1]
@@ -192,6 +188,13 @@ def simple_normalization(local_array, local_max):
     normalized_array = np.divide(local_array, local_max.clip(0.0001))
     return normalized_array
 
+
+def cof_zeros(array):
+    local_max = np.amax(array) + 1
+    array[array <= 0] = local_max
+    local_min = np.amin(array)
+    array[array == local_max] = local_min
+    return array
 
 # classes definitions
 
@@ -332,8 +335,7 @@ class neural_network_time_serie_schema:
                 json_file.close()
             local_base_model.summary()
             local_y_pred_list = []
-            local_time_serie_iterator = 0
-            local_time_series_not_improved = local_time_series_not_improved[0: 2]  # capping for test code
+            local_time_series_not_improved = local_time_series_not_improved[2500: 7500]  # capping for test code
             for time_serie in local_time_series_not_improved:
                 # ----------------------key_point---------------------------------------------------------------------
                 # take note that each loop the weights and states of previous training are conserved
@@ -350,16 +352,17 @@ class neural_network_time_serie_schema:
                                                        '/weights_zero_removed/_individual_ts_',
                                                        str(time_serie), '_model_weights_.h5']))
                 local_x_input = local_raw_unit_sales[time_serie: time_serie + 1, -local_forecast_horizon_days:]
+                local_x_input = cof_zeros(local_x_input)
                 local_x_input = local_x_input.reshape(1, local_x_input.shape[1], 1)
                 print('x_input shape:', local_x_input.shape)
                 local_y_pred = local_base_model.predict(local_x_input)
                 print('x_input:\n', local_x_input)
                 print('y_pred shape:', local_y_pred.shape)
                 local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
+                local_y_pred = cof_zeros(local_y_pred)
                 print('ts:', time_serie)
                 print(local_y_pred)
                 local_y_pred_list.append(local_y_pred)
-                local_time_serie_iterator += 1
             local_point_forecast_array = np.array(local_y_pred_list)
             local_point_forecast_normalized = local_point_forecast_array.reshape(
                 (local_point_forecast_array.shape[0], local_point_forecast_array.shape[1]))
