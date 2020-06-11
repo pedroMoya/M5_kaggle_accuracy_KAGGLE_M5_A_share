@@ -4,3 +4,6 @@ scikit-learn~=0.22.2.post1
 tensorflow~=2.2.0rc2
 # cuda~=10.1
 # cudnn=10.1-windows10-x64-v7.6.5.32
+rpy2~=3.3.3
+# R package tsfeatures 1.0.2
+# R package zoo 1.8-8
