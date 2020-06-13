@@ -202,6 +202,7 @@ def cof_zeros(array, local_cof_settings):
         array[array == local_max] = local_min
     return array
 
+
 # classes definitions
 
 class modified_mape(losses.Loss):
@@ -222,6 +223,13 @@ class customized_loss(losses.Loss):
         factor_difference = tf.reduce_mean(tf.abs(tf.add(local_pred, -local_true)))
         factor_true = tf.reduce_mean(tf.add(tf.convert_to_tensor(1., dtype=tf.float32), local_true))
         return tf.math.multiply_no_nan(factor_difference, factor_true)
+
+
+class pinball_function_loss(losses.Loss):
+    @tf.function
+    def call(self, y_true, y_pred, tau=0.1):
+        error = y_true - y_pred
+        return kb.mean(kb.maximum(tau * error, (tau - 1) * error), axis=-1)
 
 
 class neural_network_time_serie_schema:
@@ -264,6 +272,8 @@ class neural_network_time_serie_schema:
                 local_losses_list.append(modified_mape())
             if 'customized_loss_function' in local_union_settings_losses:
                 local_losses_list.append(customized_loss())
+            if 'pinball_loss_function' in local_union_settings_losses:
+                local_losses_list.append(pinball_function_loss())
             local_metrics_list = []
             local_metric1 = local_model_hyperparameters['metrics1']
             local_metric2 = local_model_hyperparameters['metrics2']
@@ -300,22 +310,18 @@ class neural_network_time_serie_schema:
             # second layer
             if local_model_hyperparameters['units_layer_2']:
                 if local_model_hyperparameters['units_layer_1'] == 0:
-                    local_base_model.add(layers.Bidirectional(layers.RNN(
+                    local_base_model.add(layers.RNN(
                         PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
                                          activation=local_model_hyperparameters['activation_2'],
                                          input_shape=(local_time_steps_days,
                                                       local_features_for_each_training),
-                                         activity_regularizer=local_activation_regularizer,
-                                         dropout=float(local_model_hyperparameters['dropout_layer_2'])),
-                        return_sequences=False)))
+                                         dropout=float(local_model_hyperparameters['dropout_layer_2']))))
                 else:
-                    local_base_model.add(layers.Bidirectional(layers.RNN(
+                    local_base_model.add(layers.RNN(
                         PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
                                          activation=local_model_hyperparameters['activation_2'],
-                                         activity_regularizer=local_activation_regularizer,
-                                         dropout=float(local_model_hyperparameters['dropout_layer_2'])),
-                        return_sequences=False)))
-                local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+                                         dropout=float(local_model_hyperparameters['dropout_layer_2']))))
+                # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # third layer
             if local_model_hyperparameters['units_layer_3'] > 0:
                 local_base_model.add(layers.Dense(units=local_model_hyperparameters['units_layer_3'],
@@ -332,10 +338,12 @@ class neural_network_time_serie_schema:
                     return_sequences=False)))
                 # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # final layer
-            if local_model_hyperparameters['units_layer_2'] == 0 and local_model_hyperparameters['units_layer_2'] == 0:
-                local_base_model.add(layers.Dense(units=1))
-            else:
-                local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
+            # if local_model_hyperparameters['units_layer_4'] == 0:
+            #     local_base_model.add(layers.Dense(units=1))
+            # else:
+            #     local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
+            local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
+
             # build and compile model
             local_base_model.build(input_shape=(1, local_time_steps_days, local_features_for_each_training))
             local_base_model.compile(optimizer=local_optimizer_function,
@@ -392,7 +400,7 @@ class neural_network_time_serie_schema:
                     mini_evaluator = mini_evaluator_submodule()
                     evaluation = mini_evaluator.evaluate_ts_forecast(
                             raw_unit_sales_ground_truth[time_serie, -local_forecast_horizon_days:], local_y_pred)
-                    print('ts:', time_serie, ' mse:', evaluation)
+                    print('ts:', time_serie, 'with cof ts mse:', evaluation)
                 else:
                     print('ts:', time_serie)
                 print(local_y_pred)

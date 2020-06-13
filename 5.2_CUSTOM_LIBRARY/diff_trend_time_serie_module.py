@@ -41,9 +41,7 @@ def next_coefficients(local_time_serie_data, local_days_in_focus_frame,
     return coefficients
 
 
-def next_values(local_priming_block, local_diff_coefficients):
-    values = 0
-
+def next_values(local_priming_block, local_diff_coefficients, local_day_in_block):
     # ---------------kernel----------------------------------
 
     # ---------------kernel----------------------------------
@@ -66,7 +64,8 @@ class difference_trends_insight:
             diff_coefficients = next_coefficients(diffs_array, days_in_block, diff_trends_hyperparameters)
             new_forecast = np.zeros((local_settings['number_of_time_series'], local_forecast_horizon_days))
             priming_block = local_raw_unit_sales[:, -days_in_block:]
-            new_forecast = next_values(priming_block, diff_coefficients)
+            new_forecast = next_values(priming_block, diff_coefficients, days_in_block)
+
             # save results
             np.save(''.join([local_settings['others_outputs_path'],
                              'diff_pattern_based_forecasts']), new_forecast)

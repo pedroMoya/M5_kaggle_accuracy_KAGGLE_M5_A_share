@@ -11380,3 +11380,837 @@ Traceback (most recent call last):
   File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
     raise ValueError('You are trying to load a weight file '
 ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 14:26:57 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 14:29:13 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 14:33:14 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 14:53:59 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 14:56:09 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 14:58:51 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 15:03:12 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 15:06:54 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 15:12:12 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 15:35:15 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 15:38:12 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 15:43:29 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 15:49:35 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 15:51:39 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 15:54:15 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 15:55:58 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 15:58:51 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:01:57 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:04:02 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:06:22 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 16:08:29 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 16:10:10 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 16:11:57 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 16:15:39 correct forecasting process
+
+13.Jun 2020 16:19:51 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 16:22:27 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:26:13 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:28:45 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:33:41 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:36:21 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:39:52 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:45:56 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:50:45 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:52:43 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 16:58:21 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:04:31 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:06:21 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:09:16 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:13:00 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:16:01 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:19:02 predict module error
+You are trying to load a weight file containing 5 layers into a model with 1 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 1 layers.
+
+13.Jun 2020 17:23:23 predict module error
+You are trying to load a weight file containing 5 layers into a model with 1 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 1 layers.
+
+13.Jun 2020 17:25:34 predict module error
+You are trying to load a weight file containing 5 layers into a model with 1 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 1 layers.
+
+13.Jun 2020 17:28:35 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:30:40 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:33:58 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:36:36 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:40:27 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:43:29 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:45:24 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 17:48:45 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:55:49 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 17:58:38 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:02:10 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:04:05 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:10:15 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:12:41 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:15:39 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:17:34 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:20:46 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:25:12 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:27:09 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:31:26 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:44:12 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 18:48:43 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
