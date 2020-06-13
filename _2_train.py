@@ -194,13 +194,10 @@ def train():
                 print('settings indicate that this is the last stage!')
                 print('caution: take in consideration that evaluations in this point are not useful, '
                       'because will be made using the last data (the same used in training)')
-            else:
-                print('continuing the training, but a mismatch was found within max_selling and forecast_horizon days')
-        print('raw data input collected and check of data dimensions passed (train_module)')
 
         # checking correct order in run models
         if local_script_settings['first_train_approach'] == 'stochastic_simulation':
-            print('the order in model execute will be: first stochastic_simulation and second neural_network')
+            print('the order in model execution will be: first stochastic_simulation and second neural_network')
         else:
             print('first_train_approach parameter in settings not defined or unknown')
             return False
@@ -225,7 +222,8 @@ def train():
         neural_network_ts_schema_training = neural_network_time_serie_schema()
         training_nn_review = neural_network_ts_schema_training.train(local_script_settings,
                                                                      raw_unit_sales, model_hyperparameters,
-                                                                     time_series_not_improved)
+                                                                     time_series_not_improved,
+                                                                     raw_unit_sales_ground_truth)
         print('second model trained, with success -->', training_nn_review)
 
         # closing train module

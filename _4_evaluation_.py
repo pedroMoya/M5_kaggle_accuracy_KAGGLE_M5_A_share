@@ -121,26 +121,31 @@ def evaluate():
         # from 1th june, here get real unit_sales for days d_1914 to d_1941,
         # for model optimization, but avoiding overfitting
         # open raw_data
-        raw_data_sales = pd.read_csv(''.join([local_script_settings['raw_data_path'],
-                                              'sales_train_validation.csv']))
+        raw_data_filename = 'sales_train_evaluation.csv'
+        raw_data_sales = pd.read_csv(''.join([local_script_settings['raw_data_path'], raw_data_filename]))
         print('raw sales data accessed')
 
         # extract data and check  dimensions
-        time_steps_days = local_script_settings['time_steps_days']
+        # extract data and check  dimensions
         raw_unit_sales = raw_data_sales.iloc[:, 6:].values
-        # raw_unit_sales_full = raw_unit_sales
         max_selling_time = np.shape(raw_unit_sales)[1]
         local_settings_max_selling_time = local_script_settings['max_selling_time']
         if local_settings_max_selling_time < max_selling_time:
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
         elif max_selling_time != local_settings_max_selling_time:
-            print("settings doesn't match data dimensions, it must be rechecked")
+            print("settings doesn't match data dimensions, it must be rechecked before continue(_predict_module)")
             logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                                  ' data dimensions does not match settings']))
             return False
         else:
-            print('warning, please check: forecast horizon is included within training data')
-        print('raw data input collected and check of data dimensions passed')
+            if local_script_settings['competition_stage'] != 'submitting_after_June_1th_using_1941days':
+                print(''.join(['\x1b[0;2;41m', 'Warning', '\x1b[0m']))
+                print('please check: forecast horizon days was included within the training data')
+                print('It was expected that the last 28 days were not included..')
+                print('to avoid overfitting')
+            elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+                print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
+        print('raw data input collected and check of data dimensions passed (evaluation_module)')
 
         if local_script_settings['model_analyzer'] == 'on':
             analyzer = model_structure()

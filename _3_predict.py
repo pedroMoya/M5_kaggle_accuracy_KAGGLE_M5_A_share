@@ -176,14 +176,12 @@ def predict():
         else:
             if local_script_settings['competition_stage'] != 'submitting_after_June_1th_using_1941days':
                 print(''.join(['\x1b[0;2;41m', 'Warning', '\x1b[0m']))
-                print('please check: forecast horizon days will be included within training data')
+                print('please check: forecast horizon days was included within the training data')
                 print('It was expected that the last 28 days were not included..')
                 print('to avoid overfitting')
             elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
                 print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
-            else:
-                print('continuing the training, but a mismatch was found within max_selling and forecast_horizon days')
-        print('raw data input collected and check of data dimensions passed (train_module)')
+        print('raw data input collected and check of data dimensions passed (predict_module)')
 
         # make forecast --> '28 days future predictions for unit_sales', organized in groups
         forecast_horizon_days = local_script_settings['forecast_horizon_days']
@@ -251,11 +249,11 @@ def predict():
                     forecaster = models.model_from_json(model_json)
                     print('model structure loaded')
                     forecaster.summary()
-                    for time_serie in time_series_not_improved:
+                    for time_serie in time_series_not_improved[0:385]:
                         # load weights of respective time_serie model
                         print('group: ', group, '\ttime_serie:', time_serie)
                         forecaster.load_weights(''.join([local_script_settings['models_path'],
-                                                         '/weights_zero_removed/_individual_ts_',
+                                                         '/weights_last_year/_individual_ts_',
                                                          str(time_serie), '_model_weights_.h5']))
                         point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
                         print('forecast shape: ', np.shape(point_forecast_original))
@@ -272,9 +270,9 @@ def predict():
                     print('point forecasts saved to file')
 
                     # inserting zeros as was determinate by first model (stochastic simulation)
-                    zero_loc = np.load(''.join([local_script_settings['train_data_path'], 'zero_localizations.npy']),
-                                       allow_pickle=True)
-                    all_forecasts[zero_loc[:, 0], zero_loc[:, 1]] = 0
+                    # zero_loc = np.load(''.join([local_script_settings['train_data_path'], 'zero_localizations.npy']),
+                    #                    allow_pickle=True)
+                    # all_forecasts[zero_loc[:, 0], zero_loc[:, 1]] = 0
 
 
                 # saving consolidated submission
@@ -292,7 +290,7 @@ def predict():
                 np.savetxt(''.join([local_script_settings['others_outputs_path'],
                                     'point_forecast_ss_and_or_nn_models_applied_.csv']),
                            all_forecasts, fmt='%10.15f', delimiter=',', newline='\n')
-                print('forecast saved, submission file built and stores')
+                print('forecast saved, submission file built and stored')
                 print("forecast subprocess ended successfully")
                 logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                                      ' correct forecasting process']))

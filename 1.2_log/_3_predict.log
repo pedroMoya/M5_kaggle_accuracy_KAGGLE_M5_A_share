@@ -10639,3 +10639,744 @@ Traceback (most recent call last):
   File "h5py\_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
   File "h5py\h5f.pyx", line 88, in h5py.h5f.open
 OSError: Unable to open file (unable to open file: name = './5.0_MODELS_DIR//weights_zero_removed/_individual_ts_3835_model_weights_.h5', errno = 2, error message = 'No such file or directory', flags = 0, o_flags = 0)
+
+11.Jun 2020 18:07:44 predict module error
+Shapes (1, 1) and (1, 10) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 257, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 1) and (1, 10) are incompatible
+
+11.Jun 2020 18:08:57 correct forecasting process
+
+11.Jun 2020 18:12:21 correct forecasting process
+
+11.Jun 2020 18:33:18 correct forecasting process
+
+11.Jun 2020 18:37:52 correct forecasting process
+
+11.Jun 2020 20:07:38 predict module error
+This model has not yet been built. Build the model first by calling `build()` or calling `fit()` with some data, or specify an `input_shape` argument in the first layer(s) for automatic build.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 251, in predict
+    forecaster.summary()
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1341, in summary
+    raise ValueError('This model has not yet been built. '
+ValueError: This model has not yet been built. Build the model first by calling `build()` or calling `fit()` with some data, or specify an `input_shape` argument in the first layer(s) for automatic build.
+
+11.Jun 2020 20:19:13 predict module error
+This model has not yet been built. Build the model first by calling `build()` or calling `fit()` with some data, or specify an `input_shape` argument in the first layer(s) for automatic build.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 251, in predict
+    forecaster.summary()
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1341, in summary
+    raise ValueError('This model has not yet been built. '
+ValueError: This model has not yet been built. Build the model first by calling `build()` or calling `fit()` with some data, or specify an `input_shape` argument in the first layer(s) for automatic build.
+
+11.Jun 2020 20:33:01 predict module error
+Shapes (1, 0) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 0) and (1, 4) are incompatible
+
+11.Jun 2020 20:43:38 correct forecasting process
+
+11.Jun 2020 20:55:17 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:00:57 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:08:54 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:12:19 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:24:47 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:32:37 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:39:09 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:43:25 predict module error
+Shapes (1, 40) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 40) and (1, 4) are incompatible
+
+11.Jun 2020 21:58:57 correct forecasting process
+
+11.Jun 2020 22:06:57 correct forecasting process
+
+11.Jun 2020 22:10:10 correct forecasting process
+
+11.Jun 2020 22:23:25 correct forecasting process
+
+11.Jun 2020 22:26:41 correct forecasting process
+
+11.Jun 2020 22:32:47 correct forecasting process
+
+11.Jun 2020 22:42:39 correct forecasting process
+
+11.Jun 2020 22:50:34 correct forecasting process
+
+11.Jun 2020 23:00:50 correct forecasting process
+
+11.Jun 2020 23:14:56 predict module error
+Shapes (1, 112) and (1, 4) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 112) and (1, 4) are incompatible
+
+11.Jun 2020 23:22:05 correct forecasting process
+
+12.Jun 2020 06:55:05 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 07:02:51 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 07:11:44 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 07:15:21 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 07:25:47 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 07:43:52 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 07:57:40 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 20:05:08 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 20:11:28 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 20:16:07 predict module error
+Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #0 (named "bidirectional" in the current model) was found to correspond to layer dense in the save file. However the new layer bidirectional expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 20:20:34 predict module error
+Layer #2 (named "bidirectional_1" in the current model) was found to correspond to layer dense_1 in the save file. However the new layer bidirectional_1 expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #2 (named "bidirectional_1" in the current model) was found to correspond to layer dense_1 in the save file. However the new layer bidirectional_1 expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 20:25:06 predict module error
+Shapes (1, 50) and (1, 1) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 50) and (1, 1) are incompatible
+
+12.Jun 2020 20:28:13 predict module error
+Shapes (1, 50) and (1, 1) are incompatible
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 704, in load_weights_from_hdf5_group
+    K.batch_set_value(weight_value_tuples)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py", line 3384, in batch_set_value
+    x.assign(np.asarray(value, dtype=dtype(x)))
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py", line 846, in assign
+    self._shape.assert_is_compatible_with(value_tensor.shape)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\tensor_shape.py", line 1117, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (1, 50) and (1, 1) are incompatible
+
+12.Jun 2020 20:34:41 predict module error
+Layer #2 (named "bidirectional_1" in the current model) was found to correspond to layer dense_1 in the save file. However the new layer bidirectional_1 expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #2 (named "bidirectional_1" in the current model) was found to correspond to layer dense_1 in the save file. However the new layer bidirectional_1 expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 20:51:38 predict module error
+Layer #2 (named "bidirectional_1" in the current model) was found to correspond to layer dense_1 in the save file. However the new layer bidirectional_1 expects 12 weights, but the saved weights have 2 elements.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 696, in load_weights_from_hdf5_group
+    raise ValueError('Layer #' + str(k) + ' (named "' + layer.name +
+ValueError: Layer #2 (named "bidirectional_1" in the current model) was found to correspond to layer dense_1 in the save file. However the new layer bidirectional_1 expects 12 weights, but the saved weights have 2 elements.
+
+12.Jun 2020 21:11:36 predict module error
+cannot reshape array of size 784 into shape (28,)
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 261, in predict
+    point_forecast = point_forecast_original.reshape(point_forecast_original.shape[1])
+ValueError: cannot reshape array of size 784 into shape (28,)
+
+12.Jun 2020 21:35:18 correct forecasting process
+
+12.Jun 2020 21:47:32 correct forecasting process
+
+12.Jun 2020 22:14:09 correct forecasting process
+
+12.Jun 2020 22:39:22 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+12.Jun 2020 22:54:01 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+12.Jun 2020 23:04:18 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+12.Jun 2020 23:14:18 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+12.Jun 2020 23:24:15 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+12.Jun 2020 23:27:35 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+12.Jun 2020 23:41:48 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+12.Jun 2020 23:58:22 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 00:00:51 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 00:02:50 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 00:08:53 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 00:18:06 correct forecasting process
+
+13.Jun 2020 00:34:20 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 00:36:51 predict module error
+You are trying to load a weight file containing 5 layers into a model with 3 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 3 layers.
+
+13.Jun 2020 00:45:51 correct forecasting process
+
+13.Jun 2020 00:50:32 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 13:16:16 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 13:53:45 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 14:09:18 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 14:17:39 predict module error
+You are trying to load a weight file containing 5 layers into a model with 4 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 4 layers.
+
+13.Jun 2020 14:20:53 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.
+
+13.Jun 2020 14:24:18 predict module error
+You are trying to load a weight file containing 5 layers into a model with 2 layers.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 255, in predict
+    forecaster.load_weights(''.join([local_script_settings['models_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 250, in load_weights
+    return super(Model, self).load_weights(filepath, by_name, skip_mismatch)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\network.py", line 1261, in load_weights
+    hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\saving\hdf5_format.py", line 679, in load_weights_from_hdf5_group
+    raise ValueError('You are trying to load a weight file '
+ValueError: You are trying to load a weight file containing 5 layers into a model with 2 layers.

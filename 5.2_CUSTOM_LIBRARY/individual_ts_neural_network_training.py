@@ -1,5 +1,6 @@
 # train and forecast time_series one by one
 import os
+import sys
 import logging
 import logging.handlers as handlers
 import json
@@ -27,6 +28,10 @@ from sklearn.metrics import mean_squared_error
 with open('./settings.json') as local_json_file:
     local_submodule_settings = json.loads(local_json_file.read())
     local_json_file.close()
+
+# opening customized sub_modules
+sys.path.insert(1, local_submodule_settings['custom_library_path'])
+from mini_evaluator_submodule import mini_evaluator_submodule
 
 # log setup
 current_script_name = os.path.basename(__file__).split('.')[0]
@@ -88,7 +93,7 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
     # (change the zeros for the lesser value greater than zero row-wise)
     print('dealing with zeros....')
     for time_serie in range(local_nof_series):
-        row_with_control_of_zeros = cof_zeros(local_unit_sales[time_serie, :])
+        row_with_control_of_zeros = cof_zeros(local_unit_sales[time_serie, :], local_settings_arg)
         local_unit_sales[time_serie, :] = row_with_control_of_zeros
 
     # creating x_train and y_train arrays
@@ -189,11 +194,12 @@ def simple_normalization(local_array, local_max):
     return normalized_array
 
 
-def cof_zeros(array):
-    local_max = np.amax(array) + 1
-    array[array <= 0] = local_max
-    local_min = np.amin(array)
-    array[array == local_max] = local_min
+def cof_zeros(array, local_cof_settings):
+    if local_cof_settings['zeros_control'] == "True":
+        local_max = np.amax(array) + 1
+        array[array <= 0] = local_max
+        local_min = np.amin(array)
+        array[array == local_max] = local_min
     return array
 
 # classes definitions
@@ -220,14 +226,11 @@ class customized_loss(losses.Loss):
 
 class neural_network_time_serie_schema:
 
-    def train(self, local_settings, local_raw_unit_sales, local_model_hyperparameters, local_time_series_not_improved):
+    def train(self, local_settings, local_raw_unit_sales, local_model_hyperparameters, local_time_series_not_improved,
+              raw_unit_sales_ground_truth):
         try:
             # data normalization
             local_forecast_horizon_days = local_settings['forecast_horizon_days']
-            # local_raw_unit_sales_max = np.amax(local_raw_unit_sales[:, -2 * local_forecast_horizon_days:], axis=1)
-            # local_raw_unit_sales_max = local_raw_unit_sales_max.reshape(local_raw_unit_sales_max.shape[0], 1)
-            # local_raw_unit_sales = simple_normalization(local_raw_unit_sales, local_raw_unit_sales_max)
-            # obtaining x_train and y_train
             local_x_train, local_y_train = build_x_y_train_arrays(local_raw_unit_sales, local_settings,
                                                                   local_model_hyperparameters,
                                                                   local_time_series_not_improved)
@@ -295,36 +298,50 @@ class neural_network_time_serie_schema:
                                                   activity_regularizer=local_activation_regularizer))
                 local_base_model.add(layers.Dropout(rate=float(local_model_hyperparameters['dropout_layer_1'])))
             # second layer
-            local_base_model.add(layers.Bidirectional(layers.RNN(
-                PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
-                                 activation=local_model_hyperparameters['activation_2'],
-                                 activity_regularizer=local_activation_regularizer,
-                                 dropout=float(local_model_hyperparameters['dropout_layer_2'])),
-                return_sequences=False)))
-            local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+            if local_model_hyperparameters['units_layer_2']:
+                if local_model_hyperparameters['units_layer_1'] == 0:
+                    local_base_model.add(layers.Bidirectional(layers.RNN(
+                        PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
+                                         activation=local_model_hyperparameters['activation_2'],
+                                         input_shape=(local_time_steps_days,
+                                                      local_features_for_each_training),
+                                         activity_regularizer=local_activation_regularizer,
+                                         dropout=float(local_model_hyperparameters['dropout_layer_2'])),
+                        return_sequences=False)))
+                else:
+                    local_base_model.add(layers.Bidirectional(layers.RNN(
+                        PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
+                                         activation=local_model_hyperparameters['activation_2'],
+                                         activity_regularizer=local_activation_regularizer,
+                                         dropout=float(local_model_hyperparameters['dropout_layer_2'])),
+                        return_sequences=False)))
+                local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # third layer
             if local_model_hyperparameters['units_layer_3'] > 0:
                 local_base_model.add(layers.Dense(units=local_model_hyperparameters['units_layer_3'],
                                                   activation=local_model_hyperparameters['activation_3'],
                                                   activity_regularizer=local_activation_regularizer))
                 local_base_model.add(layers.Dropout(rate=float(local_model_hyperparameters['dropout_layer_3'])))
-            # fourth layer (DENSE)
-            local_base_model.add(layers.Bidirectional(layers.RNN(
-                PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_4'],
-                                 activation=local_model_hyperparameters['activation_4'],
-                                 activity_regularizer=local_activation_regularizer,
-                                 dropout=float(local_model_hyperparameters['dropout_layer_4'])),
-                return_sequences=False)))
-            # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+            # fourth layer
+            if local_model_hyperparameters['units_layer_4'] > 0:
+                local_base_model.add(layers.Bidirectional(layers.RNN(
+                    PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_4'],
+                                     activation=local_model_hyperparameters['activation_4'],
+                                     activity_regularizer=local_activation_regularizer,
+                                     dropout=float(local_model_hyperparameters['dropout_layer_4'])),
+                    return_sequences=False)))
+                # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # final layer
-            local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
+            if local_model_hyperparameters['units_layer_2'] == 0 and local_model_hyperparameters['units_layer_2'] == 0:
+                local_base_model.add(layers.Dense(units=1))
+            else:
+                local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
+            # build and compile model
+            local_base_model.build(input_shape=(1, local_time_steps_days, local_features_for_each_training))
             local_base_model.compile(optimizer=local_optimizer_function,
                                      loss=local_losses_list,
                                      metrics=local_metrics_list)
 
-            # save architecture, train models and predict (inside loop) storing weights
-            local_moving_window_length = local_settings['moving_window_input_length'] + \
-                                         local_settings['moving_window_output_length']
             # save model architecture (template for specific models)
             local_base_model.save(''.join([local_settings['models_path'],
                                            'generic_forecaster_template_individual_ts.h5']))
@@ -334,11 +351,20 @@ class neural_network_time_serie_schema:
                 json_file.write(local_base_model_json)
                 json_file.close()
             local_base_model.summary()
+
+            # training model
+            local_moving_window_length = local_settings['moving_window_input_length'] + \
+                                         local_settings['moving_window_output_length']
+            # all input data in the correct type
+            local_x_train = np.array(local_x_train, dtype=np.dtype('float32'))
+            local_y_train = np.array(local_y_train, dtype=np.dtype('float32'))
+            local_raw_unit_sales = np.array(local_raw_unit_sales, dtype=np.dtype('float32'))
+            # specific time_serie models training loop
             local_y_pred_list = []
-            local_time_series_not_improved = local_time_series_not_improved[2500: 7500]  # capping for test code
+            local_time_series_not_improved = local_time_series_not_improved[14: 15]  # capping for test code
             for time_serie in local_time_series_not_improved:
                 # ----------------------key_point---------------------------------------------------------------------
-                # take note that each loop the weights and states of previous training are conserved
+                # take note that each loop the weights and internal last states of previous training are conserved
                 # that's probably save times and (in aggregated or ordered) connected time series will improve results
                 # ----------------------key_point---------------------------------------------------------------------
                 print('training time_serie:', time_serie)
@@ -346,21 +372,29 @@ class neural_network_time_serie_schema:
                                    local_y_train[:, time_serie: time_serie + 1, :]
                 local_x = local_x.reshape(local_x.shape[0], local_x.shape[2], 1)
                 local_y = local_y.reshape(local_y.shape[0], local_y.shape[2], 1)
+                # training, saving model and storing forecasts
                 local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
                                      workers=local_workers, callbacks=local_callbacks, shuffle=False)
                 local_base_model.save_weights(''.join([local_settings['models_path'],
-                                                       '/weights_zero_removed/_individual_ts_',
+                                                       '/weights_last_year/_individual_ts_',
                                                        str(time_serie), '_model_weights_.h5']))
                 local_x_input = local_raw_unit_sales[time_serie: time_serie + 1, -local_forecast_horizon_days:]
-                local_x_input = cof_zeros(local_x_input)
+                local_x_input = cof_zeros(local_x_input, local_settings)
                 local_x_input = local_x_input.reshape(1, local_x_input.shape[1], 1)
                 print('x_input shape:', local_x_input.shape)
                 local_y_pred = local_base_model.predict(local_x_input)
                 print('x_input:\n', local_x_input)
                 print('y_pred shape:', local_y_pred.shape)
                 local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
-                local_y_pred = cof_zeros(local_y_pred)
-                print('ts:', time_serie)
+                local_y_pred = cof_zeros(local_y_pred, local_settings)
+                if local_settings['mini_ts_evaluator'] == "True" and \
+                        local_settings['competition_stage'] != 'submitting_after_June_1th_using_1941days':
+                    mini_evaluator = mini_evaluator_submodule()
+                    evaluation = mini_evaluator.evaluate_ts_forecast(
+                            raw_unit_sales_ground_truth[time_serie, -local_forecast_horizon_days:], local_y_pred)
+                    print('ts:', time_serie, ' mse:', evaluation)
+                else:
+                    print('ts:', time_serie)
                 print(local_y_pred)
                 local_y_pred_list.append(local_y_pred)
             local_point_forecast_array = np.array(local_y_pred_list)
