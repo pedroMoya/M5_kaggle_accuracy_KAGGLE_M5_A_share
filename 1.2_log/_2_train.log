@@ -25623,3 +25623,174 @@ NameError: name 'neural_network_time_serie_schema' is not defined
 13.Jun 2020 18:48:39 correct model training, correct saving of model and weights
 
 13.Jun 2020 18:48:39 settings modified and saved
+
+13.Jun 2020 18:53:11 correct model training, correct saving of model and weights
+
+13.Jun 2020 18:53:11 settings modified and saved
+
+13.Jun 2020 19:01:46 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:01:46 settings modified and saved
+
+13.Jun 2020 19:06:00 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:06:00 settings modified and saved
+
+13.Jun 2020 19:09:09 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:09:09 settings modified and saved
+
+13.Jun 2020 19:11:47 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:11:47 settings modified and saved
+
+13.Jun 2020 19:13:58 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:13:58 settings modified and saved
+
+13.Jun 2020 19:15:55 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:15:55 settings modified and saved
+
+13.Jun 2020 19:30:36 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:30:36 settings modified and saved
+
+13.Jun 2020 19:33:23 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:33:23 settings modified and saved
+
+13.Jun 2020 19:37:22 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:37:22 settings modified and saved
+
+13.Jun 2020 19:39:54 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:39:54 settings modified and saved
+
+13.Jun 2020 19:55:03 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:55:03 settings modified and saved
+
+13.Jun 2020 19:58:02 correct model training, correct saving of model and weights
+
+13.Jun 2020 19:58:02 settings modified and saved
+
+13.Jun 2020 21:51:59 correct model training, correct saving of model and weights
+
+13.Jun 2020 21:51:59 settings modified and saved
+
+13.Jun 2020 22:19:05 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:19:05 settings modified and saved
+
+13.Jun 2020 22:22:37 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:22:37 settings modified and saved
+
+13.Jun 2020 22:26:18 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:26:18 settings modified and saved
+
+13.Jun 2020 22:28:13 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:28:13 settings modified and saved
+
+13.Jun 2020 22:30:47 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:30:47 settings modified and saved
+
+13.Jun 2020 22:37:17 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:37:17 settings modified and saved
+
+13.Jun 2020 22:43:57 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:43:57 settings modified and saved
+
+13.Jun 2020 22:50:31 correct model training, correct saving of model and weights
+
+13.Jun 2020 22:50:31 settings modified and saved
+
+13.Jun 2020 23:08:33 correct model training, correct saving of model and weights
+
+13.Jun 2020 23:08:33 settings modified and saved
+
+13.Jun 2020 23:16:56 correct model training, correct saving of model and weights
+
+13.Jun 2020 23:16:56 settings modified and saved
+
+13.Jun 2020 23:27:39 correct model training, correct saving of model and weights
+
+13.Jun 2020 23:27:39 settings modified and saved
+
+13.Jun 2020 23:46:18 correct model training, correct saving of model and weights
+
+13.Jun 2020 23:46:18 settings modified and saved
+
+13.Jun 2020 23:52:02 correct model training, correct saving of model and weights
+
+13.Jun 2020 23:52:02 settings modified and saved
+
+14.Jun 2020 00:00:15 correct model training, correct saving of model and weights
+
+14.Jun 2020 00:00:15 settings modified and saved
+
+14.Jun 2020 00:18:55 correct model training, correct saving of model and weights
+
+14.Jun 2020 00:18:55 settings modified and saved
+
+14.Jun 2020 00:27:55 correct model training, correct saving of model and weights
+
+14.Jun 2020 00:27:55 settings modified and saved
+
+14.Jun 2020 00:41:04 correct model training, correct saving of model and weights
+
+14.Jun 2020 00:41:04 settings modified and saved
+
+14.Jun 2020 00:47:49 model training error
+name 'difference_trends_insight' is not defined
+Traceback (most recent call last):
+  File ".\_2_train.py", line 223, in train
+    diff_modeler = difference_trends_insight()
+NameError: name 'difference_trends_insight' is not defined
+
+14.Jun 2020 01:12:56 correct model training, correct saving of model and weights
+
+14.Jun 2020 01:12:56 settings modified and saved
+
+14.Jun 2020 01:21:04 correct model training, correct saving of model and weights
+
+14.Jun 2020 01:21:04 settings modified and saved
+
+14.Jun 2020 01:52:43 correct model training, correct saving of model and weights
+
+14.Jun 2020 01:52:43 settings modified and saved
+
+14.Jun 2020 01:55:51 correct model training, correct saving of model and weights
+
+14.Jun 2020 01:55:51 settings modified and saved
+
+14.Jun 2020 02:00:15 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:00:15 settings modified and saved
+
+14.Jun 2020 02:04:26 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:04:26 settings modified and saved
+
+14.Jun 2020 02:14:54 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:14:54 settings modified and saved
+
+14.Jun 2020 02:29:52 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:29:52 settings modified and saved
+
+14.Jun 2020 02:36:57 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:36:57 settings modified and saved
+
+14.Jun 2020 02:49:26 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:49:26 settings modified and saved

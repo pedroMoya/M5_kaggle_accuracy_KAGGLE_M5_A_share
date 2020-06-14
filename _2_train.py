@@ -34,6 +34,7 @@ try:
     from metaheuristic_module import tuning_metaheuristic
     from organic_in_block_stochastic_simulation_module import organic_in_block_estochastic_simulation
     from first_model_obtain_results import stochastic_simulation_results_analysis
+    from diff_trend_time_serie_module import difference_trends_insight
     from individual_ts_neural_network_training import neural_network_time_serie_schema
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
@@ -217,8 +218,38 @@ def train():
             raw_unit_sales_ground_truth)
 
         # _______________________SECOND_MODEL_____________________________
+        # applying second diff-oriented stochastic simulation to high_loss time_series
+        print('second model (difference-oriented trends stochastic simulation)')
+        diff_modeler = difference_trends_insight()
+        second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
+        if second_model_forecast != "error":
+            print('correct training of diff-oriented stochastic simulation')
+            print(second_model_forecast.shape)
+            first_two_models_results_consolidate = first_model_results
+            first_two_models_results_consolidate[time_series_not_improved, :] = \
+                second_model_forecast[time_series_not_improved, :]
+            np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
+                       first_two_models_results_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
+            # second model results, necessary here because time_series_not_improved is input to second model
+        #     second_model_results = diff_trends_stochastic_simulation_results_analysis()
+        #     first_model_not_improved_ts = len(time_series_not_improved)
+        #     time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
+        #         local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+        #         raw_unit_sales_ground_truth)
+        #     second_model_not_improved_ts = len(time_series_not_improved)
+        #     print('first model time_series not improved:', first_model_not_improved_ts)
+        #     print('second model time_series not improved:', second_model_not_improved_ts)
+        #     if first_model_not_improved_ts > second_model_not_improved_ts:
+        #         print('applying second model, the results improve in ',
+        #               first_model_not_improved_ts - second_model_not_improved_ts, ' time_series')
+        #     else:
+        #         print('it is not observed an improvement applying the second model')
+        # else:
+        #     print('an error occurs at executing second model training')
+
+        # _______________________THIRD_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
-        print('running second model (neural_network)')
+        print('running third model (neural_network)')
         neural_network_ts_schema_training = neural_network_time_serie_schema()
         training_nn_review = neural_network_ts_schema_training.train(local_script_settings,
                                                                      raw_unit_sales, model_hyperparameters,

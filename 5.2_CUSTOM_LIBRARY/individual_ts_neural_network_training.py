@@ -330,18 +330,10 @@ class neural_network_time_serie_schema:
                 local_base_model.add(layers.Dropout(rate=float(local_model_hyperparameters['dropout_layer_3'])))
             # fourth layer
             if local_model_hyperparameters['units_layer_4'] > 0:
-                local_base_model.add(layers.Bidirectional(layers.RNN(
+                local_base_model.add(layers.RNN(
                     PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_4'],
                                      activation=local_model_hyperparameters['activation_4'],
-                                     activity_regularizer=local_activation_regularizer,
-                                     dropout=float(local_model_hyperparameters['dropout_layer_4'])),
-                    return_sequences=False)))
-                # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
-            # final layer
-            # if local_model_hyperparameters['units_layer_4'] == 0:
-            #     local_base_model.add(layers.Dense(units=1))
-            # else:
-            #     local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
+                                     dropout=float(local_model_hyperparameters['dropout_layer_4']))))
             local_base_model.add(layers.Dense(units=local_forecast_horizon_days))
 
             # build and compile model
