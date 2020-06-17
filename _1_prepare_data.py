@@ -205,7 +205,7 @@ def prepare():
                                                        group2_price_x_sale_quantile_threshold)
             group1, group2, group3, time_serie_group = [[] for groups in range(nof_groups + 1)]
             index_in_group1, index_in_group2, index_in_group3 = [0] * nof_groups
-            list_of_index_group1, list_of_index_group2, list_of_index_group3 = [[]] * nof_groups
+            list_of_index_group1, list_of_index_group2, list_of_index_group3 = [], [], []
             for time_serie in range(nof_time_series):
                 time_serie_array = raw_unit_sales[time_serie, :]
                 nof_zeros = max_selling_time - np.count_nonzero(time_serie_array)

@@ -1,7 +1,7 @@
 {
   "current_model_name": "difference_trends based time_serie model",
   "comment": "seeking for patterns in neighbor data values differences",
-  "block_length": 7,
+  "block_length": 56,
   "nof_iterations": 50,
   "key": "value"
 }

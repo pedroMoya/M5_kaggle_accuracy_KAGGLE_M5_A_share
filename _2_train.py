@@ -222,14 +222,17 @@ def train():
         print('second model (difference-oriented trends stochastic simulation)')
         diff_modeler = difference_trends_insight()
         second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
-        if second_model_forecast != "error":
+        if isinstance(second_model_forecast, np.ndarray):
             print('correct training of diff-oriented stochastic simulation')
             print(second_model_forecast.shape)
-            first_two_models_results_consolidate = first_model_results
-            first_two_models_results_consolidate[time_series_not_improved, :] = \
+            first_model_forecasts = np.load(''.join([local_settings['train_data_path'],
+                                                     'stochastic_simulation_forecasts.npy']))
+            first_two_models_forecasts_consolidate = first_model_forecasts
+            print(first_two_models_forecasts_consolidate.shape, type(first_two_models_forecasts_consolidate))
+            first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
                 second_model_forecast[time_series_not_improved, :]
             np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
-                       first_two_models_results_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
+                       first_two_models_forecasts_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
             # second model results, necessary here because time_series_not_improved is input to second model
         #     second_model_results = diff_trends_stochastic_simulation_results_analysis()
         #     first_model_not_improved_ts = len(time_series_not_improved)
@@ -245,7 +248,7 @@ def train():
         #     else:
         #         print('it is not observed an improvement applying the second model')
         # else:
-        #     print('an error occurs at executing second model training')
+        #     print('an error occurs at executing first and second (non-neural_network model training')
 
         # _______________________THIRD_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN

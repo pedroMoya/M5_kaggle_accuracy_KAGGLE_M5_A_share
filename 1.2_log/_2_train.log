@@ -25794,3 +25794,426 @@ NameError: name 'difference_trends_insight' is not defined
 14.Jun 2020 02:49:26 correct model training, correct saving of model and weights
 
 14.Jun 2020 02:49:26 settings modified and saved
+
+14.Jun 2020 02:54:20 correct model training, correct saving of model and weights
+
+14.Jun 2020 02:54:20 settings modified and saved
+
+14.Jun 2020 03:02:43 correct model training, correct saving of model and weights
+
+14.Jun 2020 03:02:43 settings modified and saved
+
+14.Jun 2020 03:08:20 correct model training, correct saving of model and weights
+
+14.Jun 2020 03:08:20 settings modified and saved
+
+14.Jun 2020 03:13:36 correct model training, correct saving of model and weights
+
+14.Jun 2020 03:13:36 settings modified and saved
+
+14.Jun 2020 03:19:57 correct model training, correct saving of model and weights
+
+14.Jun 2020 03:19:57 settings modified and saved
+
+14.Jun 2020 03:36:36 correct model training, correct saving of model and weights
+
+14.Jun 2020 03:36:36 settings modified and saved
+
+14.Jun 2020 10:45:24 correct model training, correct saving of model and weights
+
+14.Jun 2020 10:45:24 settings modified and saved
+
+14.Jun 2020 10:51:27 correct model training, correct saving of model and weights
+
+14.Jun 2020 10:51:27 settings modified and saved
+
+14.Jun 2020 11:15:53 correct model training, correct saving of model and weights
+
+14.Jun 2020 11:15:53 settings modified and saved
+
+14.Jun 2020 12:07:03 correct model training, correct saving of model and weights
+
+14.Jun 2020 12:07:03 settings modified and saved
+
+14.Jun 2020 12:13:09 correct model training, correct saving of model and weights
+
+14.Jun 2020 12:13:09 settings modified and saved
+
+14.Jun 2020 12:23:10 correct model training, correct saving of model and weights
+
+14.Jun 2020 12:23:10 settings modified and saved
+
+14.Jun 2020 12:31:33 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 12:43:54 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 12:48:21 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 12:55:57 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 13:05:20 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 13:16:50 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 13:30:47 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 13:41:54 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 13:52:12 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 16:16:18 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 16:28:04 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 16:50:25 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 17:11:54 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 19:31:25 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 20:27:48 correct model training, correct saving of model and weights
+
+14.Jun 2020 20:27:48 settings modified and saved
+
+14.Jun 2020 20:57:30 correct model training, correct saving of model and weights
+
+14.Jun 2020 20:57:30 settings modified and saved
+
+14.Jun 2020 21:23:25 correct model training, correct saving of model and weights
+
+14.Jun 2020 21:23:25 settings modified and saved
+
+14.Jun 2020 21:45:15 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 21:51:54 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 22:10:36 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 22:14:44 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+14.Jun 2020 22:45:26 correct model training, correct saving of model and weights
+
+14.Jun 2020 22:45:26 settings modified and saved
+
+14.Jun 2020 23:31:27 correct model training, correct saving of model and weights
+
+14.Jun 2020 23:31:27 settings modified and saved
+
+14.Jun 2020 23:48:11 correct model training, correct saving of model and weights
+
+14.Jun 2020 23:48:11 settings modified and saved
+
+14.Jun 2020 23:55:31 correct model training, correct saving of model and weights
+
+14.Jun 2020 23:55:31 settings modified and saved
+
+14.Jun 2020 23:59:50 correct model training, correct saving of model and weights
+
+14.Jun 2020 23:59:50 settings modified and saved
+
+15.Jun 2020 00:05:10 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:05:10 settings modified and saved
+
+15.Jun 2020 00:15:14 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:15:14 settings modified and saved
+
+15.Jun 2020 00:21:13 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:21:13 settings modified and saved
+
+15.Jun 2020 00:25:42 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:25:42 settings modified and saved
+
+15.Jun 2020 00:32:25 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:32:25 settings modified and saved
+
+15.Jun 2020 00:49:01 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:49:01 settings modified and saved
+
+15.Jun 2020 00:58:16 correct model training, correct saving of model and weights
+
+15.Jun 2020 00:58:16 settings modified and saved
+
+15.Jun 2020 01:03:04 correct model training, correct saving of model and weights
+
+15.Jun 2020 01:03:04 settings modified and saved
+
+15.Jun 2020 07:18:35 correct model training, correct saving of model and weights
+
+15.Jun 2020 07:18:35 settings modified and saved
+
+15.Jun 2020 07:36:24 correct model training, correct saving of model and weights
+
+15.Jun 2020 07:36:24 settings modified and saved
+
+15.Jun 2020 07:46:59 correct model training, correct saving of model and weights
+
+15.Jun 2020 07:46:59 settings modified and saved
+
+15.Jun 2020 14:35:09 correct model training, correct saving of model and weights
+
+15.Jun 2020 14:35:09 settings modified and saved
+
+15.Jun 2020 16:28:39 correct model training, correct saving of model and weights
+
+15.Jun 2020 16:28:39 settings modified and saved
+
+15.Jun 2020 16:38:49 correct model training, correct saving of model and weights
+
+15.Jun 2020 16:38:49 settings modified and saved
+
+15.Jun 2020 16:53:07 correct model training, correct saving of model and weights
+
+15.Jun 2020 16:53:07 settings modified and saved
+
+15.Jun 2020 16:57:38 correct model training, correct saving of model and weights
+
+15.Jun 2020 16:57:38 settings modified and saved
+
+15.Jun 2020 17:06:55 correct model training, correct saving of model and weights
+
+15.Jun 2020 17:06:55 settings modified and saved
+
+15.Jun 2020 18:53:43 correct model training, correct saving of model and weights
+
+15.Jun 2020 18:53:43 settings modified and saved
+
+15.Jun 2020 19:07:26 correct model training, correct saving of model and weights
+
+15.Jun 2020 19:07:26 settings modified and saved
+
+15.Jun 2020 19:41:44 correct model training, correct saving of model and weights
+
+15.Jun 2020 19:41:44 settings modified and saved
+
+15.Jun 2020 20:12:27 correct model training, correct saving of model and weights
+
+15.Jun 2020 20:12:27 settings modified and saved
+
+15.Jun 2020 20:32:22 correct model training, correct saving of model and weights
+
+15.Jun 2020 20:32:22 settings modified and saved
+
+15.Jun 2020 20:39:38 correct model training, correct saving of model and weights
+
+15.Jun 2020 20:39:38 settings modified and saved
+
+15.Jun 2020 20:43:06 correct model training, correct saving of model and weights
+
+15.Jun 2020 20:43:06 settings modified and saved
+
+15.Jun 2020 20:48:50 correct model training, correct saving of model and weights
+
+15.Jun 2020 20:48:50 settings modified and saved
+
+15.Jun 2020 21:34:15 correct model training, correct saving of model and weights
+
+15.Jun 2020 21:34:15 settings modified and saved
+
+15.Jun 2020 21:43:26 correct model training, correct saving of model and weights
+
+15.Jun 2020 21:43:26 settings modified and saved
+
+15.Jun 2020 21:49:37 correct model training, correct saving of model and weights
+
+15.Jun 2020 21:49:37 settings modified and saved
+
+15.Jun 2020 22:04:54 correct model training, correct saving of model and weights
+
+15.Jun 2020 22:04:54 settings modified and saved
+
+15.Jun 2020 22:21:31 correct model training, correct saving of model and weights
+
+15.Jun 2020 22:21:31 settings modified and saved
+
+15.Jun 2020 22:31:27 correct model training, correct saving of model and weights
+
+15.Jun 2020 22:31:27 settings modified and saved
+
+15.Jun 2020 22:39:41 correct model training, correct saving of model and weights
+
+15.Jun 2020 22:39:41 settings modified and saved
+
+15.Jun 2020 22:44:17 correct model training, correct saving of model and weights
+
+15.Jun 2020 22:44:17 settings modified and saved
+
+15.Jun 2020 22:58:14 correct model training, correct saving of model and weights
+
+15.Jun 2020 22:58:14 settings modified and saved
+
+15.Jun 2020 23:00:39 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:00:39 settings modified and saved
+
+15.Jun 2020 23:07:38 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:07:38 settings modified and saved
+
+15.Jun 2020 23:10:29 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:10:29 settings modified and saved
+
+15.Jun 2020 23:13:23 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:13:23 settings modified and saved
+
+15.Jun 2020 23:21:51 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:21:51 settings modified and saved
+
+15.Jun 2020 23:34:47 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:34:47 settings modified and saved
+
+15.Jun 2020 23:48:56 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:48:56 settings modified and saved
+
+15.Jun 2020 23:53:58 correct model training, correct saving of model and weights
+
+15.Jun 2020 23:53:58 settings modified and saved
+
+16.Jun 2020 08:46:37 correct model training, correct saving of model and weights
+
+16.Jun 2020 08:46:37 settings modified and saved
+
+16.Jun 2020 08:52:20 correct model training, correct saving of model and weights
+
+16.Jun 2020 08:52:20 settings modified and saved
+
+16.Jun 2020 17:12:57 correct model training, correct saving of model and weights
+
+16.Jun 2020 17:12:57 settings modified and saved
+
+16.Jun 2020 17:41:11 correct model training, correct saving of model and weights
+
+16.Jun 2020 17:41:11 settings modified and saved
+
+16.Jun 2020 17:46:56 correct model training, correct saving of model and weights
+
+16.Jun 2020 17:46:56 settings modified and saved
+
+16.Jun 2020 17:56:37 correct model training, correct saving of model and weights
+
+16.Jun 2020 17:56:37 settings modified and saved
+
+16.Jun 2020 19:52:29 model training error
+'stochastic_simulation_results_analysis' object does not support item assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    first_two_models_results_consolidate[time_series_not_improved, :] = \
+TypeError: 'stochastic_simulation_results_analysis' object does not support item assignment
+
+16.Jun 2020 20:37:25 model training error
+'stochastic_simulation_results_analysis' object has no attribute 'shape'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 229, in train
+    print(first_two_models_results_consolidate.shape, type(first_two_models_results_consolidate))
+AttributeError: 'stochastic_simulation_results_analysis' object has no attribute 'shape'
+
+16.Jun 2020 20:41:13 model training error
+'stochastic_simulation_results_analysis' object has no attribute 'shape'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 230, in train
+    print(first_two_models_results_consolidate.shape, type(first_two_models_results_consolidate))
+AttributeError: 'stochastic_simulation_results_analysis' object has no attribute 'shape'
+
+16.Jun 2020 20:57:32 correct model training, correct saving of model and weights
+
+16.Jun 2020 20:57:32 settings modified and saved

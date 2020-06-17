@@ -288,7 +288,7 @@ class in_block_high_loss_ts_forecast:
                     enhance_last_stride = local_settings['enhance_last_stride']
                     last_elements = []
                     length_x_y_train = len(x_train)
-                    x_train_enhanced, y_train_enhanced = [[]] * 2
+                    x_train_enhanced, y_train_enhanced = [], []
                     enhance_iterator = 1
                     for position in range(length_x_y_train - enhance_last_stride, length_x_y_train, -1):
                         [x_train_enhanced.append(x_train[position]) for enhance in range(1, 3 * (enhance_iterator + 1))]
