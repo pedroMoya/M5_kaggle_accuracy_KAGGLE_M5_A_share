@@ -26217,3 +26217,244 @@ AttributeError: 'stochastic_simulation_results_analysis' object has no attribute
 16.Jun 2020 20:57:32 correct model training, correct saving of model and weights
 
 16.Jun 2020 20:57:32 settings modified and saved
+
+16.Jun 2020 21:31:20 correct model training, correct saving of model and weights
+
+16.Jun 2020 21:31:20 settings modified and saved
+
+16.Jun 2020 21:46:58 correct model training, correct saving of model and weights
+
+16.Jun 2020 21:46:58 settings modified and saved
+
+17.Jun 2020 06:52:11 correct model training, correct saving of model and weights
+
+17.Jun 2020 06:52:11 settings modified and saved
+
+17.Jun 2020 07:01:16 correct model training, correct saving of model and weights
+
+17.Jun 2020 07:01:16 settings modified and saved
+
+17.Jun 2020 15:07:46 correct model training, correct saving of model and weights
+
+17.Jun 2020 15:07:46 settings modified and saved
+
+17.Jun 2020 15:35:49 correct model training, correct saving of model and weights
+
+17.Jun 2020 15:35:49 settings modified and saved
+
+17.Jun 2020 16:34:21 correct model training, correct saving of model and weights
+
+17.Jun 2020 16:34:21 settings modified and saved
+
+17.Jun 2020 16:46:49 correct model training, correct saving of model and weights
+
+17.Jun 2020 16:46:49 settings modified and saved
+
+17.Jun 2020 16:59:59 correct model training, correct saving of model and weights
+
+17.Jun 2020 16:59:59 settings modified and saved
+
+17.Jun 2020 17:09:03 correct model training, correct saving of model and weights
+
+17.Jun 2020 17:09:03 settings modified and saved
+
+17.Jun 2020 17:18:53 correct model training, correct saving of model and weights
+
+17.Jun 2020 17:18:53 settings modified and saved
+
+17.Jun 2020 19:03:03 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:03:03 settings modified and saved
+
+17.Jun 2020 19:12:15 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:12:15 settings modified and saved
+
+17.Jun 2020 19:15:44 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:15:44 settings modified and saved
+
+17.Jun 2020 19:18:52 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:18:52 settings modified and saved
+
+17.Jun 2020 19:44:40 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:44:40 settings modified and saved
+
+17.Jun 2020 19:50:19 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:50:19 settings modified and saved
+
+17.Jun 2020 19:53:42 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:53:42 settings modified and saved
+
+17.Jun 2020 19:56:36 correct model training, correct saving of model and weights
+
+17.Jun 2020 19:56:36 settings modified and saved
+
+17.Jun 2020 20:06:59 correct model training, correct saving of model and weights
+
+17.Jun 2020 20:06:59 settings modified and saved
+
+17.Jun 2020 20:23:21 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 233, in train
+    second_model_forecast[time_series_not_improved, :]
+IndexError: too many indices for array
+
+17.Jun 2020 20:32:03 correct model training, correct saving of model and weights
+
+17.Jun 2020 20:32:03 settings modified and saved
+
+17.Jun 2020 20:38:55 correct model training, correct saving of model and weights
+
+17.Jun 2020 20:38:55 settings modified and saved
+
+17.Jun 2020 20:53:25 correct model training, correct saving of model and weights
+
+17.Jun 2020 20:53:25 settings modified and saved
+
+17.Jun 2020 21:12:49 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 233, in train
+    second_model_forecast[time_series_not_improved, :]
+IndexError: too many indices for array
+
+17.Jun 2020 21:22:34 correct model training, correct saving of model and weights
+
+17.Jun 2020 21:22:34 settings modified and saved
+
+17.Jun 2020 21:32:27 correct model training, correct saving of model and weights
+
+17.Jun 2020 21:32:27 settings modified and saved
+
+17.Jun 2020 21:37:01 correct model training, correct saving of model and weights
+
+17.Jun 2020 21:37:01 settings modified and saved
+
+17.Jun 2020 21:42:30 correct model training, correct saving of model and weights
+
+17.Jun 2020 21:42:30 settings modified and saved
+
+17.Jun 2020 21:52:28 correct model training, correct saving of model and weights
+
+17.Jun 2020 21:52:28 settings modified and saved
+
+17.Jun 2020 22:36:38 correct model training, correct saving of model and weights
+
+17.Jun 2020 22:36:38 settings modified and saved
+
+17.Jun 2020 22:58:57 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 254, in train
+    combination_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+17.Jun 2020 23:08:49 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 256, in train
+    combination_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+17.Jun 2020 23:15:55 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 240, in train
+    second_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+18.Jun 2020 07:41:25 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 240, in train
+    second_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+18.Jun 2020 08:15:27 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 258, in train
+    combination_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+18.Jun 2020 08:52:08 correct model training, correct saving of model and weights
+
+18.Jun 2020 08:52:08 settings modified and saved
+
+18.Jun 2020 08:57:35 correct model training, correct saving of model and weights
+
+18.Jun 2020 08:57:35 settings modified and saved
+
+18.Jun 2020 09:12:55 correct model training, correct saving of model and weights
+
+18.Jun 2020 09:12:55 settings modified and saved
+
+18.Jun 2020 09:17:25 correct model training, correct saving of model and weights
+
+18.Jun 2020 09:17:25 settings modified and saved
+
+18.Jun 2020 09:20:58 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 258, in train
+    combination_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+18.Jun 2020 09:24:57 correct model training, correct saving of model and weights
+
+18.Jun 2020 09:24:57 settings modified and saved
+
+18.Jun 2020 09:36:06 correct model training, correct saving of model and weights
+
+18.Jun 2020 09:36:06 settings modified and saved
+
+18.Jun 2020 09:54:10 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 224, in train
+    second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
+  File "./5.2_CUSTOM_LIBRARY\diff_trend_time_serie_module.py", line 190, in run_diff_trends_ts_analyser
+    forecast_data_frame[1:, 1:] = new_forecast
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 10:03:47 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 224, in train
+    second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
+  File "./5.2_CUSTOM_LIBRARY\diff_trend_time_serie_module.py", line 190, in run_diff_trends_ts_analyser
+    forecast_data_frame[1:, 1:] = new_forecast
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 11:08:40 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 225, in train
+    second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
+  File "./5.2_CUSTOM_LIBRARY\diff_trend_time_serie_module.py", line 194, in run_diff_trends_ts_analyser
+    forecast_data_frame[1:, 1:] = new_forecast
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 11:10:46 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 225, in train
+    second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
+  File "./5.2_CUSTOM_LIBRARY\diff_trend_time_serie_module.py", line 194, in run_diff_trends_ts_analyser
+    forecast_data_frame[1:, 1:] = new_forecast
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 11:19:32 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 225, in train
+    second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
+  File "./5.2_CUSTOM_LIBRARY\diff_trend_time_serie_module.py", line 194, in run_diff_trends_ts_analyser
+    forecast_data_frame[1:, 1:] = new_forecast
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)

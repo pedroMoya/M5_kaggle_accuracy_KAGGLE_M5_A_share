@@ -1,5 +1,6 @@
 # stochastic simulation of difference-trends in time_series module
 import os
+import sys
 import logging
 import logging.handlers as handlers
 import json
@@ -23,6 +24,10 @@ logger = logging.getLogger(__name__)
 logHandler = handlers.RotatingFileHandler(log_path_filename, maxBytes=10485760, backupCount=5)
 logger.addHandler(logHandler)
 
+# load custom libraries
+sys.path.insert(1, local_submodule_settings['custom_library_path'])
+from mini_module_submission_generator import save_submission
+
 # set random seed for reproducibility --> done in _2_train.py module
 np.random.seed(42)
 tf.random.set_seed(42)
@@ -36,10 +41,15 @@ def next_diff_coefficients(local_diffs_array, local_block_length, local_diff_tre
     # ---------------kernel----------------------------------
     nof_iterations = local_diff_trends_hyperparameters['nof_iterations']
     local_diffs_array = local_diffs_array[:, -local_block_length:]
-    print('local_diffs_array:\n', local_diffs_array)
     local_nof_ts = local_diffs_array.shape[0]
     random_occurrences_array = []
     random_event = np.zeros(shape=local_diffs_array.shape, dtype=np.dtype('float32'))
+
+    # calculating probabilities
+    prob_occurrence_augment = np.array([[np.divide((local_diffs_array > 0).sum(axis=1), local_block_length)]
+                                        * local_block_length]).reshape(local_nof_ts, local_block_length)
+    prob_occurrence_decrease = np.array([[np.divide((local_diffs_array < 0).sum(axis=1), local_block_length)]
+                                         * local_block_length]).reshape(local_nof_ts, local_block_length)
 
     # median of diff>0 and diff<0
     median_array_pos, median_array_neg = [], []
@@ -55,76 +65,65 @@ def next_diff_coefficients(local_diffs_array, local_block_length, local_diff_tre
         else:
             median_array_neg.append(0.)
     median_array_pos, median_array_neg = np.array(median_array_pos), np.array(median_array_neg)
+    median_array_neg.reshape(median_array_neg.shape[0])
+    median_array_pos.reshape(median_array_pos.shape[0])
+    random_occurrences_array = np.zeros(shape=(nof_iterations, local_nof_ts, local_block_length),
+                                        dtype=np.dtype('float32'))
 
     # runs along time_series
+    print('starting iterations in diff_trends stochastic simulation, nof iteration:', nof_iterations)
     for iteration in range(nof_iterations):
-        # generating random triggers
-        random_occurrence_trigger_augment = np.random.rand(local_nof_ts, local_block_length)
-        random_occurrence_trigger_decrease = np.random.rand(local_nof_ts, local_block_length)
-        random_occurrence_trigger_no_change = np.random.rand(local_nof_ts, local_block_length)
-
-        # normalization
-        random_occurrence_trigger_total = np.add(random_occurrence_trigger_augment, random_occurrence_trigger_decrease)
-        random_occurrence_trigger_total = np.add(random_occurrence_trigger_total, random_occurrence_trigger_no_change)
-        random_occurrence_trigger_augment = np.divide(random_occurrence_trigger_augment,
-                                                      random_occurrence_trigger_total)
-        random_occurrence_trigger_decrease = np.divide(random_occurrence_trigger_decrease,
-                                                       random_occurrence_trigger_total)
-        # random_occurrence_trigger_no_change = np.divide(random_occurrence_trigger_no_change,
-        #                                                 random_occurrence_trigger_total)
-
-        # calculating probabilities
-        prob_occurrence_augment = np.array([[np.divide((local_diffs_array > 0).sum(axis=1), local_block_length)]
-                                           * local_block_length]).reshape(local_nof_ts, local_block_length)
-        prob_occurrence_decrease = np.array([[np.divide((local_diffs_array < 0).sum(axis=1), local_block_length)]
-                                             * local_block_length]).reshape(local_nof_ts, local_block_length)
-        # prob_occurrence_no_change = np.array([[np.divide((local_diffs_array == 0).sum(axis=1),
-        #                                                  local_block_length)] *
-        #                                       local_block_length]).reshape(local_nof_ts, local_block_length)
-
-        # stochastic event realization
-        print('starting stochastic simulation of iteration n°:', iteration)
-        # by now, simply
-        # the order in assigns indicates the hierarchy, first lines lower hierarchies, last lines upper hierarchies
-        # using a zeros array as base, low the compute load (the _no_change_ comments lines above an here below)
-        # random_event[local_time_serie, random_occurrence_trigger_no_change[local_time_serie, :] >
-        #              prob_occurrence_no_change[local_time_serie, :]] = 0
-        # in this particular scenario, have tested mean an median, with better results (lower MSE) with median
-        median_array_neg.reshape(median_array_neg.shape[0])
-        median_array_pos.reshape(median_array_pos.shape[0])
         for local_time_serie in range(local_nof_ts):
-            random_event[local_time_serie, random_occurrence_trigger_decrease[local_time_serie, :] >
-                         prob_occurrence_decrease[local_time_serie, :]] =\
+            # by now, simply
+            # the order in assigns indicates the hierarchy, first lines lower hierarchies, last lines upper hierarchies
+            # using a zeros array as base, low the compute load (the _no_change_ comments lines above an here below)
+            # random_event[local_time_serie, random_occurrence_trigger_no_change[local_time_serie, :] >
+            #              prob_occurrence_no_change[local_time_serie, :]] = 0
+            # in this particular scenario, have tested mean an median, with better results (lower MSE) with median
+            # generating random triggers
+            random_occurrence_trigger_augment = np.random.rand(1, local_block_length)
+            random_occurrence_trigger_decrease = np.random.rand(1, local_block_length)
+            random_occurrence_trigger_no_change = np.random.rand(1, local_block_length)
+            # normalization
+            random_occurrence_trigger_total = np.add(random_occurrence_trigger_augment,
+                                                     random_occurrence_trigger_decrease)
+            random_occurrence_trigger_total = np.add(random_occurrence_trigger_total,
+                                                     random_occurrence_trigger_no_change)
+            random_occurrence_trigger_augment = np.divide(random_occurrence_trigger_augment,
+                                                          random_occurrence_trigger_total)
+            random_occurrence_trigger_decrease = np.divide(random_occurrence_trigger_decrease,
+                                                           random_occurrence_trigger_total)
+            # random_occurrence_trigger_no_change = np.divide(random_occurrence_trigger_no_change,
+            #                                                 random_occurrence_trigger_total)
+            # prob_occurrence_no_change = np.array([[np.divide((local_diffs_array == 0).sum(axis=1),
+            #                                                  local_block_length)] *
+            #                                       local_block_length]).reshape(local_nof_ts, local_block_length)
+
+            # stochastic event realization
+            random_event[local_time_serie, random_occurrence_trigger_decrease[0, :] >
+                         prob_occurrence_decrease[0, :]] =\
                 median_array_neg[local_time_serie].astype(np.dtype('float32'))
-            random_event[local_time_serie, random_occurrence_trigger_augment[local_time_serie, :] >
-                         prob_occurrence_augment[local_time_serie, :]] =\
+            random_event[local_time_serie, random_occurrence_trigger_augment[0, :] >
+                         prob_occurrence_augment[0, :]] =\
                 median_array_pos[local_time_serie].astype(np.dtype('float32'))
-        random_occurrences_array.append(random_event)
-        print(random_event[117, :])
-        print(local_diffs_array[117, :])
+        random_occurrences_array[iteration, :, :] = random_event
         random_event[:, :] = 0.
-        # this piece can be recoded in another overlapping or/and weighting way
+        # this piece above can be recoded in another overlapping or/and weighting way
     print('random_occurrences array processes finished\n')
 
-    # consolidating and calculating the basic and necessary statistics
-    random_occurrences_array = np.array(random_occurrences_array)
-    print(random_occurrences_array[0, :, :])
-    print('random_occurrences array shape:', random_occurrences_array.shape)
+    # consolidating and calculating the necessary statistics
     diff_coefficients_median = np.median(random_occurrences_array, axis=(0, 2))
     diff_coefficients_std = np.std(random_occurrences_array, axis=(0, 2))
-    print('median, std:', diff_coefficients_median, diff_coefficients_std)
     # instantiating a normal distribution of the events, only positive values are considered
-    print('local_diff_array shape', local_diffs_array.shape)
-    print('diff_coefficients_median shape', diff_coefficients_median.shape)
     diff_coefficients_list = []
     for local_time_serie in range(local_nof_ts):
         diff_coefficients = np.random.normal(diff_coefficients_median[local_time_serie],
                                              diff_coefficients_std[local_time_serie],
-                                             local_diffs_array[local_time_serie, :].shape).clip(0)
+                                             local_diffs_array[local_time_serie, :].shape)\
+            .clip(diff_coefficients_median[local_time_serie] - 2 * diff_coefficients_std[local_time_serie],
+                  diff_coefficients_median[local_time_serie] + 2 * diff_coefficients_std[local_time_serie])
         diff_coefficients_list.append(diff_coefficients)
     diff_coefficients = np.array(diff_coefficients_list)
-    print('diff_coefficients shape', diff_coefficients.shape)
-    print('coefficients of differences:\n', diff_coefficients)
     return diff_coefficients
     # ---------------kernel----------------------------------
 
@@ -133,26 +132,16 @@ def next_values(local_priming_block, local_diff_coefficients, local_days_in_bloc
                 local_nv_forecast_horizon_days):
     # ---------------kernel----------------------------------
     local_nof_time_series = local_priming_block.shape[0]
-    forecast_structure = np.zeros(shape=(local_nof_time_series, local_nv_forecast_horizon_days,
-                                         local_days_in_block), dtype=np.dtype('float32'))
-    priming_sale = local_priming_block[:, 0: 1]
-    for outer_stride_idx in range(local_days_in_block):
-        for inner_stride_idx in range(local_days_in_block * (outer_stride_idx <= local_nv_forecast_horizon_days) +
-                                      (local_days_in_block - outer_stride_idx) *
-                                      (outer_stride_idx > local_nv_forecast_horizon_days)):
-            print(priming_sale.shape)
-            print(local_diff_coefficients.shape)
+    forecast_structure = np.zeros(shape=(local_nof_time_series, local_days_in_block),
+                                  dtype=np.dtype('float32'))
+    for outer_stride_idx in range(local_days_in_block - 1):
+        for inner_stride_idx in range(outer_stride_idx, local_days_in_block):
+            priming_sale = \
+                local_priming_block[:, inner_stride_idx: inner_stride_idx + 1]
             local_array = np.add(
                  local_diff_coefficients[:, inner_stride_idx: inner_stride_idx + 1], priming_sale)
-            local_array = local_array[:, :, np.newaxis]
-            print('local_array_shape:', local_array.shape)
-            forecast_structure[:, inner_stride_idx: inner_stride_idx + 1, outer_stride_idx: outer_stride_idx + 1] \
-                = local_array
-            # refreshing priming_sale_diff
-            priming_sale = local_array.reshape(local_array.shape[0], local_array.shape[1])
-    print('forecasts structure shape:', forecast_structure.shape)
-    sum_values = np.sum(forecast_structure, axis=2, dtype=np.dtype('float32'))
-    print(sum_values.shape)
+            forecast_structure[:, inner_stride_idx: inner_stride_idx + 1] = \
+                np.add(forecast_structure[:, inner_stride_idx: inner_stride_idx + 1], local_array)
     # some explanations about this process....
     # each stair strides fill 28 days from his starting point, (first starting point day -28, finishing day 27)
     # (day 0: first forecast_horizon_day & day 27: last forecast_horizon_day)
@@ -160,9 +149,9 @@ def next_values(local_priming_block, local_diff_coefficients, local_days_in_bloc
     # (-28, 1)-(-27, 2)..(-14, 15)....(-1, 28)------(0, 28)..(7, 28)-(14, 28)-(15, 28)..(26, 28)..(27, 28)
     #   ^pre-Forecast    ^middle-preF ^last-preF    ^firstForecast    ^middleForecast              ^last_Forecast
     #   ^first_block(1)                                                                           ^last_block(56)
-    #  the last 28 blocks length are 28, 27, .... until 1 day length the last_block
-    diff_values = np.divide(sum_values, local_days_in_block)
-    print(diff_values)
+    #  the last 28 blocks lengths are 28, 27, .... until 1 day length the last_block
+    forecast_structure = forecast_structure[:, -local_nv_forecast_horizon_days:]
+    diff_values = np.divide(forecast_structure, local_days_in_block).clip(0)
     print('subprocess next_diff_values successfully completed')
     return diff_values
     # ---------------kernel----------------------------------
@@ -199,4 +188,12 @@ class difference_trends_insight:
             logger.info('error in diff_trend time_series sub_module')
             logger.error(str(submodule_error), exc_info=True)
             return "error"
+        # saving submission as diff_trends_forecasts.csv
+        save_submission_diff_trends_stochastic_model = save_submission()
+        save_submission_review = save_submission_diff_trends_stochastic_model.save('diff_trends_model_forecasts.csv',
+                                                                                   new_forecast, local_settings)
+        if save_submission_review:
+            print('submission of diff_trends stochastic model to csv successful')
+        else:
+            print('error at submission of diff_trends stochastic model to csv')
         return new_forecast

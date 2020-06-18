@@ -361,7 +361,7 @@ class neural_network_time_serie_schema:
             local_raw_unit_sales = np.array(local_raw_unit_sales, dtype=np.dtype('float32'))
             # specific time_serie models training loop
             local_y_pred_list = []
-            local_time_series_not_improved = local_time_series_not_improved[14: 15]  # capping for test code
+            local_time_series_not_improved = local_time_series_not_improved[12: 14]  # capping for test code
             for time_serie in local_time_series_not_improved:
                 # ----------------------key_point---------------------------------------------------------------------
                 # take note that each loop the weights and internal last states of previous training are conserved

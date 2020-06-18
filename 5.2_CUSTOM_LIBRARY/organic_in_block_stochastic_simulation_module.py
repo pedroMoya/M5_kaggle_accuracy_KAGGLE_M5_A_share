@@ -1,5 +1,6 @@
 # stochastic simulation time series module
 import os
+import sys
 import logging
 import logging.handlers as handlers
 import json
@@ -22,6 +23,11 @@ logging.basicConfig(filename=log_path_filename, level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 logHandler = handlers.RotatingFileHandler(log_path_filename, maxBytes=10485760, backupCount=5)
 logger.addHandler(logHandler)
+
+# load custom libraries
+sys.path.insert(1, local_submodule_settings['custom_library_path'])
+from mini_module_submission_generator import save_submission
+
 
 # set random seed for reproducibility --> done in _2_train.py module
 np.random.seed(42)
@@ -113,18 +119,19 @@ class organic_in_block_estochastic_simulation:
             # ---------------kernel----------------------------------
             print('StochasticModel computed and simulation done\n')
 
-            # saving submission as organic_submission.csv
-            # using template (sample_submission)
-            forecast_data_frame = np.genfromtxt(''.join([local_settings['raw_data_path'], 'sample_submission.csv']),
-                                                delimiter=',', dtype=None, encoding=None)
-            forecast_data_frame[1:, 1:] = forecasts
-            pd.DataFrame(forecasts).to_csv(''.join([local_settings['submission_path'],
-                                                    'stochastic_simulation_forecasts.csv']),
-                                           index=False, header=None)
-            zero_loc = np.array(zero_loc)
+            # saving forecasts based in stochastic simulation model
             np.save(''.join([local_settings['train_data_path'],
                              'stochastic_simulation_forecasts']), forecasts)
-            print('stochastic_simulation_submission.csv saved')
+
+            # saving submission as stochastic_simulation_forecasts.csv
+            save_submission_stochastic_simulation = save_submission()
+            save_submission_review = save_submission_stochastic_simulation.save('stochastic_simulation_forecasts.csv',
+                                                                                forecasts,
+                                                                                local_settings)
+            if save_submission_review:
+                print('submission of stochastic_simulation model successfully completed')
+            else:
+                print('error at saving submission based in stochastic_simulation model')
             print('organic_in_block_stochastic simulation submodule has finished')
         except Exception as submodule_error:
             print('time_series organic_in_block_stochastic simulation submodule_error: ', submodule_error)
