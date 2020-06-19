@@ -31,17 +31,20 @@ class stochastic_simulation_results_analysis:
             # (organic_in_block_time_serie_based_model_hyperparameters.json)
             if local_forecasts_name == 'stochastic_simulation':
                 print('evaluating the first model (stochastic_simulation) trained..')
-                local_forecasts = pd.read_csv(''.join([local_settings['submission_path'],
-                                                      'stochastic_simulation_forecasts.csv']))
-                local_forecasts = local_forecasts.to_numpy()
+                local_forecasts = np.load(''.join([local_settings['train_data_path'],
+                                                   'stochastic_simulation_forecasts.npy']))
             elif local_forecasts_name == 'diff_trends_based_stochastic_model':
                 print('evaluating the second model (diff_trend based stochastic model) trained..')
-                local_forecasts = np.load(''.join([local_settings['others_outputs_path'],
+                local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'diff_pattern_based_forecasts.npy']))
             elif local_forecasts_name == 'combination_stochastic_model':
                 print('evaluating the combination (first-second model) trained..')
-                local_forecasts = np.load(''.join([local_settings['others_outputs_path'],
+                local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'first_second_model_forecasts.npy']))
+            elif local_forecasts_name == 'diff_previous_based_stochastic_model':
+                print('evaluating the previous_diff (first-second model) trained..')
+                local_forecasts = np.load(''.join([local_settings['train_data_path'],
+                                                  'diff_previous_based_stochastic_model.npy']))
             else:
                 print('model_name not expected, please review the last argument')
                 print('in stochastic_model_obtain_results submodule')
@@ -128,6 +131,18 @@ class stochastic_simulation_results_analysis:
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
                                  'time_series_not_improved_combination_stochastic']),
+                        local_time_series_not_improved)
+            elif local_forecasts_name == 'diff_previous_based_stochastic_model':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'diff_previous_stochastic_mse.csv']),
+                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_forecast_results_diff_previous_stochastic']),
+                        local_time_series_treated)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'improved_time_series_forecast_diff_previous_stochastic']),
+                        local_improved_time_series_forecast)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_not_improved_cdiff_previous_stochastic']),
                         local_time_series_not_improved)
             print('specific model evaluation saved')
             print('metadata (results, time_series) saved')

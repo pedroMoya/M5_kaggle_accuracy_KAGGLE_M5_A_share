@@ -134,24 +134,13 @@ def next_values(local_priming_block, local_diff_coefficients, local_days_in_bloc
     local_nof_time_series = local_priming_block.shape[0]
     forecast_structure = np.zeros(shape=(local_nof_time_series, local_days_in_block),
                                   dtype=np.dtype('float32'))
-    for outer_stride_idx in range(local_days_in_block - 1):
-        for inner_stride_idx in range(outer_stride_idx, local_days_in_block):
-            priming_sale = \
-                local_priming_block[:, inner_stride_idx: inner_stride_idx + 1]
-            local_array = np.add(
-                 local_diff_coefficients[:, inner_stride_idx: inner_stride_idx + 1], priming_sale)
-            forecast_structure[:, inner_stride_idx: inner_stride_idx + 1] = \
-                np.add(forecast_structure[:, inner_stride_idx: inner_stride_idx + 1], local_array)
-    # some explanations about this process....
-    # each stair strides fill 28 days from his starting point, (first starting point day -28, finishing day 27)
-    # (day 0: first forecast_horizon_day & day 27: last forecast_horizon_day)
-    # STRUCTURE --> (DAY, NUMBER OF BLOCKS IN THIS DAY)
-    # (-28, 1)-(-27, 2)..(-14, 15)....(-1, 28)------(0, 28)..(7, 28)-(14, 28)-(15, 28)..(26, 28)..(27, 28)
-    #   ^pre-Forecast    ^middle-preF ^last-preF    ^firstForecast    ^middleForecast              ^last_Forecast
-    #   ^first_block(1)                                                                           ^last_block(56)
-    #  the last 28 blocks lengths are 28, 27, .... until 1 day length the last_block
-    forecast_structure = forecast_structure[:, -local_nv_forecast_horizon_days:]
-    diff_values = np.divide(forecast_structure, local_days_in_block).clip(0)
+    sum_diff = local_priming_block[:, 0: 1]
+    for day in range(1, local_days_in_block):
+        forecast_structure[:, day: day + 1] = np.add(forecast_structure[:, day: day + 1], sum_diff)
+        sum_diff = np.add(sum_diff, local_diff_coefficients[:, day: day + 1])
+    for day in range(local_days_in_block):
+        forecast_structure[:, day] = np.divide(forecast_structure[:, day], day + 1).clip(0)
+    diff_values = forecast_structure[:, -local_nv_forecast_horizon_days:]
     print('subprocess next_diff_values successfully completed')
     return diff_values
     # ---------------kernel----------------------------------
@@ -161,6 +150,7 @@ class difference_trends_insight:
 
     def run_diff_trends_ts_analyser(self, local_settings, local_raw_unit_sales):
         try:
+            print('\nstarting difference_trends sub_module')
             # opening diff_trends hyperparameters
             with open(''.join([local_settings['hyperparameters_path'],
                                'diff_trends_model_hyperparameters.json'])) \
@@ -178,7 +168,7 @@ class difference_trends_insight:
                                        local_forecast_horizon_days)
 
             # save results
-            np.save(''.join([local_settings['others_outputs_path'],
+            np.save(''.join([local_settings['train_data_path'],
                              'diff_pattern_based_forecasts']), new_forecast)
             np.savetxt(''.join([local_settings['others_outputs_path'], 'forecasts_diff_based_.csv']),
                        new_forecast, fmt='%10.15f', delimiter=',', newline='\n')

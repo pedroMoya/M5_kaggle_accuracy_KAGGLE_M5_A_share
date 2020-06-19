@@ -36,6 +36,7 @@ try:
     from stochastic_model_obtain_results import stochastic_simulation_results_analysis
     from diff_trend_time_serie_module import difference_trends_insight
     from individual_ts_neural_network_training import neural_network_time_serie_schema
+    from mini_module_submission_generator import save_submission
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
     print(ee1)
@@ -219,67 +220,88 @@ def train():
             raw_unit_sales_ground_truth, 'stochastic_simulation')
 
         # _______________________SECOND_MODEL_____________________________
-        # applying second diff-oriented stochastic simulation to high_loss time_series
-        print('\nsecond model (difference-oriented trends stochastic simulation)')
-        diff_modeler = difference_trends_insight()
-        second_model_forecast = diff_modeler.run_diff_trends_ts_analyser(local_script_settings, raw_unit_sales)
-        if isinstance(second_model_forecast, np.ndarray):
-            print('correct training of diff-oriented stochastic simulation')
-            first_model_forecasts = np.load(''.join([local_settings['train_data_path'],
-                                                     'stochastic_simulation_forecasts.npy']))
-            first_two_models_forecasts_consolidate = first_model_forecasts
-            first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
-                second_model_forecast[time_series_not_improved, :]
-            np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
-                       first_two_models_forecasts_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
-            np.save(''.join([local_settings['others_outputs_path'], 'first_second_model_forecasts.npy']),
-                    first_two_models_forecasts_consolidate)
-            # second model results, necessary here because time_series_not_improved is input to third model
-            first_model_not_improved_ts = len(time_series_not_improved)
-            second_model_results = stochastic_simulation_results_analysis()
-            time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
-                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-                raw_unit_sales_ground_truth, 'diff_trends_based_stochastic_model')
-            second_model_not_improved_ts = len(time_series_not_improved)
+        # applying second previous diff-oriented stochastic simulation to high_loss time_series
+        # simply --->  "the diffs of immediately previous forecasts improve the last"
+        # formula    pred_improved = pred_current + real_previous - pred_previous
+        print('\nsecond model (previous difference-oriented trends stochastic simulation)')
+        forecast_horizon_days = local_script_settings['forecast_horizon_days']
+        previous_pred = stochastic_simulation.run_stochastic_simulation(
+            local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales[:, :- forecast_horizon_days])
+        ground_truth = raw_unit_sales[:, -forecast_horizon_days:]
+        diff_previous = np.add(ground_truth, -previous_pred)
+        np.save(''.join([local_settings['train_data_path'], 'diff_previous_based_stochastic_model.npy']), diff_previous)
+        first_model_forecasts = np.load(''.join([local_settings['train_data_path'],
+                                                 'stochastic_simulation_forecasts.npy']))
+        second_model_forecast = first_model_forecasts
+        second_model_forecast[: diff_previous.shape[0], : diff_previous.shape[1]] = \
+            np.add(diff_previous, second_model_forecast[: diff_previous.shape[0], : diff_previous.shape[1]])
 
-            # now results of COMBINATION of first and second models
-            combination_model_results = stochastic_simulation_results_analysis()
-            time_series_not_improved = combination_model_results.evaluate_stochastic_simulation(
-                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-                raw_unit_sales_ground_truth, 'combination_stochastic_model')
+        # creating combination of first and second models
+        first_two_models_forecasts_consolidate = first_model_forecasts
+        # first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
+        #     second_model_forecast[time_series_not_improved, :]
+        first_two_models_forecasts_consolidate[: second_model_forecast.shape[0], : second_model_forecast.shape[1]] \
+            = np.add(second_model_forecast, first_two_models_forecasts_consolidate[
+                                            : second_model_forecast.shape[0], : second_model_forecast.shape[1]])
+        first_two_models_forecasts_consolidate = np.divide(first_two_models_forecasts_consolidate, 2)
+        np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
+                   first_two_models_forecasts_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
+        np.save(''.join([local_settings['train_data_path'], 'first_second_model_forecasts.npy']),
+                first_two_models_forecasts_consolidate)
+        # second model results, necessary here because time_series_not_improved is input to third model
+        first_model_not_improved_ts = len(time_series_not_improved)
+        second_model_results = stochastic_simulation_results_analysis()
+        time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+            raw_unit_sales_ground_truth, 'diff_previous_based_stochastic_model')
+        second_model_not_improved_ts = len(time_series_not_improved)
 
-            # results in terms of time_series not_improved
-            print('first model nof time_series not improved:', first_model_not_improved_ts)
-            print('second model nof time_series not improved:', second_model_not_improved_ts)
-            if first_model_not_improved_ts > second_model_not_improved_ts:
-                print('applying second model(alone), the results improve in ',
-                      first_model_not_improved_ts - second_model_not_improved_ts, ' time_series')
-            else:
-                print('it is not observed an improvement applying the second model')
-            combination_model_not_improved_ts = len(time_series_not_improved)
-            if first_model_not_improved_ts < second_model_not_improved_ts:
-                best_alone_model_not_improved_ts = first_model_not_improved_ts
-            else:
-                best_alone_model_not_improved_ts = second_model_not_improved_ts
-            print('best (first or second) model nof time_series not improved:', best_alone_model_not_improved_ts)
-            print('combination model nof time_series not improved:', combination_model_not_improved_ts)
-            if best_alone_model_not_improved_ts > combination_model_not_improved_ts:
-                print('applying combination model, the results improve in ',
-                      best_alone_model_not_improved_ts - combination_model_not_improved_ts, ' time_series')
+        np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
+                   first_two_models_forecasts_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
+        np.save(''.join([local_settings['train_data_path'], 'first_second_model_forecasts.npy']),
+                first_two_models_forecasts_consolidate)
 
-                # saving submission as combination_first_second_model_forecasts.csv
-                # using template (sample_submission)
-                forecast_data_frame = np.genfromtxt(''.join([local_settings['raw_data_path'], 'sample_submission.csv']),
-                                                    delimiter=',', dtype=None, encoding=None)
-                forecast_data_frame[1:, 1:] = np.load(''.join([local_settings['others_outputs'],
-                                                               'diff_pattern_based_forecasts.npy']))
-                pd.DataFrame(forecast_data_frame).to_csv(
-                    ''.join([local_settings['submission_path'], 'combination_first_second_model_forecasts.csv']),
-                    index=False, header=None)
-            else:
-                print('it is not observed an improvement applying the combination model')
+        # results of COMBINATION of first and second models
+        combination_model_results = stochastic_simulation_results_analysis()
+        time_series_not_improved = combination_model_results.evaluate_stochastic_simulation(
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+            raw_unit_sales_ground_truth, 'combination_stochastic_model')
+
+        # results in terms of time_series not_improved
+        print('first model nof time_series not improved:', first_model_not_improved_ts)
+        print('second model nof time_series not improved:', second_model_not_improved_ts)
+        if first_model_not_improved_ts > second_model_not_improved_ts:
+            print('applying second model(alone), the results improve in ',
+                  first_model_not_improved_ts - second_model_not_improved_ts, ' time_series')
         else:
-            print('an error occurs at executing first and second (non-neural_network) model training')
+            print('it is not observed an improvement applying the second model')
+        combination_model_not_improved_ts = len(time_series_not_improved)
+        if first_model_not_improved_ts < second_model_not_improved_ts:
+            best_alone_model_not_improved_ts = first_model_not_improved_ts
+        else:
+            best_alone_model_not_improved_ts = second_model_not_improved_ts
+        print('best (first or second) model nof time_series not improved:', best_alone_model_not_improved_ts)
+        print('combination model nof time_series not improved:', combination_model_not_improved_ts)
+        if best_alone_model_not_improved_ts > combination_model_not_improved_ts:
+            print('applying combination model, the results improve in ',
+                  best_alone_model_not_improved_ts - combination_model_not_improved_ts, ' time_series')
+
+            # saving submission as combination_first_second_model_forecasts.csv
+            combination_first_second_model_based_forecast = np.load(''.join([local_settings['train_data_path'],
+                                                                             'first_second_model_forecasts.npy']))
+            diff_pattern_submission = save_submission()
+            diff_pattern_submission_review = diff_pattern_submission.save(
+                'combination_first_second_model_forecasts.csv', combination_first_second_model_based_forecast,
+                local_settings)
+            if diff_pattern_submission_review:
+                print('submission based in combination of first and second model done successfully')
+            else:
+                print('error at generating submission based in combination of first and second model')
+        else:
+            print('it is not observed an improvement applying the combination model')
+
+        while True:
+            a = 0
 
         # _______________________THIRD_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN

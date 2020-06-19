@@ -60,7 +60,9 @@ def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
         if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
             local_y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
         else:
-            local_y_pred[time_serie: time_serie + 1, day] = 0.
+            # if put zero here, the score is lightly worse,random_event_array is [0,1), meaning that forecasts are
+            # lower than real values
+            local_y_pred[time_serie: time_serie + 1, day] = random_event_array[time_serie, day]
             local_zero_loc.append([time_serie, day])
     return local_y_pred, local_zero_loc
     # ---------------kernel----------------------------------
@@ -90,7 +92,6 @@ class organic_in_block_estochastic_simulation:
             mean_stochastic_simulations = []
             median_stochastic_simulations = []
             standard_deviation_stochastic_simulations = []
-            zero_loc = []
             # ---------------kernel----------------------------------
             for event in range(event_iterations):
                 y_pred, zero_loc = random_event_realization(x_data, days_in_focus_frame,

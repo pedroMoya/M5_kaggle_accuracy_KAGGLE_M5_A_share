@@ -11,7 +11,8 @@ class save_submission:
             local_forecasts_data_frame = np.genfromtxt(''.join([local_sg_settings['raw_data_path'],
                                                                'sample_submission.csv']),
                                                        delimiter=',', dtype=None, encoding=None)
-            local_forecasts_data_frame[1:, 1:] = local_forecasts
+            local_forecasts_data_frame[1: local_forecasts.shape[0] + 1, 1:local_forecasts.shape[1] + 1] = \
+                local_forecasts
             pd.DataFrame(local_forecasts_data_frame).to_csv(''.join([local_sg_settings['submission_path'],
                                                                     name_csv]),
                                                             index=False, header=None)

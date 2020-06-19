@@ -26458,3 +26458,78 @@ Traceback (most recent call last):
   File "./5.2_CUSTOM_LIBRARY\diff_trend_time_serie_module.py", line 194, in run_diff_trends_ts_analyser
     forecast_data_frame[1:, 1:] = new_forecast
 ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 11:25:56 model training error
+shape mismatch: value array of shape (0,30490,28) could not be broadcast to indexing result of shape (0,60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 231, in train
+    first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
+ValueError: shape mismatch: value array of shape (0,30490,28) could not be broadcast to indexing result of shape (0,60980,28)
+
+18.Jun 2020 11:35:27 correct model training, correct saving of model and weights
+
+18.Jun 2020 11:35:27 settings modified and saved
+
+18.Jun 2020 11:38:29 model training error
+shape mismatch: value array of shape (0,30490,28) could not be broadcast to indexing result of shape (0,60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 231, in train
+    first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
+ValueError: shape mismatch: value array of shape (0,30490,28) could not be broadcast to indexing result of shape (0,60980,28)
+
+18.Jun 2020 11:44:51 model training error
+'others_outputs'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 274, in train
+    forecast_data_frame[1:, 1:] = np.load(''.join([local_settings['others_outputs'],
+KeyError: 'others_outputs'
+
+18.Jun 2020 11:59:50 model training error
+'others_outputs'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 277, in train
+    forecast_data_frame[1:, 1:] = np.load(''.join([local_settings['others_outputs'],
+KeyError: 'others_outputs'
+
+18.Jun 2020 12:07:31 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 277, in train
+    forecast_data_frame[1:, 1:] = np.load(''.join([local_settings['others_outputs_path'],
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 12:09:58 model training error
+could not broadcast input array from shape (30490,28) into shape (60980,28)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 277, in train
+    forecast_data_frame[1:, 1:] = np.load(''.join([local_settings['others_outputs_path'],
+ValueError: could not broadcast input array from shape (30490,28) into shape (60980,28)
+
+18.Jun 2020 13:28:32 correct model training, correct saving of model and weights
+
+18.Jun 2020 13:28:32 settings modified and saved
+
+18.Jun 2020 21:04:50 correct model training, correct saving of model and weights
+
+18.Jun 2020 21:04:50 settings modified and saved
+
+18.Jun 2020 21:12:50 model training error
+operands could not be broadcast together with shapes (60980,28) (30490,28) 
+Traceback (most recent call last):
+  File ".\_2_train.py", line 231, in train
+    first_two_models_forecasts_consolidate = np.add(first_model_forecasts, second_model_forecast)
+ValueError: operands could not be broadcast together with shapes (60980,28) (30490,28) 
+
+18.Jun 2020 22:34:50 model training error
+'forecast_horizon_days'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 225, in train
+    forecast_horizon_days = model_hyperparameters['forecast_horizon_days']
+KeyError: 'forecast_horizon_days'
+
+18.Jun 2020 22:38:27 model training error
+operands could not be broadcast together with shapes (60980,28) (30490,28) 
+Traceback (most recent call last):
+  File ".\_2_train.py", line 233, in train
+    second_model_forecast = np.add(first_model_forecasts, diff_previous)
+ValueError: operands could not be broadcast together with shapes (60980,28) (30490,28) 
