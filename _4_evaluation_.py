@@ -149,7 +149,7 @@ def evaluate():
 
         if local_script_settings['model_analyzer'] == 'on':
             analyzer = model_structure()
-            model_name = '_high_loss_time_serie_model_forecaster_in_block_.h5'
+            model_name = 'generic_forecaster_template_individual_ts.h5'
             analysis_result = analyzer.analize(model_name, local_script_settings)
             if analysis_result:
                 print('model_analysis successfully, json file saved')

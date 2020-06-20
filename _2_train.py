@@ -36,7 +36,9 @@ try:
     from stochastic_model_obtain_results import stochastic_simulation_results_analysis
     from diff_trend_time_serie_module import difference_trends_insight
     from individual_ts_neural_network_training import neural_network_time_serie_schema
-    from mini_module_submission_generator import save_submission
+    # from mini_module_submission_generator import save_submission
+    from save_forecast_and_make_submission import save_forecast_and_submission
+
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
     print(ee1)
@@ -179,7 +181,9 @@ def train():
         if local_settings_max_selling_time + 28 <= max_selling_time:
             print('and this condition is correctly met')
             raw_unit_sales_ground_truth = raw_unit_sales
+            print('length raw data ground truth:', raw_unit_sales_ground_truth.shape[1])
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
+            print('length raw data for training:', raw_unit_sales.shape[1])
         elif max_selling_time != local_settings_max_selling_time:
             print("settings doesn't match data dimensions, it must be rechecked before continue(_train_module)")
             logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
@@ -209,10 +213,18 @@ def train():
         # training in-block stochastic simulation submodule
         print('assuming first_train_approach as stochastic simulation')
         stochastic_simulation = organic_in_block_estochastic_simulation()
-        time_series_ss_review = stochastic_simulation.run_stochastic_simulation(
+        time_series_ss_review, first_model_forecasts = stochastic_simulation.run_stochastic_simulation(
             local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales)
         print('in-block stochastic simulation completed, success --> ', time_series_ss_review)
-
+        # saving first model forecast and submission bases only in this second model
+        store_and_submit_first_model_forecast = save_forecast_and_submission()
+        first_model_save_review = \
+            store_and_submit_first_model_forecast.store_and_submit('first_model_forecast_data', local_script_settings,
+                                                                   first_model_forecasts)
+        if first_model_save_review:
+            print('first_model forecast data and submission done')
+        else:
+            print('error at storing first model forecast data or submission')
         # first model results, necessary here because time_series_not_improved is input to second model
         first_model_results = stochastic_simulation_results_analysis()
         time_series_not_improved = first_model_results.evaluate_stochastic_simulation(
@@ -225,43 +237,60 @@ def train():
         # formula    pred_improved = pred_current + real_previous - pred_previous
         print('\nsecond model (previous difference-oriented trends stochastic simulation)')
         forecast_horizon_days = local_script_settings['forecast_horizon_days']
-        previous_pred = stochastic_simulation.run_stochastic_simulation(
-            local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales[:, :- forecast_horizon_days])
-        ground_truth = raw_unit_sales[:, -forecast_horizon_days:]
-        diff_previous = np.add(ground_truth, -previous_pred)
-        np.save(''.join([local_settings['train_data_path'], 'diff_previous_based_stochastic_model.npy']), diff_previous)
-        first_model_forecasts = np.load(''.join([local_settings['train_data_path'],
-                                                 'stochastic_simulation_forecasts.npy']))
-        second_model_forecast = first_model_forecasts
-        second_model_forecast[: diff_previous.shape[0], : diff_previous.shape[1]] = \
-            np.add(diff_previous, second_model_forecast[: diff_previous.shape[0], : diff_previous.shape[1]])
+        time_series_previous_diff_review, previous_pred = stochastic_simulation.run_stochastic_simulation(
+            local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales[:, :-forecast_horizon_days])
+        if time_series_previous_diff_review:
+            print('previous diff stochastic model training done correctly')
+            print(previous_pred)
+        else:
+            print('error in previous diff stochastic model training')
+        ground_truth = raw_unit_sales_ground_truth[:, -2 * forecast_horizon_days: -forecast_horizon_days]
+        diff_previous = np.add(ground_truth, -previous_pred[: ground_truth.shape[0], : ground_truth.shape[1]])
+        print(diff_previous)
+        second_model_forecasts = np.add(diff_previous, first_model_forecasts).clip(0)
+        print(second_model_forecasts)
+        # saving second model forecast and submission bases only in this second model
+        store_and_submit_second_model_forecast = save_forecast_and_submission()
+        second_model_save_review = \
+            store_and_submit_second_model_forecast.store_and_submit('second_model_forecast_data', local_script_settings,
+                                                                    second_model_forecasts)
+        if second_model_save_review:
+            print('second_model forecast data and submission done')
+        else:
+            print('error at storing second model forecast data or submission')
 
         # creating combination of first and second models
+        print('nof first model not improved time_series -->', len(time_series_not_improved))
         first_two_models_forecasts_consolidate = first_model_forecasts
         # first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
-        #     second_model_forecast[time_series_not_improved, :]
-        first_two_models_forecasts_consolidate[: second_model_forecast.shape[0], : second_model_forecast.shape[1]] \
-            = np.add(second_model_forecast, first_two_models_forecasts_consolidate[
-                                            : second_model_forecast.shape[0], : second_model_forecast.shape[1]])
+        #     second_model_forecasts[time_series_not_improved, :]
+
+        first_two_models_forecasts_consolidate[: second_model_forecasts.shape[0], : second_model_forecasts.shape[1]] \
+            = np.add(second_model_forecasts, first_two_models_forecasts_consolidate[
+                                            : second_model_forecasts.shape[0], : second_model_forecasts.shape[1]])
         first_two_models_forecasts_consolidate = np.divide(first_two_models_forecasts_consolidate, 2)
-        np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
-                   first_two_models_forecasts_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
-        np.save(''.join([local_settings['train_data_path'], 'first_second_model_forecasts.npy']),
-                first_two_models_forecasts_consolidate)
+
+        # saving second model forecast and submission based only in this second model
+        store_and_submit_combination_model_forecast = save_forecast_and_submission()
+        combination_model_save_review = \
+            store_and_submit_combination_model_forecast.store_and_submit('combination_first_two_model_forecast_data',
+                                                                         local_script_settings,
+                                                                         first_two_models_forecasts_consolidate)
+        if combination_model_save_review:
+            print('second_model forecast data and submission done')
+        else:
+            print('error at storing second model forecast data or submission')
+
         # second model results, necessary here because time_series_not_improved is input to third model
         first_model_not_improved_ts = len(time_series_not_improved)
         second_model_results = stochastic_simulation_results_analysis()
         time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
-            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-            raw_unit_sales_ground_truth, 'diff_previous_based_stochastic_model')
-        second_model_not_improved_ts = len(time_series_not_improved)
-
-        np.savetxt(''.join([local_script_settings['others_outputs_path'], 'forecasts_first_two_models_.csv']),
-                   first_two_models_forecasts_consolidate, fmt='%10.15f', delimiter=',', newline='\n')
-        np.save(''.join([local_settings['train_data_path'], 'first_second_model_forecasts.npy']),
-                first_two_models_forecasts_consolidate)
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters,
+            raw_unit_sales[:-2 * forecast_horizon_days],
+            raw_unit_sales_ground_truth[:-forecast_horizon_days], 'diff_trends_based_stochastic_model')
 
         # results of COMBINATION of first and second models
+        second_model_not_improved_ts = len(time_series_not_improved)
         combination_model_results = stochastic_simulation_results_analysis()
         time_series_not_improved = combination_model_results.evaluate_stochastic_simulation(
             local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
@@ -286,17 +315,6 @@ def train():
             print('applying combination model, the results improve in ',
                   best_alone_model_not_improved_ts - combination_model_not_improved_ts, ' time_series')
 
-            # saving submission as combination_first_second_model_forecasts.csv
-            combination_first_second_model_based_forecast = np.load(''.join([local_settings['train_data_path'],
-                                                                             'first_second_model_forecasts.npy']))
-            diff_pattern_submission = save_submission()
-            diff_pattern_submission_review = diff_pattern_submission.save(
-                'combination_first_second_model_forecasts.csv', combination_first_second_model_based_forecast,
-                local_settings)
-            if diff_pattern_submission_review:
-                print('submission based in combination of first and second model done successfully')
-            else:
-                print('error at generating submission based in combination of first and second model')
         else:
             print('it is not observed an improvement applying the combination model')
 

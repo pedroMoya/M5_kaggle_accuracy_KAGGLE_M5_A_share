@@ -392,7 +392,7 @@ class neural_network_time_serie_schema:
                     mini_evaluator = mini_evaluator_submodule()
                     evaluation = mini_evaluator.evaluate_ts_forecast(
                             raw_unit_sales_ground_truth[time_serie, -local_forecast_horizon_days:], local_y_pred)
-                    print('ts:', time_serie, 'with cof ts mse:', evaluation)
+                    print('ts:', time_serie, 'with cof_zeros ts mse:', evaluation)
                 else:
                     print('ts:', time_serie)
                 print(local_y_pred)
@@ -402,10 +402,8 @@ class neural_network_time_serie_schema:
                 (local_point_forecast_array.shape[0], local_point_forecast_array.shape[1]))
             local_point_forecast = local_point_forecast_normalized
 
-            # local_point_forecast = np.multiply(local_point_forecast_normalized, local_raw_unit_sales_max[0:3])
-
             # save points forecast
-            np.savetxt(''.join([local_settings['others_outputs_path'], 'point_forecast_stochastic_simulation.csv']),
+            np.savetxt(''.join([local_settings['others_outputs_path'], 'point_forecast_NN_LSTM_simulation.csv']),
                        local_point_forecast, fmt='%10.15f', delimiter=',', newline='\n')
             print('point forecasts saved to file')
             print('submodule for build, train and forecast time_serie individually finished successfully')

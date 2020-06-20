@@ -26533,3 +26533,17 @@ Traceback (most recent call last):
   File ".\_2_train.py", line 233, in train
     second_model_forecast = np.add(first_model_forecasts, diff_previous)
 ValueError: operands could not be broadcast together with shapes (60980,28) (30490,28) 
+
+19.Jun 2020 00:41:41 model training error
+operands could not be broadcast together with shapes (30490,28) (60980,28) 
+Traceback (most recent call last):
+  File ".\_2_train.py", line 239, in train
+    diff_previous = np.add(ground_truth, -previous_pred)
+ValueError: operands could not be broadcast together with shapes (30490,28) (60980,28) 
+
+19.Jun 2020 08:36:34 model training error
+operands could not be broadcast together with shapes (30490,1885) (30490,28) 
+Traceback (most recent call last):
+  File ".\_2_train.py", line 241, in train
+    diff_previous = np.add(ground_truth, -previous_pred[: ground_truth.shape[0], : ground_truth.shape[1]])
+ValueError: operands could not be broadcast together with shapes (30490,1885) (30490,28) 

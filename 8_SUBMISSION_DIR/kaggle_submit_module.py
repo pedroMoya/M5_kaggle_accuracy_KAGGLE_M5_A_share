@@ -18,8 +18,8 @@ from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras import backend as kb
 
 # set random seed for reproducibility
-np.random.seed(42)
-tf.random.set_seed(42)
+np.random.seed(7)
+tf.random.set_seed(7)
 
 # clear session
 kb.clear_session()
@@ -81,9 +81,18 @@ def window_based_denormalizer(local_window_array, local_last_window_mean, local_
     return window_based_denormalized_array
 
 
+def cof_zeros(array):
+    local_max = np.amax(array) + 1
+    array[array <= 0] = local_max
+    local_min = np.amin(array)
+    array[array == local_max] = local_min
+    return array
+
+
 def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
                              local_forecast_horizon_days, local_nof_features_for_training):
     # computing non_zero_frequencies by time_serie, this brings the probability_of_sale = 1 - zero_frequency
+    # ---------------kernel----------------------------------
     x_data = local_time_serie_data[:, -local_days_in_focus_frame:]
     probability_of_sale_list = []
     for time_serie in range(local_nof_features_for_training):
@@ -97,13 +106,14 @@ def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
     random_event_array_normal = np.random.rand(local_nof_features_for_training, local_forecast_horizon_days)
     pareto_dist = np.random.pareto(3, (local_nof_features_for_training, local_forecast_horizon_days))
     pareto_dist_normalized = pareto_dist / np.amax(pareto_dist)
-    random_event_array = np.divide(np.add(11 * pareto_dist_normalized, 2 * random_event_array_normal), 13.)
+    random_event_array = np.divide(np.add(4 * pareto_dist_normalized, 3 * random_event_array_normal), 7.)
     for time_serie, day in it.product(range(local_nof_features_for_training), range(local_forecast_horizon_days)):
         if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
             local_y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
         else:
             local_y_pred[time_serie: time_serie + 1, day] = random_event_array[time_serie, day]
     return local_y_pred
+    # ---------------kernel----------------------------------
 
 
 # main section
@@ -120,7 +130,8 @@ if __name__ == '__main__':
         # constants and settings
         max_sellings_days = 1913  # 1941 will indicate passing to Evaluation, 1913 means that for now we stay in Validation stage
         apply_first_model = True
-        apply_second_model = False
+        apply_second_model = True
+        replace_with_generic_LSTM_model = False
         nof_groups = 3
         forecast_horizon_based = True  # if False, input_interval is time_steps_days-based
         forecast_horizon_days = 28
@@ -131,8 +142,7 @@ if __name__ == '__main__':
         else:
             input_interval = time_steps_days
         days_in_focus_frame = 28
-        event_iterations = 50  # with 500 we observed very subtle better results, vs more time
-        random_samples = 10
+        event_iterations = 50
 
         # load data
         if max_sellings_days == 1913:
@@ -178,7 +188,7 @@ if __name__ == '__main__':
 
         # load generic model high_loss (>1.0 estimated mse) time_serie aggregated models
         if apply_second_model:
-            model_name = ''.join(['generic_forecaster_individual_ts.json'])
+            model_name = ''.join(['generic_forecaster_template_individual_ts.json'])
             json_file = open(''.join([models_in_block_folder, model_name]), 'r')
             model_json = json_file.read()
             json_file.close()
@@ -197,9 +207,10 @@ if __name__ == '__main__':
             mean_stochastic_simulations = []
             median_stochastic_simulations = []
             standard_deviation_stochastic_simulations = []
+            # ---------------kernel----------------------------------
             for event in range(event_iterations):
-                y_pred = random_event_realization(x_data, days_in_focus_frame,
-                                                  forecast_horizon_days, nof_features_for_training)
+                y_pred = random_event_realization(raw_unit_sales, days_in_focus_frame, forecast_horizon_days,
+                                                  nof_features_for_training)
                 standard_deviation_stochastic_simulations.append(np.std(y_pred, axis=1))
                 mean_stochastic_simulations.append(np.mean(y_pred, axis=1))
                 median_stochastic_simulations.append(np.median(y_pred, axis=1))
@@ -217,8 +228,9 @@ if __name__ == '__main__':
                             standard_deviation_stochastic_simulations[time_serie]
                 y_pred.append(np.random.normal(mu, sigma, forecast_horizon_days))
             y_pred = np.array(y_pred)
-            forecasts[:nof_features_for_training, :] = y_pred
-            print('StochasticModel computed and forecasts done\n')
+            forecasts[:nof_features_for_training, :] = y_pred.clip(0)
+            # ---------------kernel----------------------------------
+            print('StochasticModel computed and simulation done\n')
 
         if apply_second_model:
             print('second_model starting')
@@ -228,7 +240,7 @@ if __name__ == '__main__':
             for time_serie in time_series_not_improved:
                 time_serie_unit_sales_mean.append(mean_unit_complete_time_serie[time_serie])
             time_serie_unit_sales_mean = np.array(time_serie_unit_sales_mean)
-            point_forecast_normalized = []
+            point_forecast = []
             print('loading weights for generic or specific model -individual time_serie schema, and making forecasts')
             time_series_with_specific_model = []
             # check if first model was not execute, then all the time series enters to second model forecasts
@@ -240,33 +252,26 @@ if __name__ == '__main__':
                         [models_individual_ts_folder, '_individual_ts_', str(time_serie), '_model_weights_.h5']))
                     time_series_with_specific_model.append(time_serie)
                 except Exception as ee1:
-                    # specific weights for this time_serie not found, maintain stochastic simulation, if it was done
-                    if not apply_first_model:
+                    # specific weights for this time_serie not found
+                    if not apply_first_model or replace_with_generic_LSTM_model:
                         # really, 2537 is the generic model and the specific one (for time_serie 2537)
                         individual_ts_LSTM.load_weights(
                             ''.join([models_individual_ts_folder, '_individual_ts_2537_model_weights_.h5']))
                         time_series_with_specific_model.append(time_serie)
-                x_input = scaled_unit_sales[time_serie: time_serie + 1, -forecast_horizon_days:]
+                        # message = 'if skipped, does not apply generic LSTM model and maintain first model if it was applied'
+                x_input = raw_unit_sales[time_serie: time_serie + 1, -forecast_horizon_days:]
+                x_input_scaled = scaled_unit_sales[time_serie: time_serie + 1, -forecast_horizon_days:]
+                x_input = cof_zeros(x_input)
+                x_input_scaled = cof_zeros(x_input_scaled)
                 x_input = x_input.reshape(1, x_input.shape[1], x_input.shape[0])
-                y_pred = individual_ts_LSTM.predict(x_input)
-                point_forecast_normalized.append(y_pred)
-            point_forecast_normalized = np.array(point_forecast_normalized)
-            print(point_forecast_normalized.shape, len(time_series_not_improved))
-            point_forecast_reshaped = point_forecast_normalized.reshape(point_forecast_normalized.shape[0],
-                                                                        point_forecast_normalized.shape[3])
-            # inverse transform (first moving_windows denormalizing and then general rescaling)
-            time_serie_normalized_window_mean = np.mean(
-                scaled_unit_sales[time_series_not_improved, -moving_window_length:], axis=1)
-            print(point_forecast_reshaped.shape)
-            denormalized_array = window_based_denormalizer(point_forecast_reshaped, time_serie_normalized_window_mean,
-                                                           forecast_horizon_days)
-            time_serie_unit_sales_mean = []
-            for time_serie in time_series_not_improved:
-                time_serie_unit_sales_mean.append(mean_unit_complete_time_serie[time_serie])
-            point_forecast = general_mean_rescaler(denormalized_array, np.array(time_serie_unit_sales_mean),
-                                                   forecast_horizon_days)
-            point_forecast = point_forecast.reshape(np.shape(point_forecast)[1],
-                                                    np.shape(point_forecast)[2])
+                x_input_scaled = x_input_scaled.reshape(1, x_input_scaled.shape[1], x_input_scaled.shape[0])
+                y_pred = individual_ts_LSTM.predict(x_input.astype(np.dtype('float32')))
+                # y_pred_scaled = individual_ts_LSTM.predict(x_input_scaled)
+                point_forecast.append(y_pred)
+            point_forecast = np.array(point_forecast)
+            print(point_forecast.shape, len(time_series_not_improved))
+            point_forecast_reshaped = point_forecast.reshape(point_forecast.shape[0], point_forecast.shape[2])
+            # inverse preprocessing
             # filling with new improved forecasts
             time_serie_iterator, count = 0, 0
             for time_serie in time_series_not_improved:
