@@ -15291,3 +15291,1459 @@ TypeError: in user code:
 
     TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
 
+
+20.Jun 2020 00:29:21 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 00:30:37 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 00:49:57 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 00:55:38 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:15:12 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:20:40 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:27:35 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:41:18 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:45:22 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:49:18 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:52:19 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:56:01 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+
+
+20.Jun 2020 01:59:31 predict module error
+in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+Traceback (most recent call last):
+  File ".\_3_predict.py", line 258, in predict
+    point_forecast_original = forecaster.predict(x_input[:, :, time_serie: time_serie + 1])
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1205, in predict
+    tmp_batch_outputs = predict_function(iterator)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 580, in __call__
+    result = self._call(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 627, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 505, in _initialize
+    self._stateful_fn._get_concrete_function_internal_garbage_collected(  # pylint: disable=protected-access
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2446, in _get_concrete_function_internal_garbage_collected
+    graph_function, _, _ = self._maybe_define_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2657, in _create_graph_function
+    func_graph_module.func_graph_from_py_func(
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 981, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\eager\def_function.py", line 441, in wrapped_fn
+    return weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\func_graph.py", line 968, in wrapper
+    raise e.ag_error_metadata.to_exception(e)
+TypeError: in user code:
+
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1084 predict_function  *
+        outputs = self.distribute_strategy.run(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:951 run  **
+        return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2290 call_for_each_replica
+        return self._call_for_each_replica(fn, args, kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\distribute\distribute_lib.py:2649 _call_for_each_replica
+        return fn(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\training.py:1059 predict_step  **
+        return self(x, training=False)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\sequential.py:291 call
+        outputs = layer(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:654 __call__
+        return super(RNN, self).__call__(inputs, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:784 call
+        last_output, outputs, states = K.rnn(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:4091 rnn
+        output_time_zero, _ = step_function(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:780 step
+        output, new_states = cell_call_fn(inputs, states, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\engine\base_layer.py:927 __call__
+        outputs = call_fn(cast_inputs, *args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\layers\recurrent.py:2399 call
+        x_i = K.dot(inputs_i, k_i)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\keras\backend.py:1695 dot
+        out = math_ops.matmul(x, y)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\util\dispatch.py:180 wrapper
+        return target(*args, **kwargs)
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\math_ops.py:2983 matmul
+        return gen_math_ops.mat_mul(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\ops\gen_math_ops.py:5585 mat_mul
+        _, _, _op, _outputs = _op_def_library._apply_op_helper(
+    C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\tensorflow\python\framework\op_def_library.py:503 _apply_op_helper
+        raise TypeError(
+
+    TypeError: Input 'b' of 'MatMul' Op has type float32 that does not match type int64 of argument 'a'.
+

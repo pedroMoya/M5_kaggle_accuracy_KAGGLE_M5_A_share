@@ -26547,3 +26547,37 @@ Traceback (most recent call last):
   File ".\_2_train.py", line 241, in train
     diff_previous = np.add(ground_truth, -previous_pred[: ground_truth.shape[0], : ground_truth.shape[1]])
 ValueError: operands could not be broadcast together with shapes (30490,1885) (30490,28) 
+
+20.Jun 2020 00:29:16 correct model training, correct saving of model and weights
+
+20.Jun 2020 00:29:16 settings modified and saved
+
+20.Jun 2020 00:30:30 model training error
+string indices must be integers
+Traceback (most recent call last):
+  File ".\_2_train.py", line 250, in train
+    raw_unit_sales_cof[time_serie, :] = cof_zeros(raw_unit_sales[time_serie, :], settings_cof_zeros)
+  File ".\_2_train.py", line 88, in cof_zeros
+    if local_cof_settings['zeros_control'] == "True":
+TypeError: string indices must be integers
+
+20.Jun 2020 09:24:38 model training error
+sequence item 2: expected str instance, int found
+Traceback (most recent call last):
+  File ".\_2_train.py", line 256, in train
+    print(''.join(['\x1b[0;2;41m','nof first model not improved time_series -->', len(time_series_not_improved),
+TypeError: sequence item 2: expected str instance, int found
+
+20.Jun 2020 09:30:36 model training error
+sequence item 2: expected str instance, int found
+Traceback (most recent call last):
+  File ".\_2_train.py", line 308, in train
+    print(''.join(['\x1b[0;2;41m', 'applying combination model, the results improve in ',
+TypeError: sequence item 2: expected str instance, int found
+
+20.Jun 2020 09:34:33 model training error
+sequence item 2: expected str instance, int found
+Traceback (most recent call last):
+  File ".\_2_train.py", line 308, in train
+    print(''.join(['\x1b[0;2;41m', 'applying combination model, the results improve in ',
+TypeError: sequence item 2: expected str instance, int found

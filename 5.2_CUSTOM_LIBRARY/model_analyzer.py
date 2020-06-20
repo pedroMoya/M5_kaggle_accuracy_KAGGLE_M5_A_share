@@ -51,7 +51,6 @@ class model_structure:
                 json_file.close()
             # changing for subclassing to functional model
             local_model_json = json.loads(local_model_json)
-            print(type(local_model_json))
             local_batch_size = None
             local_time_step_days = local_model_json['config']['build_input_shape'][1]
             local_features = local_model_json['config']['build_input_shape'][2]

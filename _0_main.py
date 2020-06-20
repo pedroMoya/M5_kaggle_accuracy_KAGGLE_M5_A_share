@@ -47,7 +47,7 @@ try:
     import _1_prepare_data
     import _2_train
     import _3_predict
-    # import _4_evaluation
+    import _4_evaluation
     print('-principal modules imported')
     sys.path.insert(1, script_settings['custom_library_path'])
     # here import custom modules
@@ -67,8 +67,8 @@ if __name__ == '__main__':
             preparing = _1_prepare_data.prepare()
             kb.clear_session()
             training = _2_train.train()
-            predicting = _3_predict.predict()
-            # evaluating = _4_evaluation.evaluate()
+            # predicting = _3_predict.predict()
+            evaluating = _4_evaluation.evaluate()
             print('\n~~end of process~~')
         except Exception as ee1:
             print('Error in the main program')
@@ -78,3 +78,4 @@ if __name__ == '__main__':
         print('preparing: ', preparing)
         print('training: ', training)
         print('predicting: ', predicting)
+        print('evaluating: ', evaluating)

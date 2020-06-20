@@ -33,8 +33,8 @@ class stochastic_simulation_results_analysis:
                 print('\nevaluating the first model (stochastic_simulation) trained..')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                    'first_model_forecast_data.npy']))
-            elif local_forecasts_name == 'diff_trends_based_stochastic_model':
-                print('\nevaluating the second model (diff_trend based stochastic model) trained..')
+            elif local_forecasts_name == 'second_model_forecast':
+                print('\nevaluating the second model trained..')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'second_model_forecast_data.npy']))
             elif local_forecasts_name == 'combination_stochastic_model':

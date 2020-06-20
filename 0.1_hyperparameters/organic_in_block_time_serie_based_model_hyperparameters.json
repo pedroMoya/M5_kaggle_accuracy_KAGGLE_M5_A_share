@@ -2,8 +2,9 @@
   "current_model_name": "organic_stochastic_simulation_Bernoulli_processes",
   "comment": "dealing_with_zeros_and_randomness",
   "days_in_focus_frame": 28,
+  "second_model_days_in_focus": 896,
   "forecast_horizon_days": 28,
-  "stochastic_simulation_poor_result_threshold": 0.5,
+  "stochastic_simulation_poor_result_threshold": 1.0,
   "event_iterations": 50,
   "random_samples": 10
 }

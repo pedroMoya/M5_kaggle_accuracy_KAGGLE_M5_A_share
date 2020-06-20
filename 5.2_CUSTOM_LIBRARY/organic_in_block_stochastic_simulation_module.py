@@ -65,9 +65,8 @@ def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
 
 class organic_in_block_estochastic_simulation:
 
-    def run_stochastic_simulation(self, local_settings, local_raw_unit_sales, local_mse=None):
+    def run_stochastic_simulation(self, local_settings, local_raw_unit_sales, local_days_in_focus=None):
         try:
-            # local_mse will be used if at first train a neural network -> results stored in local_mse
             print('starting time_series in-block forecast submodule')
             # set training parameters
             with open(''.join([local_settings['hyperparameters_path'],
@@ -79,7 +78,10 @@ class organic_in_block_estochastic_simulation:
             # obtaining representative samples, and assuming a uniform Normal distribution..and Pareto mixed
             local_forecast_horizon_days = local_settings['forecast_horizon_days']
             event_iterations = model_hyperparameters['event_iterations']
-            days_in_focus_frame = model_hyperparameters['days_in_focus_frame']
+            if local_days_in_focus is None:
+                days_in_focus_frame = model_hyperparameters['days_in_focus_frame']
+            else:
+                days_in_focus_frame = local_days_in_focus
             nof_features_for_training = nof_time_series = local_raw_unit_sales.shape[0]
             x_data = local_raw_unit_sales[:, -days_in_focus_frame:]
             forecasts = np.zeros(shape=(nof_time_series * 2, local_forecast_horizon_days))
