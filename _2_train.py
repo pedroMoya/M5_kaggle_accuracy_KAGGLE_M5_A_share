@@ -37,7 +37,7 @@ try:
     from diff_trend_time_serie_module import difference_trends_insight
     from individual_ts_neural_network_training import neural_network_time_serie_schema
     from save_forecast_and_make_submission import save_forecast_and_submission
-
+    from accumulated_frequency_distribution_forecast import accumulated_frequency_distribution_based_engine
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
     print(ee1)
@@ -203,7 +203,7 @@ def train():
         # checking correct order in run models
         if local_script_settings['first_train_approach'] == 'stochastic_simulation':
             print('the order in model execution will be: first stochastic_simulation, '
-                  'second ~the eclectic~ model, and third neural_network')
+                  'second and third ~the eclectic~ models, and finally neural_network')
         else:
             print('first_train_approach parameter in settings not defined or unknown')
             return False
@@ -215,7 +215,7 @@ def train():
         time_series_ss_review, first_model_forecasts = stochastic_simulation.run_stochastic_simulation(
             local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales)
         print('in-block stochastic simulation completed, success --> ', time_series_ss_review)
-        # saving first model forecast and submission bases only in this second model
+        # saving first model forecast and submission based only in this first model
         store_and_submit_first_model_forecast = save_forecast_and_submission()
         first_model_save_review = \
             store_and_submit_first_model_forecast.store_and_submit('first_model_forecast_data', local_script_settings,
@@ -252,42 +252,13 @@ def train():
         else:
             print('error at storing second model forecast data or submission')
 
-        # creating combination of first and second models
-        print(''.join(['\x1b[0;2;41m', 'nof first model not improved time_series -->',
-                       str(len(time_series_not_improved)), '\x1b[0m']))
-        first_two_models_forecasts_consolidate = first_model_forecasts
-        first_two_models_forecasts_consolidate[time_series_not_improved, :] = \
-            second_model_forecasts[time_series_not_improved, :]
-
-        # first_two_models_forecasts_consolidate[: second_model_forecasts.shape[0], : second_model_forecasts.shape[1]] \
-        #     = np.add(second_model_forecasts, first_two_models_forecasts_consolidate[
-        #                                     : second_model_forecasts.shape[0], : second_model_forecasts.shape[1]])
-        # first_two_models_forecasts_consolidate = np.divide(first_two_models_forecasts_consolidate, 2)
-
-        # saving combination model forecast and submission
-        store_and_submit_combination_model_forecast = save_forecast_and_submission()
-        combination_model_save_review = \
-            store_and_submit_combination_model_forecast.store_and_submit('combination_first_two_model_forecast_data',
-                                                                         local_script_settings,
-                                                                         first_two_models_forecasts_consolidate)
-        if combination_model_save_review:
-            print('combination forecast data and submission done')
-        else:
-            print('error at storing combination model forecast data or submission')
-
-        # second model results, necessary here because time_series_not_improved is input to third model
+        # second model results, necessary here because time_series_not_improved may be input to third model
         first_model_not_improved_ts = len(time_series_not_improved)
         second_model_results = stochastic_simulation_results_analysis()
         time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
             local_script_settings, organic_in_block_time_serie_based_model_hyperparameters,
             raw_unit_sales, raw_unit_sales_ground_truth, 'second_model_forecast')
-
-        # results of COMBINATION of first and second models
         second_model_not_improved_ts = len(time_series_not_improved)
-        combination_model_results = stochastic_simulation_results_analysis()
-        time_series_not_improved = combination_model_results.evaluate_stochastic_simulation(
-            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-            raw_unit_sales_ground_truth, 'combination_stochastic_model')
 
         # results in terms of time_series not_improved
         print('first model nof time_series not improved:', first_model_not_improved_ts)
@@ -297,22 +268,59 @@ def train():
                   str(first_model_not_improved_ts - second_model_not_improved_ts), ' time_series more', '\x1b[0m']))
         else:
             print('it is not observed an improvement applying the second model')
-        combination_model_not_improved_ts = len(time_series_not_improved)
         if first_model_not_improved_ts < second_model_not_improved_ts:
             best_alone_model_not_improved_ts = first_model_not_improved_ts
         else:
             best_alone_model_not_improved_ts = second_model_not_improved_ts
         print('best (first or second) model nof time_series not improved:', best_alone_model_not_improved_ts)
-        print('combination model nof time_series not improved:', combination_model_not_improved_ts)
-        if best_alone_model_not_improved_ts > combination_model_not_improved_ts:
-            print(''.join(['\x1b[0;2;41m', 'applying combination model, the results improve in ',
-                  str(best_alone_model_not_improved_ts - combination_model_not_improved_ts),
-                           ' time_series', '\x1b[0m']))
 
+        # _______________________THIRD_MODEL_______________
+        # using other models based in accumulated_absolute_frequencies
+        # RANdom SAmple Consensus algorithm
+        call_to_regression_submodule = accumulated_frequency_distribution_based_engine()
+        call_to_regression_submodule_review, third_model_forecasts = \
+            call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
+                                                                   'RANSACRegressor')
+        print('third_model training completed, success --> ', call_to_regression_submodule_review)
+        # saving third model forecast and submission based only in this third model
+        store_and_submit_third_model_forecast = save_forecast_and_submission()
+        third_model_save_review = \
+            store_and_submit_third_model_forecast.store_and_submit('third_model_forecast_data', local_script_settings,
+                                                                   third_model_forecasts)
+        if third_model_save_review:
+            print('third_model forecast data and submission done')
         else:
-            print('it is not observed an improvement applying the combination model')
+            print('error at storing third model forecast data or submission')
+        # third model results, necessary here because time_series_not_improved is input to next model
+        third_model_results = stochastic_simulation_results_analysis()
+        time_series_not_improved = third_model_results.evaluate_stochastic_simulation(
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+            raw_unit_sales_ground_truth, 'third_model_RANSAC_accumulated_frequencies_approach')
 
-        # _______________________THIRD_MODEL_____________________________
+        # _______________________FOURTH_MODEL_______________
+        # using other models based in accumulated_absolute_frequencies
+        # in_block_neural_network
+        # call_to_regression_submodule_review, fourth_model_forecasts = \
+        #     call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
+        #                                                            'in_block_neural_network')
+        # print('fourth_model training completed, success --> ', call_to_regression_submodule_review)
+        # # saving fourth model forecast and submission based only in this third model
+        # store_and_submit_fourth_model_forecast = save_forecast_and_submission()
+        # fourth_model_save_review = \
+        #     store_and_submit_fourth_model_forecast.store_and_submit('fourth_model_forecast_data', local_script_settings,
+        #                                                             fourth_model_forecasts)
+        # if fourth_model_save_review:
+        #     print('fourth_model forecast data and submission done')
+        # else:
+        #     print('error at storing fourth model forecast data or submission')
+        # # fourth model results, necessary here because time_series_not_improved is input to next model
+        # fourth_model_results = stochastic_simulation_results_analysis()
+        # time_series_not_improved = fourth_model_results.evaluate_stochastic_simulation(
+        #     local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+        #     raw_unit_sales_ground_truth, 'fourth_model_NN_accumulated_frequencies_approach')
+
+
+        # _______________________NEURAL_NETWORK_INDIVIDUAL_TS_COF_ZEROS_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_training = local_script_settings['repeat_neural_network_training']
         if repeat_nn_training == 'False':

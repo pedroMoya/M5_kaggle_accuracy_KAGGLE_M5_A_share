@@ -1,0 +1,6 @@
+{
+  "current_model_name": "accumulated_frequency_approach_model",
+  "comment": "from first sale, no more zeros",
+  "days_in_focus_frame": 35,
+  "regression_technique": "RANSACRegressor_first_and_in_block_neural_network_latter"
+}

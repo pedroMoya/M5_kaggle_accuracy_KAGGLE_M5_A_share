@@ -26581,3 +26581,18 @@ Traceback (most recent call last):
   File ".\_2_train.py", line 308, in train
     print(''.join(['\x1b[0;2;41m', 'applying combination model, the results improve in ',
 TypeError: sequence item 2: expected str instance, int found
+
+20.Jun 2020 20:50:53 correct model training, correct saving of model and weights
+
+20.Jun 2020 20:50:53 settings modified and saved
+
+21.Jun 2020 11:40:44 model training error
+name 'accumulated_frequency_distribution_based_engine' is not defined
+Traceback (most recent call last):
+  File ".\_2_train.py", line 214, in train
+    call_to_regression_submodule = accumulated_frequency_distribution_based_engine()
+NameError: name 'accumulated_frequency_distribution_based_engine' is not defined
+
+21.Jun 2020 22:09:13 correct model training, correct saving of model and weights
+
+21.Jun 2020 22:09:13 settings modified and saved

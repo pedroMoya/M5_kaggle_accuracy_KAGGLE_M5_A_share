@@ -33,7 +33,7 @@ kb.clear_session()
 
 
 def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
-                             local_local_forecast_horizon_days, local_nof_features_for_training):
+                             local_rer_forecast_horizon_days, local_nof_features_for_training):
     # computing non_zero_frequencies by time_serie, this brings the probability_of_sale = 1 - zero_frequency
     # ---------------kernel----------------------------------
     x_data = local_time_serie_data[:, -local_days_in_focus_frame:]
@@ -45,13 +45,13 @@ def random_event_realization(local_time_serie_data, local_days_in_focus_frame,
     # mean with zero included (test with zero excluded, but obtains poorer results)
     mean_last_days_frame = np.mean(x_data[:, -local_days_in_focus_frame:], axis=1)
     # triggering random event and assign sale or not, if sale then fill with mean, if no maintain with zero
-    local_y_pred = np.zeros(shape=(local_nof_features_for_training, local_local_forecast_horizon_days))
-    random_event_array_normal = np.random.rand(local_nof_features_for_training, local_local_forecast_horizon_days)
-    pareto_dist = np.random.pareto(3, (local_nof_features_for_training, local_local_forecast_horizon_days))
+    local_y_pred = np.zeros(shape=(local_nof_features_for_training, local_rer_forecast_horizon_days))
+    random_event_array_normal = np.random.rand(local_nof_features_for_training, local_rer_forecast_horizon_days)
+    pareto_dist = np.random.pareto(3, (local_nof_features_for_training, local_rer_forecast_horizon_days))
     pareto_dist_normalized = pareto_dist / np.amax(pareto_dist)
     random_event_array = np.divide(np.add(4 * pareto_dist_normalized, 3 * random_event_array_normal), 7.)
     local_zero_loc = []
-    for time_serie, day in it.product(range(local_nof_features_for_training), range(local_local_forecast_horizon_days)):
+    for time_serie, day in it.product(range(local_nof_features_for_training), range(local_rer_forecast_horizon_days)):
         if probability_of_sale_array[time_serie] > random_event_array[time_serie, day]:
             local_y_pred[time_serie: time_serie + 1, day] = mean_last_days_frame[time_serie]
         else:

@@ -361,8 +361,10 @@ class neural_network_time_serie_schema:
             local_raw_unit_sales = np.array(local_raw_unit_sales, dtype=np.dtype('float32'))
             # specific time_serie models training loop
             local_y_pred_list = []
-            local_time_series_not_improved = local_time_series_not_improved[5000:]  # capping for test code
-            for time_serie in local_time_series_not_improved:
+            local_nof_time_series = local_settings['number_of_time_series']
+            remainder = np.array([time_serie for time_serie in range(local_nof_time_series)
+                                  if time_serie not in local_time_series_not_improved])
+            for time_serie in remainder:
                 # ----------------------key_point---------------------------------------------------------------------
                 # take note that each loop the weights and internal last states of previous training are conserved
                 # that's probably save times and (in aggregated or ordered) connected time series will improve results
