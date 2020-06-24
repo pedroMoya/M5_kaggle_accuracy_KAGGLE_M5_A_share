@@ -26596,3 +26596,31 @@ NameError: name 'accumulated_frequency_distribution_based_engine' is not defined
 21.Jun 2020 22:09:13 correct model training, correct saving of model and weights
 
 21.Jun 2020 22:09:13 settings modified and saved
+
+22.Jun 2020 23:11:57 model training error
+object of type 'bool' has no len()
+Traceback (most recent call last):
+  File ".\_2_train.py", line 256, in train
+    first_model_not_improved_ts = len(time_series_not_improved)
+TypeError: object of type 'bool' has no len()
+
+24.Jun 2020 00:45:59 model training error
+local variable 'call_to_regression_submodule' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 293, in train
+    call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
+UnboundLocalError: local variable 'call_to_regression_submodule' referenced before assignment
+
+24.Jun 2020 00:51:55 model training error
+local variable 'time_series_not_improved' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 261, in train
+    first_model_not_improved_ts = len(time_series_not_improved)
+UnboundLocalError: local variable 'time_series_not_improved' referenced before assignment
+
+24.Jun 2020 00:53:12 model training error
+local variable 'time_series_not_improved' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 261, in train
+    first_model_not_improved_ts = len(time_series_not_improved)
+UnboundLocalError: local variable 'time_series_not_improved' referenced before assignment

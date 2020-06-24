@@ -23,7 +23,6 @@ logger.addHandler(logHandler)
 
 # load custom libraries
 sys.path.insert(1, local_submodule_settings['custom_library_path'])
-from mini_module_submission_generator import save_submission
 from save_forecast_and_make_submission import save_forecast_and_submission
 
 
@@ -45,42 +44,61 @@ class explore_results_and_generate_submission:
                                                     'first_model_forecast_data.npy']))
             second_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
                                                     'second_model_forecast_data.npy']))
-            lstm_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
-                                                   'LSTM_model_forecast_data.npy']))
-            RANSAC_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
-                                                   'RANSAC_model_forecast_data.npy']))
+            third_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
+                                                   'third_model_forecast_data.npy']))
+            fourth_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
+                                                     'fourth_model_forecast_data.npy']))
+            fifth_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
+                                                   'fifth_model_forecast_data.npy']))
 
             # loading the results
             first_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
-                                                  'time_series_forecast_results_stochastic_simulation_mse.npy']))
+                                                  'time_series_results_first_model_mse.npy']))
             second_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
-                                                   'time_series_second_model_forecast_mse.npy']))
-            lstm_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
-                                                 'LSTM_model_forecast_result_mse.npy']))
-            RANSAC_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
-                                                 'LSTM_model_forecast_result_mse.npy']))
+                                                   'time_series_results_second_model_mse.npy']))
+            third_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
+                                                 'time_series_results_third_model_mse.npy']))
+            fourth_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
+                                                   'time_series_results_fourth_model_mse.npy']))
+            fifth_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
+                                                 'time_series_results_fifth_model_mse.npy']))
 
             # -----------------------kernel------------------------------------------
             nof_ts = local_ergs_settings['number_of_time_series']
             local_forecast_horizon_days = local_ergs_settings['forecast_horizon_days']
             best_y_pred = np.zeros(shape=(nof_ts, local_forecast_horizon_days), dtype=np.dtype('float32'))
-            count_best_first_model, count_best_second_model, count_best_lstm = 0, 0, 0
+            count_best_first_model, count_best_second_model, count_best_third_model, count_best_fourth_model,\
+                count_best_fifth_model = 0, 0, 0, 0, 0
             for time_serie_index in range(nof_ts):
                 first_model_mse = first_model_result[time_serie_index][2]
                 second_model_mse = second_model_result[time_serie_index][2]
-                lstm_model_mse = lstm_model_result[time_serie_index][1]
-                if first_model_mse < second_model_mse and first_model_mse < lstm_model_mse:
+                third_model_mse = third_model_result[time_serie_index][2]
+                fourth_model_mse = fourth_model_result[time_serie_index][2]
+                fifth_model_mse = fifth_model_result[time_serie_index][1]
+                if first_model_mse < second_model_mse and first_model_mse < third_model_mse \
+                        and first_model_mse < fourth_model_mse and first_model_mse < fifth_model_mse:
                     best_y_pred[time_serie_index, :] = first_model_forecast[time_serie_index, :]
                     count_best_first_model += 1
-                elif second_model_mse < first_model_mse and second_model_mse < lstm_model_mse:
+                elif second_model_mse < first_model_mse and second_model_mse < third_model_mse \
+                        and second_model_mse < fourth_model_mse and second_model_mse < fifth_model_mse:
                     best_y_pred[time_serie_index, :] = second_model_forecast[time_serie_index, :]
                     count_best_second_model += 1
+                elif third_model_mse < first_model_mse and third_model_mse < second_model_mse \
+                        and third_model_mse < fourth_model_mse and third_model_mse < fifth_model_mse:
+                    best_y_pred[time_serie_index, :] = third_model_forecast[time_serie_index, :]
+                    count_best_third_model += 1
+                elif fourth_model_mse < first_model_mse and fourth_model_mse < second_model_mse \
+                        and fourth_model_mse < third_model_mse and fourth_model_mse < fifth_model_mse:
+                    best_y_pred[time_serie_index, :] = fourth_model_forecast[time_serie_index, :]
+                    count_best_fourth_model += 1
                 else:
-                    best_y_pred[time_serie_index, :] = lstm_model_forecast[time_serie_index, :]
-                    count_best_lstm += 1
+                    best_y_pred[time_serie_index, :] = fifth_model_forecast[time_serie_index, :]
+                    count_best_fifth_model += 1
             print('it was used ', count_best_first_model, ' ts forecasts from first model')
             print('it was used ', count_best_second_model, ' ts forecasts from second model')
-            print('it was used ', count_best_lstm, ' ts forecasts from LSTM model')
+            print('it was used ', count_best_third_model, ' ts forecasts from third model')
+            print('it was used ', count_best_fourth_model, ' ts forecasts from fourth model')
+            print('it was used ', count_best_fifth_model, ' ts forecasts from fifth model')
 
             # saving best mse_based between different models forecast and submission
             store_and_submit_best_model_forecast = save_forecast_and_submission()
@@ -88,9 +106,9 @@ class explore_results_and_generate_submission:
                 store_and_submit_best_model_forecast.store_and_submit(submission_name, local_ergs_settings,
                                                                       best_y_pred)
             if mse_based_best_model_save_review:
-                print('first_model forecast data and submission done')
+                print('best mse_based model forecast data and submission done')
             else:
-                print('error at storing first model forecast data or submission')
+                print('error at storing best mse_based model forecast data or submission')
         except Exception as submodule_error:
             print('explore_results and generate_submission submodule_error: ', submodule_error)
             logger.info('error in explore_results and generate_submission submodule')

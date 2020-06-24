@@ -143,7 +143,7 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
         [x_train.append(local_unit_sales[:, day: day + local_time_steps_days])
          for day in range(local_unit_sales, local_max_selling_time, local_stride_window_walk)]
     elif local_settings_arg['train_model_input_data_approach'] == "focused":
-        [x_train.append(local_unit_sales[:, day: day + local_time_steps_days])
+        [x_train.append(local_unit_sales[:, day: day + local_moving_window_length])
          for last_day in local_day_in_year[:-1]
          for day in range(last_day + local_window_output_length,
                           last_day + local_window_output_length - local_days_in_focus_frame, -local_stride_window_walk)]
@@ -163,7 +163,7 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg,
          for day in range(local_time_steps_days, local_max_selling_time, local_stride_window_walk)]
     elif local_settings_arg['train_model_input_data_approach'] == "focused":
         [y_train.append(local_unit_sales[:,
-                        day - local_stride_window_walk: day + local_time_steps_days - local_stride_window_walk])
+                        day - local_stride_window_walk: day + local_moving_window_length - local_stride_window_walk])
          for last_day in local_day_in_year[:-1]
          for day in range(last_day + local_window_output_length,
                           last_day + local_window_output_length - local_days_in_focus_frame, -local_stride_window_walk)]

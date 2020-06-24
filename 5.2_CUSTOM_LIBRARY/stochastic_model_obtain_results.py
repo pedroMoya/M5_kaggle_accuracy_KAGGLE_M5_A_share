@@ -29,7 +29,7 @@ class stochastic_simulation_results_analysis:
         try:
             # evaluating model and for comparing with threshold defined in settings
             # (organic_in_block_time_serie_based_model_hyperparameters.json)
-            if local_forecasts_name == 'stochastic_simulation':
+            if local_forecasts_name == 'first_model_forecast':
                 print('\nevaluating the first model (stochastic_simulation) trained..')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                    'first_model_forecast_data.npy']))
@@ -37,15 +37,11 @@ class stochastic_simulation_results_analysis:
                 print('\nevaluating the second model trained..')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'second_model_forecast_data.npy']))
-            elif local_forecasts_name == 'combination_stochastic_model':
-                print('\nevaluating the combination (first-second model) trained..')
-                local_forecasts = np.load(''.join([local_settings['train_data_path'],
-                                                  'combination_first_two_model_forecast_data.npy']))
-            elif local_forecasts_name == 'third_model_RANSAC_accumulated_frequencies_approach':
+            elif local_forecasts_name == 'third_model_forecast':
                 print('\nevaluating the accumulated_frequencies_approach (third model) trained..')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'third_model_forecast_data.npy']))
-            elif local_forecasts_name == 'fourth_model_NN_accumulated_frequencies_approach':
+            elif local_forecasts_name == 'fourth_model_forecast':
                 print('\nevaluating the accumulated_frequencies_approach_in_block_NN (fourth model) trained..')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'fourth_model_forecast_data.npy']))
@@ -90,8 +86,8 @@ class stochastic_simulation_results_analysis:
             average_mse_not_improved_ts = np.mean(local_not_improved_mse)
             average_mse_in_block_forecast = np.mean(local_time_series_treated[:, 2])
             average_mse_improved_ts = np.mean(local_improved_mse)
-            print('mean_mse for in-block forecast:', average_mse_in_block_forecast)
-            print('number of time series with better results with this forecast: ',
+            print('mean_mse for forecast:', average_mse_in_block_forecast)
+            print('number of time series with better (lower than threshold) results with this forecast: ',
                   len(local_improved_time_series_forecast))
             print('mean_mse of time series with better results with this forecast: ', average_mse_improved_ts)
             print('mean_mse of time series with worse results with this forecast: ', average_mse_not_improved_ts)
@@ -100,90 +96,53 @@ class stochastic_simulation_results_analysis:
             local_time_series_not_improved = np.array(local_time_series_not_improved)
 
             # store data of (individual-approach) time_series forecast successfully improved and those that not
-            if local_forecasts_name == 'stochastic_simulation':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'stochastic_simulation_mse.csv']),
+            if local_forecasts_name == 'first_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'first_model_mse.csv']),
                            local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_forecast_results_stochastic_simulation_mse']),
+                                 'time_series_results_first_model_mse']),
                         local_time_series_treated)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_forecast_stochastic_simulation']),
+                                 'improved_time_series_first_model']),
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_stochastic_simulation']),
-                        local_time_series_not_improved)
-            elif local_forecasts_name == 'diff_trends_based_stochastic_model':
-                np.savetxt(''.join([local_settings['models_evaluation_path'],
-                                    'diff_trends_based_stochastic_model_mse.csv']),
-                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_forecast_results_diff_trends_based']),
-                        local_time_series_treated)
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_forecast_diff_trends_based']),
-                        local_improved_time_series_forecast)
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_diff_trends_based']),
-                        local_time_series_not_improved)
-            elif local_forecasts_name == 'combination_stochastic_model':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'combination_stochastic_mse.csv']),
-                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_forecast_results_combination_stochastic']),
-                        local_time_series_treated)
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_forecast_combination_stochastic']),
-                        local_improved_time_series_forecast)
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_combination_stochastic']),
+                                 'time_series_not_improved_first_model']),
                         local_time_series_not_improved)
             elif local_forecasts_name == 'second_model_forecast':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'second_model_forecast_mse.csv']),
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'second_model_mse.csv']),
                            local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_second_model_forecast_mse']),
+                                 'time_series_results_second_model_mse']),
                         local_time_series_treated)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_second_model_forecast']),
+                                 'improved_time_series_second_model']),
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_second_model_forecast']),
+                                 'time_series_not_improved_second_model']),
                         local_time_series_not_improved)
-            elif local_forecasts_name == 'third_model_accumulated_frequencies_approach':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'third_model_forecast_mse.csv']),
+            elif local_forecasts_name == 'third_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'third_model_mse.csv']),
                            local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_third_model_forecast_mse']),
+                                 'time_series_results_third_model_mse']),
                         local_time_series_treated)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_third_model_forecast']),
+                                 'improved_time_series_third_model']),
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_third_model_forecast']),
+                                 'time_series_not_improved_third_model']),
                         local_time_series_not_improved)
-            elif local_forecasts_name == 'third_model_RANSAC_accumulated_frequencies_approach':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'third_model_forecast_mse.csv']),
+            elif local_forecasts_name == 'fourth_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'fourth_model_mse.csv']),
                            local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_third_model_forecast_mse']),
+                                 'time_series_fourth_model_mse']),
                         local_time_series_treated)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_third_model_forecast']),
+                                 'improved_time_series_fourth_model']),
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_third_model_forecast']),
-                        local_time_series_not_improved)
-            elif local_forecasts_name == 'fourth_model_NN_accumulated_frequencies_approach':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'fourth_model_forecast_mse.csv']),
-                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_fourth_model_forecast_mse']),
-                        local_time_series_treated)
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_fourth_model_forecast']),
-                        local_improved_time_series_forecast)
-                np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_fourth_model_forecast']),
+                                 'time_series_not_improved_fourth_model']),
                         local_time_series_not_improved)
             print('specific model evaluation saved')
             print('metadata (results, time_series) saved')

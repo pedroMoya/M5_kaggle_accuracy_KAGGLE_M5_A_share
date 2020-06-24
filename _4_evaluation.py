@@ -98,7 +98,7 @@ def evaluate():
             # generate diagram of neural network model
             if local_script_settings['model_analyzer'] == 'on':
                 analyzer = model_structure()
-                model_name = 'generic_forecaster_template_individual_ts.h5'
+                model_name = '_acc_freq_in_block_nn_model_.h5'
                 analysis_result = analyzer.analize(model_name, local_script_settings)
                 if analysis_result:
                     print('model_analysis successfully, json file saved')

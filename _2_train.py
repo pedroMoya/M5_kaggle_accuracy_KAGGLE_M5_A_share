@@ -15,7 +15,7 @@ try:
     physical_devices = tf.config.list_physical_devices('GPU')
     tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
     tf.keras.backend.set_floatx('float32')
-    from tensorflow.keras import layers
+    from tensorflow.keras import layers, models
     from tensorflow.keras.experimental import PeepholeLSTMCell
     from tensorflow.keras.layers import TimeDistributed
     from tensorflow.keras.layers import RepeatVector
@@ -202,125 +202,125 @@ def train():
 
         # checking correct order in run models
         if local_script_settings['first_train_approach'] == 'stochastic_simulation':
-            print('the order in model execution will be: first stochastic_simulation, '
-                  'second and third ~the eclectic~ models, and finally neural_network')
+            print('the order in model execution will be: first and second stochastic_simulations, '
+                  'third RANSAC model, fourth in_block_neural_network and finally fifth_individual_NN')
         else:
             print('first_train_approach parameter in settings not defined or unknown')
             return False
 
-        # _______________________FIRST_MODEL_______________
-        # training in-block stochastic simulation submodule
-        print('assuming first_train_approach as stochastic simulation')
-        stochastic_simulation = organic_in_block_estochastic_simulation()
-        time_series_ss_review, first_model_forecasts = stochastic_simulation.run_stochastic_simulation(
-            local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales)
-        print('in-block stochastic simulation completed, success --> ', time_series_ss_review)
-        # saving first model forecast and submission based only in this first model
-        store_and_submit_first_model_forecast = save_forecast_and_submission()
-        first_model_save_review = \
-            store_and_submit_first_model_forecast.store_and_submit('first_model_forecast_data', local_script_settings,
-                                                                   first_model_forecasts)
-        if first_model_save_review:
-            print('first_model forecast data and submission done')
+        if local_script_settings['skip_first_model_training'] != "True":
+            # _______________________FIRST_MODEL_______________
+            # training in-block stochastic simulation submodule
+            print('assuming first_train_approach as stochastic simulation')
+            stochastic_simulation = organic_in_block_estochastic_simulation()
+            time_series_ss_review, first_model_forecasts = stochastic_simulation.run_stochastic_simulation(
+                local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales)
+            print('in-block stochastic simulation completed, success --> ', time_series_ss_review)
+            # saving first model forecast and submission based only in this first model
+            store_and_submit_first_model_forecast = save_forecast_and_submission()
+            first_model_save_review = \
+                store_and_submit_first_model_forecast.store_and_submit('first_model_forecast_data',
+                                                                       local_script_settings, first_model_forecasts)
+            if first_model_save_review:
+                print('first_model forecast data and submission done')
+            else:
+                print('error at storing first model forecast data or submission')
+            # first model results, necessary here because time_series_not_improved is input to second model
+            first_model_results = stochastic_simulation_results_analysis()
+            time_series_not_improved = first_model_results.evaluate_stochastic_simulation(
+                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+                raw_unit_sales_ground_truth, 'first_model_forecast')
         else:
-            print('error at storing first model forecast data or submission')
-        # first model results, necessary here because time_series_not_improved is input to second model
-        first_model_results = stochastic_simulation_results_analysis()
-        time_series_not_improved = first_model_results.evaluate_stochastic_simulation(
-            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-            raw_unit_sales_ground_truth, 'stochastic_simulation')
+            print('by settings, skipping first model training')
 
-        # _______________________SECOND_MODEL_____________________________
-        # applying second previous diff-trends stochastic simulation to high_loss time_series
-        print('\nsecond model training')
-        forecast_horizon_days = local_script_settings['forecast_horizon_days']
-        nof_time_series = local_script_settings['number_of_time_series']
-        days_in_focus_second_model = \
-            organic_in_block_time_serie_based_model_hyperparameters['second_model_days_in_focus']
-        time_series_sm_review, second_model_forecasts = stochastic_simulation.run_stochastic_simulation(
-            local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales,
-            local_days_in_focus=days_in_focus_second_model)
-        print('second model training completed, success --> ', time_series_sm_review)
-
-        # saving second model forecast and submission bases only in this second model
-        store_and_submit_second_model_forecast = save_forecast_and_submission()
-        second_model_save_review = \
-            store_and_submit_second_model_forecast.store_and_submit('second_model_forecast_data', local_script_settings,
-                                                                    second_model_forecasts)
-        if second_model_save_review:
-            print('second_model forecast data and submission done')
+        if local_script_settings['skip_second_model_training'] != "True":
+            # _______________________SECOND_MODEL_____________________________
+            # applying second previous diff-trends stochastic simulation to high_loss time_series
+            print('\nsecond model training')
+            forecast_horizon_days = local_script_settings['forecast_horizon_days']
+            nof_time_series = local_script_settings['number_of_time_series']
+            days_in_focus_second_model = \
+                organic_in_block_time_serie_based_model_hyperparameters['second_model_days_in_focus']
+            time_series_sm_review, second_model_forecasts = stochastic_simulation.run_stochastic_simulation(
+                local_settings=local_script_settings, local_raw_unit_sales=raw_unit_sales,
+                local_days_in_focus=days_in_focus_second_model)
+            print('second model training completed, success --> ', time_series_sm_review)
+            # saving second model forecast and submission bases only in this second model
+            store_and_submit_second_model_forecast = save_forecast_and_submission()
+            second_model_save_review = \
+                store_and_submit_second_model_forecast.store_and_submit('second_model_forecast_data', local_script_settings,
+                                                                        second_model_forecasts)
+            if second_model_save_review:
+                print('second_model forecast data and submission done')
+            else:
+                print('error at storing second model forecast data or submission')
+            # second model results, necessary here because time_series_not_improved may be input to third model
+            first_model_not_improved_ts = len(time_series_not_improved)
+            second_model_results = stochastic_simulation_results_analysis()
+            time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
+                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters,
+                raw_unit_sales, raw_unit_sales_ground_truth, 'second_model_forecast')
+            second_model_not_improved_ts = len(time_series_not_improved)
         else:
-            print('error at storing second model forecast data or submission')
+            print('by settings, skipping second model training')
 
-        # second model results, necessary here because time_series_not_improved may be input to third model
-        first_model_not_improved_ts = len(time_series_not_improved)
-        second_model_results = stochastic_simulation_results_analysis()
-        time_series_not_improved = second_model_results.evaluate_stochastic_simulation(
-            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters,
-            raw_unit_sales, raw_unit_sales_ground_truth, 'second_model_forecast')
-        second_model_not_improved_ts = len(time_series_not_improved)
-
-        # results in terms of time_series not_improved
-        print('first model nof time_series not improved:', first_model_not_improved_ts)
-        print('second model nof time_series not improved:', second_model_not_improved_ts)
-        if first_model_not_improved_ts > second_model_not_improved_ts:
-            print(''.join(['\x1b[0;2;41m', 'applying second model(alone), the results improve in ',
-                  str(first_model_not_improved_ts - second_model_not_improved_ts), ' time_series more', '\x1b[0m']))
-        else:
-            print('it is not observed an improvement applying the second model')
-        if first_model_not_improved_ts < second_model_not_improved_ts:
-            best_alone_model_not_improved_ts = first_model_not_improved_ts
-        else:
-            best_alone_model_not_improved_ts = second_model_not_improved_ts
-        print('best (first or second) model nof time_series not improved:', best_alone_model_not_improved_ts)
-
-        # _______________________THIRD_MODEL_______________
-        # using other models based in accumulated_absolute_frequencies
-        # RANdom SAmple Consensus algorithm
+        # allow run independent training of third and fourth models
         call_to_regression_submodule = accumulated_frequency_distribution_based_engine()
-        call_to_regression_submodule_review, third_model_forecasts = \
-            call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
-                                                                   'RANSACRegressor')
-        print('third_model training completed, success --> ', call_to_regression_submodule_review)
-        # saving third model forecast and submission based only in this third model
-        store_and_submit_third_model_forecast = save_forecast_and_submission()
-        third_model_save_review = \
-            store_and_submit_third_model_forecast.store_and_submit('third_model_forecast_data', local_script_settings,
-                                                                   third_model_forecasts)
-        if third_model_save_review:
-            print('third_model forecast data and submission done')
+        if local_script_settings['skip_third_model_training'] != "True":
+            # _______________________THIRD_MODEL_______________
+            # using other models based in accumulated_absolute_frequencies
+            # RANdom SAmple Consensus algorithm
+            call_to_regression_submodule_review, third_model_forecasts = \
+                call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
+                                                                       'RANSACRegressor')
+            print('third_model training completed, success --> ', call_to_regression_submodule_review)
+            # saving third model forecast and submission based only in this third model
+            store_and_submit_third_model_forecast = save_forecast_and_submission()
+            third_model_save_review = \
+                store_and_submit_third_model_forecast.store_and_submit('third_model_forecast_data',
+                                                                       local_script_settings,
+                                                                       third_model_forecasts)
+            if third_model_save_review:
+                print('third_model forecast data and submission done')
+            else:
+                print('error at storing third model forecast data or submission')
+            # third model results, necessary here because time_series_not_improved is input to next model
+            third_model_results = stochastic_simulation_results_analysis()
+            time_series_not_improved = third_model_results.evaluate_stochastic_simulation(
+                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+                raw_unit_sales_ground_truth, 'third_model_forecast')
         else:
-            print('error at storing third model forecast data or submission')
-        # third model results, necessary here because time_series_not_improved is input to next model
-        third_model_results = stochastic_simulation_results_analysis()
-        time_series_not_improved = third_model_results.evaluate_stochastic_simulation(
-            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-            raw_unit_sales_ground_truth, 'third_model_RANSAC_accumulated_frequencies_approach')
+            print('by settings, skipping third model training')
 
-        # _______________________FOURTH_MODEL_______________
-        # using other models based in accumulated_absolute_frequencies
-        # in_block_neural_network
-        # call_to_regression_submodule_review, fourth_model_forecasts = \
-        #     call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
-        #                                                            'in_block_neural_network')
-        # print('fourth_model training completed, success --> ', call_to_regression_submodule_review)
-        # # saving fourth model forecast and submission based only in this third model
-        # store_and_submit_fourth_model_forecast = save_forecast_and_submission()
-        # fourth_model_save_review = \
-        #     store_and_submit_fourth_model_forecast.store_and_submit('fourth_model_forecast_data', local_script_settings,
-        #                                                             fourth_model_forecasts)
-        # if fourth_model_save_review:
-        #     print('fourth_model forecast data and submission done')
-        # else:
-        #     print('error at storing fourth model forecast data or submission')
-        # # fourth model results, necessary here because time_series_not_improved is input to next model
-        # fourth_model_results = stochastic_simulation_results_analysis()
-        # time_series_not_improved = fourth_model_results.evaluate_stochastic_simulation(
-        #     local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-        #     raw_unit_sales_ground_truth, 'fourth_model_NN_accumulated_frequencies_approach')
+        if local_script_settings['skip_fourth_model_training'] != "True":
+            # _______________________FOURTH_MODEL_______________
+            # using other models based in accumulated_absolute_frequencies
+            # in_block_neural_network
+            call_to_regression_submodule_review, fourth_model_forecasts = \
+                call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
+                                                                       'in_block_neural_network')
+            print('fourth_model training completed, success --> ', call_to_regression_submodule_review)
+
+            # saving fourth model forecast and submission based only in this third model
+            store_and_submit_fourth_model_forecast = save_forecast_and_submission()
+            fourth_model_save_review = \
+                store_and_submit_fourth_model_forecast.store_and_submit('fourth_model_forecast_data',
+                                                                        local_script_settings,
+                                                                        fourth_model_forecasts)
+            if fourth_model_save_review:
+                print('fourth_model forecast data and submission done')
+            else:
+                print('error at storing fourth model forecast data or submission')
+            # fourth model results, necessary here because time_series_not_improved is input to next model
+            fourth_model_results = stochastic_simulation_results_analysis()
+            time_series_not_improved = fourth_model_results.evaluate_stochastic_simulation(
+                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+                raw_unit_sales_ground_truth, 'fourth_model_NN_accumulated_frequencies_approach')
+        else:
+            print('by settings, skipping fourth model training')
 
 
-        # _______________________NEURAL_NETWORK_INDIVIDUAL_TS_COF_ZEROS_MODEL_____________________________
+        # ________________FIFTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_COF_ZEROS_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_training = local_script_settings['repeat_neural_network_training']
         if repeat_nn_training == 'False':

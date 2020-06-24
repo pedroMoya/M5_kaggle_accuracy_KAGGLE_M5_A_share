@@ -79,3 +79,4 @@ if __name__ == '__main__':
         print('training: ', training)
         print('predicting: ', predicting)
         print('evaluating: ', evaluating)
+        logging.info('\nmain program ended\n')
