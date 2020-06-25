@@ -65,8 +65,8 @@ def cof_zeros(array, local_cof_settings):
 
 def evaluate():
     try:
+        print('\n~evaluation module~')
         if local_script_settings['evaluate_individual_ts_LSTM'] == 'True':
-            print('\n~evaluation module~')
             # from 1th june, here get real unit_sales for days d_1914 to d_1941,
             # for model optimization, but remember avoiding overfitting
             # open raw_data
@@ -94,16 +94,6 @@ def evaluate():
                 elif local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
                     print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
             print('raw data input collected and check of data dimensions passed (evaluation_module)')
-
-            # generate diagram of neural network model
-            if local_script_settings['model_analyzer'] == 'on':
-                analyzer = model_structure()
-                model_name = '_acc_freq_in_block_nn_model_.h5'
-                analysis_result = analyzer.analize(model_name, local_script_settings)
-                if analysis_result:
-                    print('model_analysis successfully, json file saved')
-                else:
-                    print('error at model_analysis submodule')
 
             # evaluation of models forecasts according to day-wise comparison
             # forecaster(x_test) <=> y_pred
@@ -163,6 +153,16 @@ def evaluate():
             logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                                  ' successful saved error metrics']))
 
+        # generate diagram of neural network model
+        if local_script_settings['model_analyzer'] == 'on':
+            analyzer = model_structure()
+            model_name = '_acc_freq_in_block_nn_model_.h5'
+            analysis_result = analyzer.analize(model_name, local_script_settings)
+            if analysis_result:
+                print('model_analysis successfully, json file saved')
+            else:
+                print('error at model_analysis submodule')
+
         # calling submodule that obtain the best forecast for each time_serie between first, second, third model
         # and fourth models
         # building one best FINAL_SUBMISSION
@@ -170,7 +170,7 @@ def evaluate():
         explore_results_and_generate_submission_review = explore_results_and_generate_submission_engine.run(
             'mse_based_best_ts_forecast', local_script_settings)
         if explore_results_and_generate_submission_review:
-            print('mse best submission between three models obtained')
+            print('mse best submission between models obtained')
         else:
             print('an error has occurred in generating between 3-model best forecasts submission')
         # # finalizing the last module

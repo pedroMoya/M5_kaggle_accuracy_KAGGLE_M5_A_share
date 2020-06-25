@@ -121,8 +121,22 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg, local_hyperpara
                         day - local_moving_window_length - local_stride_window_walk: day - local_stride_window_walk])
          for last_day in local_day_in_year[-1:]
          for day in range(last_day, last_day - local_days_in_focus_frame, -local_stride_window_walk)]
+
     x_train = np.array(x_train)
     y_train = np.array(y_train)
+
+    # amplification if settings is on, factor 1.2 was previously tuned
+    # broadcasts lists to np arrays and applies the last pre-training preprocessing (amplification)
+    print('x_train_shape:  ', x_train.shape)
+    if local_settings_arg['amplification'] == 'True':
+        factor = local_settings_arg['amplification_factor']  # factor tuning was done previously
+        for time_serie_iterator in range(np.shape(x_train)[1]):
+            max_time_serie = np.amax(x_train[:, time_serie_iterator, :])
+            x_train[:, time_serie_iterator, :][x_train[:, time_serie_iterator, :] > 0] = \
+                max_time_serie * factor
+            max_time_serie = np.amax(y_train[:, time_serie_iterator, :])
+            y_train[:, time_serie_iterator, :][y_train[:, time_serie_iterator, :] > 0] = \
+                max_time_serie * factor
 
     # saving for human-eye review and reassurance; x_train and y_train are 3Ds arrays so...taking the last element
     last_time_step_x_train = x_train[-1:, :, :]
@@ -381,11 +395,6 @@ class in_block_neural_network:
                 return False
             # denormalize data
             predict_freq_array = np.multiply(predict_freq_array, local_max_preprocess_structure)
-            if predict_freq_array.shape != local_preprocess_structure.shape:
-                print(predict_freq_array.shape)
-                print(local_preprocess_structure.shape)
-                print('error at checking shape of prediction block')
-                return False
             print('freq_accumulated based neural_network training and predictions has end')
         except Exception as submodule_error:
             print('in_block neural_network training submodule_error: ', submodule_error)

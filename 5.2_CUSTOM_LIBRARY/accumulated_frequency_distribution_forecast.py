@@ -76,6 +76,8 @@ def forecast_from_saved_nn_model(local_preprocess_structure, local_fourth_model_
 
 def from_accumulated_frequency_to_forecast(local_accumulated_frequency_data, local_faff_settings):
     # ---------------kernel----------------------------------
+    print('input:')
+    print(local_accumulated_frequency_data)
     nof_frequencies_registered = local_accumulated_frequency_data.shape[1]
     nof_forecast_freq = local_faff_settings['forecast_horizon_days'] + 1
     preprocess_structure = np.zeros(shape=(local_accumulated_frequency_data.shape[0],
@@ -86,8 +88,15 @@ def from_accumulated_frequency_to_forecast(local_accumulated_frequency_data, loc
         preprocess_structure[local_time_serie, 0] = \
             np.mean(preprocess_structure[local_time_serie, 2: 2 + nof_frequencies_registered])
         preprocess_structure[local_time_serie, 1] = local_time_serie
+
+    # simple normalization
+    local_max_array = np.amax(preprocess_structure, axis=1)
+    local_max_array[local_max_array == 0] = 1
+    local_max_array = local_max_array.reshape(local_max_array.shape[0], 1)
+    preprocess_structure = np.divide(preprocess_structure, local_max_array)
+
     # sort in base to mean unit_sales_accumulated_absolute_frequencies
-    preprocess_structure.sort(axis=0)
+    preprocess_structure = preprocess_structure[preprocess_structure[:, 0].argsort()]
 
     # setting repeat_training_in_block True is of higher priority level than save_fresh_forecast_from_fourth_model
     if local_faff_settings['save_fresh_forecast_from_fourth_model'] == 'True' and \
@@ -103,18 +112,26 @@ def from_accumulated_frequency_to_forecast(local_accumulated_frequency_data, loc
     else:
         preprocess_structure[:, 2 + nof_frequencies_registered:] = \
             in_block_neural_network.train_nn_model(preprocess_structure[:, 2: 2 + nof_frequencies_registered])
+
     # return sort to original time_serie raw data order
     # eliminate mean column
     preprocess_structure = preprocess_structure[:, 1:]
-    preprocess_structure.sort(axis=0)
-    # eliminate time_serie_index column and previous data
-    local_y = preprocess_structure[:, 1 + nof_frequencies_registered:]
+    preprocess_structure = preprocess_structure[preprocess_structure[:, 0].argsort()]
+
+    # simple denormalization
+    preprocess_structure = np.multiply(preprocess_structure, local_max_array)
+
+    # eliminate time_serie_index column, previous data, and clip lower values to zero
+    local_y = preprocess_structure[:, 1 + nof_frequencies_registered:].clip(0)
+
+    # this output is still considered a preprocess, according that works with acc_frequencies and not unit_sales_by_day
     return local_y
     # ---------------kernel----------------------------------
 
 
 def make_forecast(local_array, local_mf_forecast_horizon_days, local_days_in_focus_frame):
     local_forecast = []
+    # simple normalization
     days = np.array([day for day in range(local_days_in_focus_frame)])
     days = np.divide(days, np.amax(days))
     x_y_data = np.zeros(shape=(days.shape[0], 2), dtype=np.dtype('float32'))
@@ -133,10 +150,22 @@ def make_forecast(local_array, local_mf_forecast_horizon_days, local_days_in_foc
         local_forecast_ts = regression.predict(forecast_days)
         local_forecast.append(local_forecast_ts)
     local_forecast = np.array(local_forecast)
+    # simple denormalization
     local_array_max = np.amax(local_array, axis=1)
     local_forecast = np.multiply(local_forecast, local_array_max.reshape(local_array_max.shape[0], 1))
     print('local_forecast shape:', local_forecast.shape)
     return local_forecast
+
+
+# why and how?
+# in a few lines: 1) accumulated frequencies deals correctly with zeros
+# 2) normalization (very simple) pass from absolute acc_frequencies to relative acc_freq
+# 3) RANSACRegression accounts linear components
+# 4) ANNs deals with no-linear components
+# 5) previous stochastic simulations take in consideration the underlying random process (other approach: chaotic..)
+# 6) amplification, two focus_days (short and large length), was discovered with exploration metaheuristic
+# 7) the sort by row_mean for in_block NN training allows fast and better predictions, because structure is important
+# 8) the all of above indicates in overall one think (in my opinion): mastering patterns rules this domain
 
 
 class accumulated_frequency_distribution_based_engine:
@@ -171,17 +200,22 @@ class accumulated_frequency_distribution_based_engine:
             else:
                 print('regression technique do not identified')
                 return False, []
-            for local_day in range(local_days_in_focus):
-                if local_day != 0:
-                    accumulated_frequency_array[:, local_day] = \
-                        np.add(accumulated_frequency_array[:, local_day - 1], local_unit_sales_data[:, local_day])
-                else:
-                    accumulated_frequency_array[:, 0] = local_unit_sales_data[:, 0]
             if regression_technique == 'in_block_neural_network':
+                for local_day in range(accumulated_frequency_array.shape[1]):
+                    if local_day != 0:
+                        accumulated_frequency_array[:, local_day] = \
+                            np.add(accumulated_frequency_array[:, local_day - 1], local_unit_sales_data[:, local_day])
+                    else:
+                        accumulated_frequency_array[:, 0] = local_unit_sales_data[:, 0]
                 acc_freq_forecast = from_accumulated_frequency_to_forecast(accumulated_frequency_array, local_settings)
-                print(acc_freq_forecast)
             elif regression_technique == 'RANSACRegressor' and \
                     local_accumulate_and_distribute_hyperparameters['repeat_RANSAC_regression'] == 'True':
+                for local_day in range(local_days_in_focus):
+                    if local_day != 0:
+                        accumulated_frequency_array[:, local_day] = \
+                            np.add(accumulated_frequency_array[:, local_day - 1], local_unit_sales_data[:, local_day])
+                    else:
+                        accumulated_frequency_array[:, 0] = local_unit_sales_data[:, 0]
                 acc_freq_forecast = make_forecast(accumulated_frequency_array[:, :local_days_in_focus],
                                                   local_forecast_horizon_days + 1, local_days_in_focus)
             elif local_accumulate_and_distribute_hyperparameters['repeat_RANSAC_regression'] == 'False' or\
@@ -210,8 +244,7 @@ class accumulated_frequency_distribution_based_engine:
             for day in range(local_forecast_horizon_days):
                 next_acc_freq = acc_freq_forecast[:, day + 1: day + 2]
                 next_acc_freq = next_acc_freq.reshape(next_acc_freq.shape[0], 1)
-                # another options is use np.add(np.array(y_pred).sum(), -previous_acc_freq)
-                y_pred[:, day: day + 1] = np.add(next_acc_freq, -acc_freq_forecast[:, day: day + 1])
+                y_pred[:, day: day + 1] = np.add(next_acc_freq, -acc_freq_forecast[:, day: day + 1]).clip(0)
             print('y_pred shape:', y_pred.shape)
             print(y_pred)
             # ---------------kernel----------------------------------

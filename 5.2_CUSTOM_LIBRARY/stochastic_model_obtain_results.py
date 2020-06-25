@@ -136,7 +136,7 @@ class stochastic_simulation_results_analysis:
                 np.savetxt(''.join([local_settings['models_evaluation_path'], 'fourth_model_mse.csv']),
                            local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_fourth_model_mse']),
+                                 'time_series_results_fourth_model_mse']),
                         local_time_series_treated)
                 np.save(''.join([local_settings['models_evaluation_path'],
                                  'improved_time_series_fourth_model']),

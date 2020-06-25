@@ -315,7 +315,7 @@ def train():
             fourth_model_results = stochastic_simulation_results_analysis()
             time_series_not_improved = fourth_model_results.evaluate_stochastic_simulation(
                 local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
-                raw_unit_sales_ground_truth, 'fourth_model_NN_accumulated_frequencies_approach')
+                raw_unit_sales_ground_truth, 'fourth_model_forecast')
         else:
             print('by settings, skipping fourth model training')
 

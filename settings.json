@@ -1,6 +1,6 @@
 {
   "comment": "organic_settings overwrite settings.json",
-  "version": "1.5",
+  "version": "2.0",
   "mode": "test",
   "machine": "local",
   "control": "handler",
@@ -12,7 +12,7 @@
   "skip_second_model_training": "True",
   "skip_third_model_training": "True",
   "skip_fourth_model_training": "False",
-  "repeat_training_in_block": "False",
+  "repeat_training_in_block": "True",
   "two_parameters_above_in_False_allow_load_saved_model_and_then_make_fresh_forecasts_and_submission_again": "True",
   "save_fresh_forecast_from_fourth_model": "True",
   "first_train_approach": "stochastic_simulation",
