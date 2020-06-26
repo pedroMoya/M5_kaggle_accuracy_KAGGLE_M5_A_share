@@ -210,23 +210,24 @@ def build_model(local_bm_hyperparameters, local_bm_settings):
                                              activity_regularizer=activation_regularizer))
         forecaster_in_block.add(layers.Dropout(rate=float(local_bm_hyperparameters['dropout_layer_1'])))
     # second LSTM layer
-    if local_bm_hyperparameters['units_layer_2'] > 0:
-        forecaster_in_block.add(layers.Bidirectional(layers.RNN(
-            PeepholeLSTMCell(units=local_bm_hyperparameters['units_layer_2'],
-                             activation=local_bm_hyperparameters['activation_2'],
-                             activity_regularizer=activation_regularizer,
-                             dropout=float(local_bm_hyperparameters['dropout_layer_2'])),
-            return_sequences=False)))
+    if local_bm_hyperparameters['units_layer_2'] > 0 and local_bm_hyperparameters['units_layer_1'] > 0:
+        forecaster_in_block.add(layers.Bidirectional(
+            layers.LSTM(units=local_bm_hyperparameters['units_layer_2'],
+                        activation=local_bm_hyperparameters['activation_2'],
+                        activity_regularizer=activation_regularizer,
+                        dropout=float(local_bm_hyperparameters['dropout_layer_2']),
+                        return_sequences=False)))
         forecaster_in_block.add(RepeatVector(local_bm_hyperparameters['repeat_vector']))
     # third LSTM layer
     if local_bm_hyperparameters['units_layer_3'] > 0:
-        forecaster_in_block.add(layers.Bidirectional(layers.RNN(
-            PeepholeLSTMCell(units=local_bm_hyperparameters['units_layer_3'],
-                             activation=local_bm_hyperparameters['activation_3'],
-                             activity_regularizer=activation_regularizer,
-                             dropout=float(local_bm_hyperparameters['dropout_layer_3'])),
-            return_sequences=False)))
-        forecaster_in_block.add(RepeatVector(local_bm_hyperparameters['repeat_vector']))
+        forecaster_in_block.add(layers.Bidirectional(
+            layers.LSTM(units=local_bm_hyperparameters['units_layer_2'],
+                        activation=local_bm_hyperparameters['activation_2'],
+                        activity_regularizer=activation_regularizer,
+                        dropout=float(local_bm_hyperparameters['dropout_layer_2']),
+                        return_sequences=True)))
+        if local_bm_hyperparameters['units_layer_4'] == 0:
+            forecaster_in_block.add(RepeatVector(local_bm_hyperparameters['repeat_vector']))
     # fourth layer (DENSE)
     if local_bm_hyperparameters['units_layer_4'] > 0:
         forecaster_in_block.add(layers.Dense(units=local_bm_hyperparameters['units_layer_4'],
@@ -283,7 +284,8 @@ def train_model(freq_acc_data, local_tm_hyperparameters, local_tm_settings):
     print('model_compiled')
     # finally all is ready for training now
     local_forecaster_in_block.fit(local_x_train, local_y_train, batch_size=local_batch_size, epochs=local_epochs,
-                                  workers=local_workers, callbacks=local_callbacks, shuffle=False)
+                                  workers=local_workers, callbacks=local_callbacks,
+                                  shuffle=False)
     # print summary (informative; but if says "shape = multiple", probably useless)
     local_forecaster_in_block.summary()
     local_forecaster_in_block.save(''.join([local_tm_settings['models_path'],

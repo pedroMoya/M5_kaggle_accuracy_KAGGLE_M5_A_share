@@ -20,7 +20,7 @@
   "neural_network_training_time_serie_schema": "individual_time_serie",
   "neural_network_poor_results_mse_threshold": 1.0,
   "specific_time_series_train_criteria": "all",
-  "amplification": "True",
+  "amplification": "False",
   "amplification_factor": 1.2,
   "metaheuristic_optimization": "False",
   "optimization_iterations": 1,
@@ -67,5 +67,6 @@
   "others_inputs_path": "./9.3_OTHERS_INPUTS/",
   "current_model_name": "generic_forecaster_template_individual_ts.h5",
   "current_trained_model_subdirectory": "weights_last_year/",
-  "model_weights_name_template": "_individual_ts_x_model_weights_.h5"
+  "model_weights_name_template": "_individual_ts_x_model_weights_.h5",
+  "results_mse_with_zeros_as_forecasts_done": "False"
 }

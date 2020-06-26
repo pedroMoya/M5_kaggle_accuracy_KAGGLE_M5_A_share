@@ -172,7 +172,7 @@ def evaluate():
         if explore_results_and_generate_submission_review:
             print('mse best submission between models obtained')
         else:
-            print('an error has occurred in generating between 3-model best forecasts submission')
+            print('an error has occurred in generating between different-models best forecasts submission')
         # # finalizing the last module
         print('model evaluation subprocess ended successfully')
     except Exception as e1:

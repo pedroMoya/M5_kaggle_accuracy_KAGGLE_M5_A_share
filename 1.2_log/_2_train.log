@@ -26624,3 +26624,29 @@ Traceback (most recent call last):
   File ".\_2_train.py", line 261, in train
     first_model_not_improved_ts = len(time_series_not_improved)
 UnboundLocalError: local variable 'time_series_not_improved' referenced before assignment
+
+25.Jun 2020 21:09:40 error at loading model (LTSM) hyperparameters
+Expecting property name enclosed in double quotes: line 43 column 3 (char 1148)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 115, in train
+    model_hyperparameters = json.loads(local_r_json_file.read())
+  File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 43 column 3 (char 1148)
+
+25.Jun 2020 21:10:34 error at loading model (LTSM) hyperparameters
+Expecting property name enclosed in double quotes: line 43 column 3 (char 1148)
+Traceback (most recent call last):
+  File ".\_2_train.py", line 115, in train
+    model_hyperparameters = json.loads(local_r_json_file.read())
+  File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 43 column 3 (char 1148)
