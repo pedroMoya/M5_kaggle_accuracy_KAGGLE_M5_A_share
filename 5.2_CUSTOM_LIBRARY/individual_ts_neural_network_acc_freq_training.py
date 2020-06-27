@@ -184,16 +184,19 @@ class neural_network_time_serie_acc_freq_schema:
             local_callbacks = [local_callback1]
             print('building current model: individual_time_serie_acc_freq_LSTM_Dense_ANN')
             local_base_model = tf.keras.Sequential()
-            # first layer (DENSE)
+            # first layer (LSTM)
             if local_model_hyperparameters['units_layer_1'] > 0:
-                local_base_model.add(layers.Dense(units=local_model_hyperparameters['units_layer_1'],
-                                                  activation=local_model_hyperparameters['activation_1'],
-                                                  input_shape=(local_model_hyperparameters['time_steps_days'],
-                                                               local_features_for_each_training),
-                                                  activity_regularizer=local_activation_regularizer))
-                local_base_model.add(layers.Dropout(rate=float(local_model_hyperparameters['dropout_layer_1'])))
+                local_base_model.add(layers.Bidirectional(
+                    layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_1'],
+                                                activation=local_model_hyperparameters['activation_1'],
+                                                input_shape=(local_model_hyperparameters['time_steps_days'],
+                                                             local_features_for_each_training),
+                                                activity_regularizer=local_activation_regularizer,
+                                                dropout=float(local_model_hyperparameters['dropout_layer_1'])),
+                               return_sequences=False)))
+                local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # second LSTM layer
-            if local_model_hyperparameters['units_layer_2'] > 0 and local_model_hyperparameters['units_layer_1'] > 0:
+            if local_model_hyperparameters['units_layer_2'] > 0:
                 local_base_model.add(layers.Bidirectional(
                     layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
                                                 activation=local_model_hyperparameters['activation_2'],
@@ -204,13 +207,10 @@ class neural_network_time_serie_acc_freq_schema:
             # third LSTM layer
             if local_model_hyperparameters['units_layer_3'] > 0:
                 local_base_model.add(layers.Bidirectional(
-                    layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
-                                                activation=local_model_hyperparameters['activation_2'],
-                                                activity_regularizer=local_activation_regularizer,
-                                                dropout=float(local_model_hyperparameters['dropout_layer_2'])),
+                    layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_3'],
+                                                dropout=float(local_model_hyperparameters['dropout_layer_3'])),
                                return_sequences=True)))
-                if local_model_hyperparameters['units_layer_4'] == 0:
-                    local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+                # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # fourth layer (DENSE)
             if local_model_hyperparameters['units_layer_4'] > 0:
                 local_base_model.add(layers.Dense(units=local_model_hyperparameters['units_layer_4'],
@@ -218,7 +218,7 @@ class neural_network_time_serie_acc_freq_schema:
                                                   activity_regularizer=local_activation_regularizer))
                 local_base_model.add(layers.Dropout(rate=float(local_model_hyperparameters['dropout_layer_4'])))
             # final layer
-            local_base_model.add(TimeDistributed(layers.Dense(units=local_features_for_each_training)))
+            local_base_model.add(layers.Dense(units=local_features_for_each_training))
 
             # build and compile model
             local_base_model.build(input_shape=(1, local_time_steps_days, local_features_for_each_training))
@@ -248,7 +248,7 @@ class neural_network_time_serie_acc_freq_schema:
             # star training time_serie by time_serie
             local_y_pred_array = np.zeros(shape=(local_raw_unit_sales.shape[0], local_forecast_horizon_days),
                                           dtype=np.dtype('float32'))
-            for time_serie in local_time_series_not_improved[0: 1]:
+            for time_serie in local_time_series_not_improved[3860:]:
                 print('training time_serie:', time_serie)
                 local_x, local_y = local_x_train[time_serie: time_serie + 1, :], \
                                    local_y_train[time_serie: time_serie + 1, :]
@@ -269,7 +269,7 @@ class neural_network_time_serie_acc_freq_schema:
                 local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
                 # print('ts:', time_serie)
                 # print(local_y_pred)
-                local_y_pred_array[time_serie: time_serie + 1, :] = np.flip(local_y_pred, axis=0)
+                local_y_pred_array[time_serie: time_serie + 1, :] = local_y_pred
             local_point_forecast_normalized = local_y_pred_array.reshape(
                 (local_y_pred_array.shape[0], local_y_pred_array.shape[1]))
             local_point_forecast = np.multiply(local_point_forecast_normalized, local_max_array)

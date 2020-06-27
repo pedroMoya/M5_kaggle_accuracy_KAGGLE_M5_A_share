@@ -225,10 +225,10 @@ def build_model(local_bm_hyperparameters, local_bm_settings):
     # third LSTM layer
     if local_bm_hyperparameters['units_layer_3'] > 0:
         forecaster_in_block.add(layers.Bidirectional(
-            layers.LSTM(units=local_bm_hyperparameters['units_layer_2'],
-                        activation=local_bm_hyperparameters['activation_2'],
+            layers.LSTM(units=local_bm_hyperparameters['units_layer_3'],
+                        activation=local_bm_hyperparameters['activation_3'],
                         activity_regularizer=activation_regularizer,
-                        dropout=float(local_bm_hyperparameters['dropout_layer_2']),
+                        dropout=float(local_bm_hyperparameters['dropout_layer_3']),
                         return_sequences=True)))
         if local_bm_hyperparameters['units_layer_4'] == 0:
             forecaster_in_block.add(RepeatVector(local_bm_hyperparameters['repeat_vector']))

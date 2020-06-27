@@ -54,15 +54,21 @@ class explore_results_and_generate_submission:
                                                              'fifth_model_forecast_data.npy']))
             fifth_model_forecast = np.zeros(shape=(60980, 28), dtype=np.dtype('float32'))
             fifth_model_forecast[0: 30490, :] = fifth_model_forecast_30490_28
-            # sixth_model_forecast = np.zeros(shape=fifth_model_forecast.shape, dtype=np.dtype('float32'))
-            sixth_model_forecast = np.add(first_model_forecast, second_model_forecast)
-            sixth_model_forecast = np.add(sixth_model_forecast, third_model_forecast)
-            # sixth_model_forecast = np.add(sixth_model_forecast, fifth_model_forecast)
-            sixth_model_forecast = np.divide(sixth_model_forecast, 3.)
-            np.save(''.join([local_ergs_settings['train_data_path'], 'sixth_model_forecast_data']),
-                    sixth_model_forecast)
+
             seventh_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
                                                      'seventh_model_forecast_data.npy']))
+            eighth_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
+                                                    'best_mse_fixed_forecast_data.npy']))
+
+            # ----------------------------------------------------------------------------------------
+            # sixth_model is COMBINATION MODEL
+            sixth_model_forecast = np.add(first_model_forecast, second_model_forecast)
+            sixth_model_forecast = np.add(sixth_model_forecast, third_model_forecast)
+            sixth_model_forecast = np.add(sixth_model_forecast, eighth_model_forecast)
+            sixth_model_forecast = np.divide(sixth_model_forecast, 4.)
+            np.save(''.join([local_ergs_settings['train_data_path'], 'sixth_model_forecast_data']),
+                    sixth_model_forecast)
+            # ----------------------------------------------------------------------------------------
 
             # loading the results
             first_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
@@ -77,9 +83,11 @@ class explore_results_and_generate_submission:
                                                  'time_series_results_fifth_model_mse.npy']))
             seventh_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
                                                     'time_series_results_seventh_model_mse.npy']))
+            eighth_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
+                                                  'fixed_time_series_results_model_mse.npy']))
 
-            if local_ergs_settings['results_mse_with_zeros_as_forecasts_done'] != 'True':
-                print('applying sixth model (zeros inflated)')
+            if local_ergs_settings['results_mse_with_model_combination_as_forecasts_done'] != 'True':
+                print('applying sixth model')
                 zeros_as_forecast = stochastic_simulation_results_analysis()
                 with open(''.join([local_ergs_settings['hyperparameters_path'],
                                    'organic_in_block_time_serie_based_model_hyperparameters.json'])) \
@@ -125,13 +133,23 @@ class explore_results_and_generate_submission:
                                                                      local_ergs_forecasts_name)
             sixth_model_result = np.load(''.join([local_ergs_settings['models_evaluation_path'],
                                                   'time_series_results_sixth_model_mse.npy']))
+            # saving SIXTH_MODEL_FORECAST combination model
+            store_and_submit_sixth_model_forecast = save_forecast_and_submission()
+            sixth_model_save_review = \
+                store_and_submit_sixth_model_forecast.store_and_submit('sixth_model_combination_', local_ergs_settings,
+                                                                       sixth_model_forecast)
+            if sixth_model_save_review:
+                print('sixth model forecast data and submission done')
+            else:
+                print('error at storing sixth model forecast data or submission')
 
             # -----------------------kernel------------------------------------------
             nof_ts = local_ergs_settings['number_of_time_series']
             local_forecast_horizon_days = local_ergs_settings['forecast_horizon_days']
             best_y_pred = np.zeros(shape=(nof_ts, local_forecast_horizon_days), dtype=np.dtype('float32'))
             count_best_first_model, count_best_second_model, count_best_third_model, count_best_fourth_model,\
-                count_best_fifth_model, count_best_sixth_model, count_best_seventh_model = 0, 0, 0, 0, 0, 0, 0
+                count_best_fifth_model, count_best_sixth_model, count_best_seventh_model, count_best_eighth_model = \
+                0, 0, 0, 0, 0, 0, 0, 0
             ts_model_mse = []
             for time_serie_index in range(nof_ts):
                 first_model_mse = first_model_result[time_serie_index][2]
@@ -141,46 +159,60 @@ class explore_results_and_generate_submission:
                 fifth_model_mse = fifth_model_result[time_serie_index][1]
                 sixth_model_mse = sixth_model_result[time_serie_index][2]
                 seventh_model_mse = seventh_model_result[time_serie_index][2]
+                eighth_model_mse = seventh_model_result[time_serie_index][2]
                 if first_model_mse < second_model_mse and first_model_mse < third_model_mse \
                         and first_model_mse < fourth_model_mse and first_model_mse < fifth_model_mse\
-                        and first_model_mse < sixth_model_mse and first_model_mse < seventh_model_mse:
+                        and first_model_mse < sixth_model_mse and first_model_mse < seventh_model_mse\
+                        and first_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = first_model_forecast[time_serie_index, :]
                     count_best_first_model += 1
-                    ts_model_mse.append([time_serie_index, 1, first_model_mse])
+                    ts_model_mse.append([time_serie_index, int(1), first_model_mse])
                 elif second_model_mse < first_model_mse and second_model_mse < third_model_mse \
                         and second_model_mse < fourth_model_mse and second_model_mse < fifth_model_mse\
-                        and second_model_mse < sixth_model_mse and second_model_mse < seventh_model_mse:
+                        and second_model_mse < sixth_model_mse and second_model_mse < seventh_model_mse\
+                        and second_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = second_model_forecast[time_serie_index, :]
                     count_best_second_model += 1
-                    ts_model_mse.append([time_serie_index, 2, second_model_mse])
+                    ts_model_mse.append([time_serie_index, int(2), second_model_mse])
                 elif third_model_mse < first_model_mse and third_model_mse < second_model_mse \
                         and third_model_mse < fourth_model_mse and third_model_mse < fifth_model_mse\
-                        and third_model_mse < sixth_model_mse and third_model_mse < seventh_model_mse:
+                        and third_model_mse < sixth_model_mse and third_model_mse < seventh_model_mse\
+                        and third_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = third_model_forecast[time_serie_index, :]
                     count_best_third_model += 1
-                    ts_model_mse.append([time_serie_index, 3, third_model_mse])
+                    ts_model_mse.append([time_serie_index, int(3), third_model_mse])
                 elif fourth_model_mse < first_model_mse and fourth_model_mse < second_model_mse \
                         and fourth_model_mse < third_model_mse and fourth_model_mse < fifth_model_mse\
-                        and fourth_model_mse < sixth_model_mse and fourth_model_mse < seventh_model_mse:
+                        and fourth_model_mse < sixth_model_mse and fourth_model_mse < seventh_model_mse\
+                        and fourth_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = fourth_model_forecast[time_serie_index, :]
                     count_best_fourth_model += 1
-                    ts_model_mse.append([time_serie_index, 4, fourth_model_mse])
+                    ts_model_mse.append([time_serie_index, int(4), fourth_model_mse])
                 elif fifth_model_mse < first_model_mse and fifth_model_mse < second_model_mse \
                         and fifth_model_mse < third_model_mse and fifth_model_mse < fourth_model_mse\
-                        and fifth_model_mse < sixth_model_mse and fifth_model_mse < seventh_model_mse:
+                        and fifth_model_mse < sixth_model_mse and fifth_model_mse < seventh_model_mse\
+                        and fifth_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = fifth_model_forecast[time_serie_index, :]
                     count_best_fifth_model += 1
-                    ts_model_mse.append([time_serie_index, 5, fifth_model_mse])
+                    ts_model_mse.append([time_serie_index, int(5), fifth_model_mse])
                 elif sixth_model_mse < first_model_mse and sixth_model_mse < second_model_mse \
                         and sixth_model_mse < third_model_mse and sixth_model_mse < fourth_model_mse\
-                        and sixth_model_mse < fifth_model_mse and sixth_model_mse < seventh_model_mse:
+                        and sixth_model_mse < fifth_model_mse and sixth_model_mse < seventh_model_mse\
+                        and sixth_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = sixth_model_forecast[time_serie_index, :]
                     count_best_sixth_model += 1
-                    ts_model_mse.append([time_serie_index, 6, fifth_model_mse])
-                else:
+                    ts_model_mse.append([time_serie_index, int(6), sixth_model_mse])
+                elif seventh_model_mse < first_model_mse and seventh_model_mse < second_model_mse \
+                        and seventh_model_mse < third_model_mse and seventh_model_mse < fourth_model_mse\
+                        and seventh_model_mse < fifth_model_mse and seventh_model_mse < sixth_model_mse\
+                        and seventh_model_mse < eighth_model_mse:
                     best_y_pred[time_serie_index, :] = seventh_model_forecast[time_serie_index, :]
-                    count_best_seventh_model += 1
-                    ts_model_mse.append([time_serie_index, 7, sixth_model_mse])
+                    count_best_sixth_model += 1
+                    ts_model_mse.append([time_serie_index, int(7), seventh_model_mse])
+                else:
+                    best_y_pred[time_serie_index, :] = eighth_model_forecast[time_serie_index, :]
+                    count_best_eighth_model += 1
+                    ts_model_mse.append([time_serie_index, int(8), eighth_model_mse])
             print('it was used ', count_best_first_model, ' ts forecasts from first model')
             print('it was used ', count_best_second_model, ' ts forecasts from second model')
             print('it was used ', count_best_third_model, ' ts forecasts from third model')
@@ -188,6 +220,7 @@ class explore_results_and_generate_submission:
             print('it was used ', count_best_fifth_model, ' ts forecasts from fifth model')
             print('it was used ', count_best_sixth_model, ' ts forecasts from sixth model')
             print('it was used ', count_best_seventh_model, ' ts forecasts from seventh model')
+            print('it was used ', count_best_eighth_model, ' ts forecasts from eighth model')
 
             # saving best mse_based between different models forecast and submission
             store_and_submit_best_model_forecast = save_forecast_and_submission()

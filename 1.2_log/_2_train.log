@@ -26952,3 +26952,138 @@ UnboundLocalError: local variable 'time_series_ss_review' referenced before assi
 27.Jun 2020 01:02:09 correct model training, correct saving of model and weights
 
 27.Jun 2020 01:02:09 settings modified and saved
+
+27.Jun 2020 01:06:46 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:06:46 settings modified and saved
+
+27.Jun 2020 01:10:25 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:10:25 settings modified and saved
+
+27.Jun 2020 01:13:45 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:13:45 settings modified and saved
+
+27.Jun 2020 01:17:11 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:17:11 settings modified and saved
+
+27.Jun 2020 01:21:10 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:21:10 settings modified and saved
+
+27.Jun 2020 01:25:53 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:25:53 settings modified and saved
+
+27.Jun 2020 01:29:15 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:29:15 settings modified and saved
+
+27.Jun 2020 01:32:23 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:32:23 settings modified and saved
+
+27.Jun 2020 01:35:39 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:35:39 settings modified and saved
+
+27.Jun 2020 01:36:55 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:36:55 settings modified and saved
+
+27.Jun 2020 01:38:00 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:38:00 settings modified and saved
+
+27.Jun 2020 01:38:42 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:38:42 settings modified and saved
+
+27.Jun 2020 01:42:36 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:42:36 settings modified and saved
+
+27.Jun 2020 01:44:22 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:44:22 settings modified and saved
+
+27.Jun 2020 01:50:39 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:50:39 settings modified and saved
+
+27.Jun 2020 02:01:18 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:01:18 settings modified and saved
+
+27.Jun 2020 02:09:25 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:09:25 settings modified and saved
+
+27.Jun 2020 02:11:32 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:11:32 settings modified and saved
+
+27.Jun 2020 02:12:56 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:12:56 settings modified and saved
+
+27.Jun 2020 02:15:54 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:15:54 settings modified and saved
+
+27.Jun 2020 02:17:52 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:17:52 settings modified and saved
+
+27.Jun 2020 02:18:39 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:18:39 settings modified and saved
+
+27.Jun 2020 02:21:35 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:21:35 settings modified and saved
+
+27.Jun 2020 02:25:36 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:25:36 settings modified and saved
+
+27.Jun 2020 02:31:23 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:31:23 settings modified and saved
+
+27.Jun 2020 02:33:24 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:33:24 settings modified and saved
+
+27.Jun 2020 02:36:13 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:36:13 settings modified and saved
+
+27.Jun 2020 02:40:43 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:40:43 settings modified and saved
+
+27.Jun 2020 02:41:52 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:41:52 settings modified and saved
+
+27.Jun 2020 02:55:03 correct model training, correct saving of model and weights
+
+27.Jun 2020 02:55:03 settings modified and saved
+
+27.Jun 2020 14:38:51 model training error
+local variable 'training_nn_review' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 422, in train
+    if training_nn_review and time_series_ss_review:
+UnboundLocalError: local variable 'training_nn_review' referenced before assignment
+
+27.Jun 2020 14:42:46 correct model training, correct saving of model and weights
+
+27.Jun 2020 14:42:46 settings modified and saved
+
+27.Jun 2020 14:44:12 correct model training, correct saving of model and weights
+
+27.Jun 2020 14:44:12 settings modified and saved
