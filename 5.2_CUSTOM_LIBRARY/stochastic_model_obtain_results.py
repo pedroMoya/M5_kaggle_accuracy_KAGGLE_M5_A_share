@@ -49,6 +49,10 @@ class stochastic_simulation_results_analysis:
                 print('\nevaluating the zeros as forecast (sixth model) ....')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                   'sixth_model_forecast_data.npy']))
+            elif local_forecasts_name == 'seventh_model_forecast':
+                print('\nevaluating the zeros as forecast (seventh model) ....')
+                local_forecasts = np.load(''.join([local_settings['train_data_path'],
+                                                   'seventh_model_forecast_data.npy']))
             else:
                 print('\nmodel_name not expected, please review the last argument')
                 print('in stochastic_model_obtain_results submodule\n')
@@ -159,6 +163,18 @@ class stochastic_simulation_results_analysis:
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
                                  'time_series_not_improved_sixth_model']),
+                        local_time_series_not_improved)
+            elif local_forecasts_name == 'seventh_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'seventh_model_mse.csv']),
+                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_results_seventh_model_mse']),
+                        local_time_series_treated)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'improved_time_series_seventh_model']),
+                        local_improved_time_series_forecast)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_not_improved_seventh_model']),
                         local_time_series_not_improved)
             print('specific model evaluation saved')
             print('metadata (results, time_series) saved')

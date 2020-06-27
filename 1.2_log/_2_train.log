@@ -26650,3 +26650,305 @@ Traceback (most recent call last):
   File "C:\Users\Demo Windows 10\AppData\Local\Programs\Python\Python38\lib\json\decoder.py", line 353, in raw_decode
     obj, end = self.scan_once(s, idx)
 json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 43 column 3 (char 1148)
+
+26.Jun 2020 21:34:43 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 367, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 21:37:19 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 368, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 21:42:05 model training error
+'numpy.ndarray' object has no attribute 'values'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 365, in train
+    time_series_not_improved = time_series_not_improved.values
+AttributeError: 'numpy.ndarray' object has no attribute 'values'
+
+26.Jun 2020 21:44:35 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 367, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 21:45:44 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 368, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 21:48:13 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 370, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 21:56:45 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 371, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 22:21:07 model training error
+[Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/high_mse_time_series.npy'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 363, in train
+    time_serie_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 428, in load
+    fid = open(os_fspath(file), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: './9.1_MODELS_EVALUATION/high_mse_time_series.npy'
+
+26.Jun 2020 22:22:26 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 370, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 22:25:14 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 370, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 22:33:51 model training error
+'numpy.ndarray' object has no attribute 'iloc'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 365, in train
+    time_series_not_improved = time_series_not_improved.iloc[:, :].values
+AttributeError: 'numpy.ndarray' object has no attribute 'iloc'
+
+26.Jun 2020 22:38:43 model training error
+genfromtxt() got an unexpected keyword argument 'fmt'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 363, in train
+    time_series_not_improved = np.genfromtxt(''.join([local_script_settings['models_evaluation_path'],
+TypeError: genfromtxt() got an unexpected keyword argument 'fmt'
+
+26.Jun 2020 22:39:42 model training error
+name 'time_serie_not_improved' is not defined
+Traceback (most recent call last):
+  File ".\_2_train.py", line 370, in train
+    time_series_not_improved = time_serie_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+NameError: name 'time_serie_not_improved' is not defined
+
+26.Jun 2020 22:42:00 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 373, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 22:44:06 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 371, in train
+    time_series_not_improved = time_series_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 22:45:59 model training error
+too many indices for array
+Traceback (most recent call last):
+  File ".\_2_train.py", line 371, in train
+    time_series_not_improved = time_series_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0]
+IndexError: too many indices for array
+
+26.Jun 2020 22:49:11 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 376, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 22:50:08 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 376, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 22:51:34 model training error
+encoding must be 'ASCII', 'latin1', or 'bytes'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 366, in train
+    time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 415, in load
+    raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
+ValueError: encoding must be 'ASCII', 'latin1', or 'bytes'
+
+26.Jun 2020 22:53:13 model training error
+only size-1 arrays can be converted to Python scalars
+Traceback (most recent call last):
+  File ".\_2_train.py", line 368, in train
+    time_series_not_improved[:, 0:2] = np.int(time_series_not_improved[:0:2])
+TypeError: only size-1 arrays can be converted to Python scalars
+
+26.Jun 2020 22:54:35 model training error
+only size-1 arrays can be converted to Python scalars
+Traceback (most recent call last):
+  File ".\_2_train.py", line 368, in train
+    time_series_not_improved[:, 0:2] = np.int(time_series_not_improved[:, 0:2])
+TypeError: only size-1 arrays can be converted to Python scalars
+
+26.Jun 2020 22:55:32 model training error
+only size-1 arrays can be converted to Python scalars
+Traceback (most recent call last):
+  File ".\_2_train.py", line 368, in train
+    time_series_not_improved[:, 0] = np.int(time_series_not_improved[:, 0])
+TypeError: only size-1 arrays can be converted to Python scalars
+
+26.Jun 2020 22:56:27 model training error
+only size-1 arrays can be converted to Python scalars
+Traceback (most recent call last):
+  File ".\_2_train.py", line 365, in train
+    time_series_not_improved[:, 0] = int(time_series_not_improved[:, 0])
+TypeError: only size-1 arrays can be converted to Python scalars
+
+26.Jun 2020 22:58:35 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 374, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 23:00:48 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 374, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 23:02:14 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 374, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 23:03:23 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 374, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 23:04:33 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 374, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 23:06:29 model training error
+'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 371, in train
+    training_nn_review = neural_network_ts_acc_freq_schema_training.train(
+AttributeError: 'neural_network_time_serie_acc_freq_schema' object has no attribute 'train'
+
+26.Jun 2020 23:07:40 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:07:40 settings modified and saved
+
+26.Jun 2020 23:12:36 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:12:36 settings modified and saved
+
+26.Jun 2020 23:21:11 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:21:11 settings modified and saved
+
+26.Jun 2020 23:24:34 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:24:34 settings modified and saved
+
+26.Jun 2020 23:30:33 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:30:33 settings modified and saved
+
+26.Jun 2020 23:44:49 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:44:49 settings modified and saved
+
+26.Jun 2020 23:49:10 correct model training, correct saving of model and weights
+
+26.Jun 2020 23:49:10 settings modified and saved
+
+26.Jun 2020 23:50:16 model training error
+local variable 'time_series_ss_review' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 398, in train
+    if training_nn_review and time_series_ss_review:
+UnboundLocalError: local variable 'time_series_ss_review' referenced before assignment
+
+27.Jun 2020 00:01:41 model training error
+local variable 'time_series_ss_review' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 398, in train
+    if training_nn_review and time_series_ss_review:
+UnboundLocalError: local variable 'time_series_ss_review' referenced before assignment
+
+27.Jun 2020 00:14:25 model training error
+local variable 'time_series_ss_review' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 403, in train
+    if training_nn_review and time_series_ss_review:
+UnboundLocalError: local variable 'time_series_ss_review' referenced before assignment
+
+27.Jun 2020 00:16:51 model training error
+local variable 'time_series_ss_review' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 403, in train
+    if training_nn_review and time_series_ss_review:
+UnboundLocalError: local variable 'time_series_ss_review' referenced before assignment
+
+27.Jun 2020 00:20:59 model training error
+local variable 'time_series_ss_review' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 403, in train
+    if training_nn_review and time_series_ss_review:
+UnboundLocalError: local variable 'time_series_ss_review' referenced before assignment
+
+27.Jun 2020 00:28:04 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:28:04 settings modified and saved
+
+27.Jun 2020 00:36:31 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:36:31 settings modified and saved
+
+27.Jun 2020 00:41:05 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:41:05 settings modified and saved
+
+27.Jun 2020 00:49:54 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:49:54 settings modified and saved
+
+27.Jun 2020 00:52:29 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:52:29 settings modified and saved
+
+27.Jun 2020 00:54:48 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:54:48 settings modified and saved
+
+27.Jun 2020 00:56:51 correct model training, correct saving of model and weights
+
+27.Jun 2020 00:56:51 settings modified and saved
+
+27.Jun 2020 01:02:09 correct model training, correct saving of model and weights
+
+27.Jun 2020 01:02:09 settings modified and saved

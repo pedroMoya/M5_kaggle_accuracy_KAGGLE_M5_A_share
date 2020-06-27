@@ -36,8 +36,10 @@ try:
     from stochastic_model_obtain_results import stochastic_simulation_results_analysis
     from diff_trend_time_serie_module import difference_trends_insight
     from individual_ts_neural_network_training import neural_network_time_serie_schema
+    from individual_ts_neural_network_acc_freq_training import neural_network_time_serie_acc_freq_schema
     from save_forecast_and_make_submission import save_forecast_and_submission
     from accumulated_frequency_distribution_forecast import accumulated_frequency_distribution_based_engine
+    from freq_acc_to_unit_sales_individual_time_serie_forecast import make_acc_freq_to_unit_sales_forecast
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
     print(ee1)
@@ -113,6 +115,11 @@ def train():
         with open(''.join([local_script_settings['hyperparameters_path'], 'model_hyperparameters.json'])) \
                 as local_r_json_file:
             model_hyperparameters = json.loads(local_r_json_file.read())
+            local_r_json_file.close()
+        with open(''.join([local_script_settings['hyperparameters_path'],
+                           'freq_acc_individual_time_serie_model_hyperparameters.json'])) \
+                as local_r_json_file:
+            freq_acc_individual_ts_model_hyperparameters = json.loads(local_r_json_file.read())
             local_r_json_file.close()
         with open(''.join([local_script_settings['hyperparameters_path'],
                            'organic_in_block_time_serie_based_model_hyperparameters.json'])) \
@@ -231,6 +238,7 @@ def train():
                 local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
                 raw_unit_sales_ground_truth, 'first_model_forecast')
         else:
+            time_series_ss_review = True
             print('by settings, skipping first model training')
 
         if local_script_settings['skip_second_model_training'] != "True":
@@ -294,14 +302,14 @@ def train():
 
         if local_script_settings['skip_fourth_model_training'] != "True":
             # _______________________FOURTH_MODEL_______________
-            # using other models based in accumulated_absolute_frequencies
+            # using models based in accumulated_absolute_frequencies
             # in_block_neural_network
             call_to_regression_submodule_review, fourth_model_forecasts = \
                 call_to_regression_submodule.accumulate_and_distribute(local_script_settings, raw_unit_sales,
                                                                        'in_block_neural_network')
             print('fourth_model training completed, success --> ', call_to_regression_submodule_review)
 
-            # saving fourth model forecast and submission based only in this third model
+            # saving fourth model forecast and submission based only in this model
             store_and_submit_fourth_model_forecast = save_forecast_and_submission()
             fourth_model_save_review = \
                 store_and_submit_fourth_model_forecast.store_and_submit('fourth_model_forecast_data',
@@ -322,20 +330,73 @@ def train():
 
         # ________________FIFTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_COF_ZEROS_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
-        repeat_nn_training = local_script_settings['repeat_neural_network_training']
-        if repeat_nn_training == 'False':
+        repeat_nn_training = local_script_settings['repeat_neural_network_training_individual_unit_sales']
+        if repeat_nn_training == 'False' and local_settings['repeat_training_acc_freq_individual'] == 'False':
             print('settings indicate do not repeat neural network training')
             return True
-        elif repeat_nn_training != 'True':
+        elif repeat_nn_training != 'True' and local_settings['repeat_training_acc_freq_individual'] != 'True':
+            print('repeat neural network training settings not understood')
+            return False
+        elif repeat_nn_training =='True':
+            print('\nrunning fifth model (neural_network individual with control of zeros approach)')
+            neural_network_ts_schema_training = neural_network_time_serie_schema()
+            training_nn_review = neural_network_ts_schema_training.train(local_script_settings,
+                                                                         raw_unit_sales, model_hyperparameters,
+                                                                         time_series_not_improved,
+                                                                         raw_unit_sales_ground_truth)
+            print('neural_network (individual time_serie direct unit_sales cof zeros) model trained, with success -->',
+                  training_nn_review)
+
+        # the SIXTH MODEL is the best combination of previous linear and non-linear models
+        # previous models forecasts are used to select the best average, this is done in submodule explore_results_mse
+
+        # ________________SEVENTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_ACC_FREQ_MODEL_____________________________
+        # training individual_time_serie with specific time_serie LSTM-ANN
+        repeat_nn_acc_freq_training = local_script_settings['repeat_training_acc_freq_individual']
+        if repeat_nn_acc_freq_training == 'False':
+            print('settings indicate do not repeat neural network training (accumulated frequencies approach)')
+            return True
+        elif repeat_nn_acc_freq_training != 'True':
             print('repeat neural network training settings not understand')
             return False
-        print('\nrunning third model (neural_network)')
-        neural_network_ts_schema_training = neural_network_time_serie_schema()
-        training_nn_review = neural_network_ts_schema_training.train(local_script_settings,
-                                                                     raw_unit_sales, model_hyperparameters,
-                                                                     time_series_not_improved,
-                                                                     raw_unit_sales_ground_truth)
-        print('neural_network model trained, with success -->', training_nn_review)
+        print('\nrunning seventh model (neural_network accumulated_frequencies approach)')
+        # high_mse time_series was previously identified, in another executions, calculating MSE for each model forecast
+        time_series_not_improved = np.load(''.join([local_script_settings['models_evaluation_path'],
+                                                    'high_mse_ts_model_mse.npy']))
+        threshold_poor_mse = \
+            organic_in_block_time_serie_based_model_hyperparameters['stochastic_simulation_poor_result_threshold']
+        time_series_not_improved_int = \
+            time_series_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0].astype(int)
+        print(len(time_series_not_improved), 'time_series were identified as high loss (MSE >', threshold_poor_mse, ')')
+        neural_network_ts_acc_freq_schema_training = neural_network_time_serie_acc_freq_schema()
+        training_nn_review = neural_network_ts_acc_freq_schema_training.train_model(
+            local_script_settings, raw_unit_sales, freq_acc_individual_ts_model_hyperparameters,
+            time_series_not_improved_int, raw_unit_sales_ground_truth)
+        print('neural_network acc_freq individual time_series model trained, with success -->', training_nn_review)
+
+        # saving seventh model forecast and submission based only in this model
+        seventh_model_forecast_submodule = make_acc_freq_to_unit_sales_forecast()
+        time_serie_seventh_model_forecast_review, seventh_model_forecasts = \
+            seventh_model_forecast_submodule.make_forecast(local_script_settings, time_series_not_improved_int)
+        if time_serie_seventh_model_forecast_review:
+            print('success in making forecast based in seventh model')
+        else:
+            print('an error occurred at making forecast with seventh model')
+            return False
+        store_and_submit_seventh_model_forecast = save_forecast_and_submission()
+        seventh_model_save_review = \
+            store_and_submit_seventh_model_forecast.store_and_submit('seventh_model_forecast_data',
+                                                                     local_script_settings,
+                                                                     seventh_model_forecasts)
+        if seventh_model_save_review:
+            print('seventh_model forecast data and submission done')
+        else:
+            print('error at storing seventh model forecast data or submission')
+        # seventh model results
+        seventh_model_results = stochastic_simulation_results_analysis()
+        time_series_not_improved = seventh_model_results.evaluate_stochastic_simulation(
+            local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+            raw_unit_sales_ground_truth, 'seventh_model_forecast')
 
         # closing train module
         print('full training module ended')

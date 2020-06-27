@@ -145,9 +145,13 @@ def build_x_y_train_arrays(local_unit_sales, local_settings_arg, local_hyperpara
     last_time_step_y_train = y_train[-1:, :, :]
     last_time_step_y_train = last_time_step_y_train.reshape(last_time_step_y_train.shape[1],
                                                             last_time_step_y_train.shape[2])
-    np.savetxt(''.join([local_settings_arg['train_data_path'], '_from_fifth_model_x_train.csv']),
+    np.save(''.join([local_settings_arg['train_data_path'], '_from_fourth_model_x_train']),
+            last_time_step_x_train)
+    np.save(''.join([local_settings_arg['train_data_path'], '_from_fourth_model_y_train']),
+            last_time_step_y_train)
+    np.savetxt(''.join([local_settings_arg['train_data_path'], '_from_fourth_model_x_train.csv']),
                last_time_step_x_train, fmt='%10.15f', delimiter=',', newline='\n')
-    np.savetxt(''.join([local_settings_arg['train_data_path'], '_from_fifth_model_y_train.csv']),
+    np.savetxt(''.join([local_settings_arg['train_data_path'], '_from_fourth_model_y_train.csv']),
                last_time_step_y_train, fmt='%10.15f', delimiter=',', newline='\n')
     return x_train, y_train
 
@@ -284,7 +288,7 @@ def train_model(freq_acc_data, local_tm_hyperparameters, local_tm_settings):
     print('model_compiled')
     # finally all is ready for training now
     local_forecaster_in_block.fit(local_x_train, local_y_train, batch_size=local_batch_size, epochs=local_epochs,
-                                  workers=local_workers, callbacks=local_callbacks,
+                                  validation_split=0.1, workers=local_workers, callbacks=local_callbacks,
                                   shuffle=False)
     # print summary (informative; but if says "shape = multiple", probably useless)
     local_forecaster_in_block.summary()

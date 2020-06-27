@@ -84,16 +84,21 @@ def from_accumulated_frequency_to_forecast(local_accumulated_frequency_data, loc
                                            local_accumulated_frequency_data.shape[1] + 2 + nof_forecast_freq),
                                     dtype=np.dtype('float32'))
     preprocess_structure[:, 2: 2 + nof_frequencies_registered] = local_accumulated_frequency_data
-    for local_time_serie in range(preprocess_structure.shape[0]):
-        preprocess_structure[local_time_serie, 0] = \
-            np.mean(preprocess_structure[local_time_serie, 2: 2 + nof_frequencies_registered])
-        preprocess_structure[local_time_serie, 1] = local_time_serie
 
     # simple normalization
     local_max_array = np.amax(preprocess_structure, axis=1)
     local_max_array[local_max_array == 0] = 1
     local_max_array = local_max_array.reshape(local_max_array.shape[0], 1)
     preprocess_structure = np.divide(preprocess_structure, local_max_array)
+    np.save(''.join([local_faff_settings['train_data_path'], 'preprocess_acc_freq_structure']),
+            preprocess_structure[:, 2:])
+    np.save(''.join([local_faff_settings['train_data_path'], 'acc_freq_local_max_array']),
+            local_max_array)
+
+    for local_time_serie in range(preprocess_structure.shape[0]):
+        preprocess_structure[local_time_serie, 0] = \
+            np.mean(preprocess_structure[local_time_serie, 2: 2 + nof_frequencies_registered])
+        preprocess_structure[local_time_serie, 1] = local_time_serie
 
     # sort in base to mean unit_sales_accumulated_absolute_frequencies
     preprocess_structure = preprocess_structure[preprocess_structure[:, 0].argsort()]
