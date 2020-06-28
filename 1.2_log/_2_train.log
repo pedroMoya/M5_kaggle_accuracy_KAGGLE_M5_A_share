@@ -27087,3 +27087,281 @@ UnboundLocalError: local variable 'training_nn_review' referenced before assignm
 27.Jun 2020 14:44:12 correct model training, correct saving of model and weights
 
 27.Jun 2020 14:44:12 settings modified and saved
+
+27.Jun 2020 17:44:23 correct model training, correct saving of model and weights
+
+27.Jun 2020 17:44:23 settings modified and saved
+
+27.Jun 2020 20:43:38 model training error
+generate_random_average_simulation_and_calculate_mse() takes no arguments
+Traceback (most recent call last):
+  File ".\_2_train.py", line 433, in train
+    generate_random_average_simulation_and_calculate_mse(local_settings, raw_unit_sales,
+TypeError: generate_random_average_simulation_and_calculate_mse() takes no arguments
+
+27.Jun 2020 20:45:56 correct model training, correct saving of model and weights
+
+27.Jun 2020 20:45:56 settings modified and saved
+
+27.Jun 2020 20:50:57 correct model training, correct saving of model and weights
+
+27.Jun 2020 20:50:57 settings modified and saved
+
+27.Jun 2020 20:53:25 correct model training, correct saving of model and weights
+
+27.Jun 2020 20:53:25 settings modified and saved
+
+27.Jun 2020 21:44:54 correct model training, correct saving of model and weights
+
+27.Jun 2020 21:44:54 settings modified and saved
+
+27.Jun 2020 22:19:02 correct model training, correct saving of model and weights
+
+27.Jun 2020 22:19:02 settings modified and saved
+
+27.Jun 2020 22:34:28 correct model training, correct saving of model and weights
+
+27.Jun 2020 22:34:28 settings modified and saved
+
+27.Jun 2020 22:39:15 correct model training, correct saving of model and weights
+
+27.Jun 2020 22:39:15 settings modified and saved
+
+27.Jun 2020 22:51:31 correct model training, correct saving of model and weights
+
+27.Jun 2020 22:51:31 settings modified and saved
+
+27.Jun 2020 22:58:00 correct model training, correct saving of model and weights
+
+27.Jun 2020 22:58:00 settings modified and saved
+
+27.Jun 2020 23:07:41 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:07:41 settings modified and saved
+
+27.Jun 2020 23:12:07 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:12:07 settings modified and saved
+
+27.Jun 2020 23:18:39 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:18:39 settings modified and saved
+
+27.Jun 2020 23:22:34 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:22:34 settings modified and saved
+
+27.Jun 2020 23:26:47 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:26:47 settings modified and saved
+
+27.Jun 2020 23:27:45 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:27:45 settings modified and saved
+
+27.Jun 2020 23:34:07 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:34:07 settings modified and saved
+
+27.Jun 2020 23:36:01 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:36:01 settings modified and saved
+
+27.Jun 2020 23:38:54 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:38:54 settings modified and saved
+
+27.Jun 2020 23:41:09 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:41:09 settings modified and saved
+
+27.Jun 2020 23:43:24 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:43:24 settings modified and saved
+
+27.Jun 2020 23:47:04 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:47:04 settings modified and saved
+
+27.Jun 2020 23:52:00 correct model training, correct saving of model and weights
+
+27.Jun 2020 23:52:00 settings modified and saved
+
+28.Jun 2020 00:23:43 model training error
+name 'generate_fixed_forecast_and_calculate_mse' is not defined
+Traceback (most recent call last):
+  File ".\_2_train.py", line 420, in train
+    eighth_model_call = generate_fixed_forecast_and_calculate_mse()
+NameError: name 'generate_fixed_forecast_and_calculate_mse' is not defined
+
+28.Jun 2020 00:24:44 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:24:44 settings modified and saved
+
+28.Jun 2020 00:26:36 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:26:36 settings modified and saved
+
+28.Jun 2020 00:31:24 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:31:24 settings modified and saved
+
+28.Jun 2020 00:33:40 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:33:40 settings modified and saved
+
+28.Jun 2020 00:35:44 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:35:44 settings modified and saved
+
+28.Jun 2020 00:37:21 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:37:21 settings modified and saved
+
+28.Jun 2020 00:39:45 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:39:45 settings modified and saved
+
+28.Jun 2020 00:44:36 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:44:36 settings modified and saved
+
+28.Jun 2020 00:51:43 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:51:43 settings modified and saved
+
+28.Jun 2020 00:52:07 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:52:07 settings modified and saved
+
+28.Jun 2020 00:54:19 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:54:19 settings modified and saved
+
+28.Jun 2020 00:55:16 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:55:16 settings modified and saved
+
+28.Jun 2020 00:55:54 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:55:54 settings modified and saved
+
+28.Jun 2020 00:57:43 correct model training, correct saving of model and weights
+
+28.Jun 2020 00:57:43 settings modified and saved
+
+28.Jun 2020 01:00:00 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:00:00 settings modified and saved
+
+28.Jun 2020 01:02:32 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:02:32 settings modified and saved
+
+28.Jun 2020 01:05:35 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:05:35 settings modified and saved
+
+28.Jun 2020 01:09:04 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:09:04 settings modified and saved
+
+28.Jun 2020 01:15:01 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:15:01 settings modified and saved
+
+28.Jun 2020 01:23:48 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:23:48 settings modified and saved
+
+28.Jun 2020 01:27:56 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:27:56 settings modified and saved
+
+28.Jun 2020 01:29:06 correct model training, correct saving of model and weights
+
+28.Jun 2020 01:29:06 settings modified and saved
+
+28.Jun 2020 12:38:37 correct model training, correct saving of model and weights
+
+28.Jun 2020 12:38:37 settings modified and saved
+
+28.Jun 2020 12:48:32 correct model training, correct saving of model and weights
+
+28.Jun 2020 12:48:32 settings modified and saved
+
+28.Jun 2020 12:52:24 correct model training, correct saving of model and weights
+
+28.Jun 2020 12:52:24 settings modified and saved
+
+28.Jun 2020 12:53:09 correct model training, correct saving of model and weights
+
+28.Jun 2020 12:53:09 settings modified and saved
+
+28.Jun 2020 12:56:00 correct model training, correct saving of model and weights
+
+28.Jun 2020 12:56:00 settings modified and saved
+
+28.Jun 2020 12:56:38 correct model training, correct saving of model and weights
+
+28.Jun 2020 12:56:38 settings modified and saved
+
+28.Jun 2020 13:04:19 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:04:19 settings modified and saved
+
+28.Jun 2020 13:07:21 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:07:21 settings modified and saved
+
+28.Jun 2020 13:09:08 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:09:08 settings modified and saved
+
+28.Jun 2020 13:11:33 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:11:33 settings modified and saved
+
+28.Jun 2020 13:14:43 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:14:43 settings modified and saved
+
+28.Jun 2020 13:24:05 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:24:05 settings modified and saved
+
+28.Jun 2020 13:25:11 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:25:11 settings modified and saved
+
+28.Jun 2020 13:26:26 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:26:26 settings modified and saved
+
+28.Jun 2020 13:27:15 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:27:15 settings modified and saved
+
+28.Jun 2020 13:30:17 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:30:17 settings modified and saved
+
+28.Jun 2020 13:40:58 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:40:58 settings modified and saved
+
+28.Jun 2020 13:54:26 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:54:26 settings modified and saved
+
+28.Jun 2020 13:56:13 correct model training, correct saving of model and weights
+
+28.Jun 2020 13:56:13 settings modified and saved
+
+28.Jun 2020 14:00:11 correct model training, correct saving of model and weights
+
+28.Jun 2020 14:00:11 settings modified and saved
+
+28.Jun 2020 14:07:51 correct model training, correct saving of model and weights
+
+28.Jun 2020 14:07:51 settings modified and saved

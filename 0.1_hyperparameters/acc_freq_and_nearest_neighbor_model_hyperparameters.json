@@ -1,0 +1,8 @@
+{
+  "current_model_name": "acc_freq_and_nearest_neighbor_model",
+  "comment": "mixing acc_freq for aggregation and nearest neighbor for regression",
+  "days_in_focus_frame": 74,
+  "stochastic_simulation_poor_result_threshold": 0.9,
+  "n_neighbors": 7,
+  "nof_samples": 20
+}

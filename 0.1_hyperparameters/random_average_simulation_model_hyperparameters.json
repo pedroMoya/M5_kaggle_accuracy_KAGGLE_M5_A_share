@@ -1,0 +1,8 @@
+{
+  "current_model_name": "random_average_simulation_model",
+  "comment": "dealing_with_zeros_and_non-zeros_and_randomness",
+  "days_in_focus_frame": 21,
+  "stochastic_simulation_poor_result_threshold": 0.9,
+  "event_iterations": 5,
+  "random_samples": 10
+}

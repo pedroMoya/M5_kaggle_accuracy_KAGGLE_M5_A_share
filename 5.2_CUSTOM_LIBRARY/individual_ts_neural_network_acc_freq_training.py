@@ -248,7 +248,7 @@ class neural_network_time_serie_acc_freq_schema:
             # star training time_serie by time_serie
             local_y_pred_array = np.zeros(shape=(local_raw_unit_sales.shape[0], local_forecast_horizon_days),
                                           dtype=np.dtype('float32'))
-            for time_serie in local_time_series_not_improved[3860:]:
+            for time_serie in local_time_series_not_improved[11228:]:
                 print('training time_serie:', time_serie)
                 local_x, local_y = local_x_train[time_serie: time_serie + 1, :], \
                                    local_y_train[time_serie: time_serie + 1, :]

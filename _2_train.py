@@ -40,7 +40,9 @@ try:
     from save_forecast_and_make_submission import save_forecast_and_submission
     from accumulated_frequency_distribution_forecast import accumulated_frequency_distribution_based_engine
     from freq_acc_to_unit_sales_individual_time_serie_forecast import make_acc_freq_to_unit_sales_forecast
-    from best_fixed_forecast_by_time_serie import generate_fixed_forecast_and_calculate_mse
+    from nearest_neighbor_regression import generate_nearest_neighbors_predictions_and_calculate_mse
+    from accumulated_freq_and_nearest_neighbor_regression import generate_forecast_and_calculate_mse
+
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
     print(ee1)
@@ -214,7 +216,8 @@ def train():
                   '\nthird RANSAC model, fourth acc_freq_in_block_neural_network, '
                   '\nfifth model individual_ts_NN_unit_sales_approach'
                   '\nsixth model COMBINATION LINEAR-non_LINEAR, seventh model NN_individual_ts_acc_freq_approach'
-                  '\nand eighth model fixed forecast best mse')
+                  '\neighth model nearest_neighbor regression'
+                  '\nand ninth model accumulated_frequencies approach and nearest_neighbor regression')
         else:
             print('first_train_approach parameter in settings not defined or unknown')
             return False
@@ -336,11 +339,13 @@ def train():
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_training = local_script_settings['repeat_neural_network_training_individual_unit_sales']
         if repeat_nn_training == 'False' and local_settings['repeat_training_acc_freq_individual'] == 'False' and \
-                local_settings['skip_eighth_model_training'] == 'True':
+                local_settings['skip_eighth_model_training'] == 'True' and \
+                local_script_settings['skip_ninth_model_training'] == "True":
             print('settings indicate do not repeat neural network training')
             return True
         elif repeat_nn_training != 'True' and local_settings['repeat_training_acc_freq_individual'] != 'True' and \
-                local_settings['skip_eighth_model_training'] != 'False':
+                local_settings['skip_eighth_model_training'] != 'False' and \
+                local_script_settings['skip_ninth_model_training'] == "True":
             print('skipping training of fifth, seventh and eighth models')
             return False
         elif repeat_nn_training == 'True':
@@ -362,11 +367,13 @@ def train():
         # ________________SEVENTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_ACC_FREQ_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_acc_freq_training = local_script_settings['repeat_training_acc_freq_individual']
-        if repeat_nn_acc_freq_training == 'False' and local_settings['skip_eighth_model_training'] == 'True':
-            print('settings indicate do not repeat neural network training (accumulated frequencies approach)')
+        if repeat_nn_acc_freq_training == 'False' and local_settings['skip_eighth_model_training'] == 'True'\
+                and local_script_settings['skip_ninth_model_training'] == "True":
+            print('settings indicate do not repeat neural network training (neither next models training)')
             return True
-        elif repeat_nn_acc_freq_training != 'True' and local_settings['skip_eighth_model_training'] == 'True':
-            print('skipping training (seventh and eighth model check)')
+        elif repeat_nn_acc_freq_training != 'True' and local_settings['skip_eighth_model_training'] == 'True' and \
+                local_script_settings['skip_ninth_model_training'] == "True":
+            print('skipping training (seventh, eighth and ninth model) but check seventh model settings')
             return False
         elif repeat_nn_acc_freq_training == 'True':
             print('\nrunning seventh model (neural_network accumulated_frequencies approach)')
@@ -408,10 +415,10 @@ def train():
                 local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
                 raw_unit_sales_ground_truth, 'seventh_model_forecast')
 
-        # ________________EIGHTH_MODEL:_FIXED_FORECAST_BEST_MSE________________________________________________________
-        # -----this submodule will make forecast (fixed_number)-evaluated better mse and save_data save_submission-----
+        # ________________EIGHTH_MODEL:_NEAREST_NEIGHBORS_____________________________________________________________
+        # -----this submodule will make forecast mse and save_data save_submission-----
         if local_script_settings['skip_eighth_model_training'] == 'False':
-            eighth_model_call = generate_fixed_forecast_and_calculate_mse()
+            eighth_model_call = generate_nearest_neighbors_predictions_and_calculate_mse()
             eighth_model_review = eighth_model_call.execute(local_script_settings, raw_unit_sales)
             if eighth_model_review:
                 print('eighth_model forecast data and submission done')
@@ -419,6 +426,17 @@ def train():
                 print('error at executing eighth model forecast data or submission')
         else:
             print('by settings, skipping eighth model training')
+
+        if local_script_settings['skip_ninth_model_training'] != "True":
+            # _______________________NINTH_MODEL_______________
+            # training by accumulated_frequencies approach and nearest_neighbor regression
+            time_series_acc_freq_and_nearest_neighbor = generate_forecast_and_calculate_mse()
+            time_series_ras_review = \
+                time_series_acc_freq_and_nearest_neighbor.execute(local_settings, raw_unit_sales,
+                                                                  raw_unit_sales_ground_truth)
+        else:
+            time_series_ss_review = True
+            print('by settings, skipping ninth model training')
 
         # closing train module
         print('full training module ended')
@@ -441,6 +459,7 @@ def train():
                 local_wr_json_file.close()
         logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                              ' settings modified and saved']))
+
     except Exception as e1:
         print('Error training model')
         print(e1)
