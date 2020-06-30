@@ -26,7 +26,6 @@ logger.addHandler(logHandler)
 sys.path.insert(1, local_submodule_settings['custom_library_path'])
 from save_forecast_and_make_submission import save_forecast_and_submission
 from stochastic_model_obtain_results import stochastic_simulation_results_analysis
-from mini_module_submission_generator import save_submission
 
 class explore_results_and_generate_submission:
 
@@ -76,10 +75,12 @@ class explore_results_and_generate_submission:
             # sixth_model is COMBINATION MODEL
             sixth_model_forecast = np.add(first_model_forecast, second_model_forecast)
             sixth_model_forecast = np.add(sixth_model_forecast, third_model_forecast)
-            sixth_model_forecast = np.add(sixth_model_forecast, eighth_model_forecast)
             sixth_model_forecast = np.add(sixth_model_forecast, fifth_model_forecast)
+            # sixth_model_forecast = np.add(sixth_model_forecast, fourth_model_forecast)
+            sixth_model_forecast = np.add(sixth_model_forecast, seventh_model_forecast)
+            sixth_model_forecast = np.add(sixth_model_forecast, eighth_model_forecast)
             sixth_model_forecast = np.add(sixth_model_forecast, ninth_model_forecast)
-            sixth_model_forecast = np.divide(sixth_model_forecast, 6.)
+            sixth_model_forecast = np.divide(sixth_model_forecast, 7.)
             np.save(''.join([local_ergs_settings['train_data_path'], 'sixth_model_forecast_data']),
                     sixth_model_forecast)
             # ----------------------------------------------------------------------------------------
@@ -174,12 +175,11 @@ class explore_results_and_generate_submission:
                 # fourth_model_mse = fourth_model_result[time_serie_index][2]
                 fifth_model_mse = fifth_model_result[time_serie_index][1]
                 sixth_model_mse = sixth_model_result[time_serie_index][2]
-                # seventh_model_mse = seventh_model_result[time_serie_index][2]
+                seventh_model_mse = seventh_model_result[time_serie_index][2]
                 # eighth_model_mse = eighth_model_result[time_serie_index][2]
                 # ninth_model_mse = ninth_model_result[time_serie_index][2]
                 eighth_model_mse = 5000000
                 ninth_model_mse = 5000000
-                seventh_model_mse = 5000000
                 fourth_model_mse = 5000000
                 if first_model_mse <= second_model_mse and first_model_mse <= third_model_mse \
                         and first_model_mse <= fourth_model_mse and first_model_mse <= fifth_model_mse\
@@ -242,6 +242,7 @@ class explore_results_and_generate_submission:
                         eighth_model_forecast[time_serie_index, :].astype(np.dtype('float32'))
                     count_best_eighth_model += 1
                     ts_model_mse.append([time_serie_index, int(8), eighth_model_mse])
+            print('\nbest_mse_model forecast consolidation:')
             print('it was used ', count_best_first_model, ' ts forecasts from first model')
             print('it was used ', count_best_second_model, ' ts forecasts from second model')
             print('it was used ', count_best_third_model, ' ts forecasts from third model')

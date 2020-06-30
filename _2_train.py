@@ -63,6 +63,115 @@ tf.random.set_seed(2)
 kb.set_epsilon(1)  # needed while using "mape" as one of the metric at training model
 
 
+# functions definitions
+
+
+def acc_freq_load_model_weights_and_make_forecast(local_af_settings, local_raw_unit_sales, local_ground_truth,
+                                                  local_af_hyperparameters):
+    try:
+        print('\nstarting accumulated frequencies individual ts model weights load and make forecasts function')
+        # building acc_freq
+        local_days_in_focus = local_af_hyperparameters['days_in_focus_frame']
+        local_raw_unit_sales_data = local_raw_unit_sales[:, -local_days_in_focus:]
+        local_nof_ts = local_raw_unit_sales.shape[0]
+        local_forecast_horizon_days = local_af_settings['forecast_horizon_days'] + 1
+        local_max_acc_freq = np.amax(local_raw_unit_sales, axis=1)
+        local_max_acc_freq[local_max_acc_freq == 0] = 1.
+        local_max_acc_freq = local_max_acc_freq.reshape(local_max_acc_freq.shape[0], 1)
+        local_acc_freq_source = np.zeros(shape=(local_nof_ts, local_days_in_focus),
+                                         dtype=np.dtype('float32'))
+        for local_day in range(local_days_in_focus):
+            if local_day != 0:
+                local_acc_freq_source[:, local_day] = \
+                    np.add(local_acc_freq_source[:, local_day - 1], local_raw_unit_sales_data[:, local_day])
+            else:
+                local_acc_freq_source[:, 0] = local_raw_unit_sales_data[:, 0]
+        local_acc_freq_source = np.divide(local_acc_freq_source, local_max_acc_freq)
+
+        # making forecast in base a transformed data (accumulated frequencies)
+        forecaster = models.load_model(''.join([local_af_settings['models_path'],
+                                                '_accumulated_frequencies_forecaster_template_individual_ts.h5']))
+        # model_name = 'accumulated_frequencies_forecaster_template_individual_ts.json'
+        # json_file = open(''.join([local_af_settings['models_path'], model_name]))
+        # model_json = json_file.read()
+        # json_file.close()
+        # forecaster = models.model_from_json(model_json)
+        # print('model structure loaded')
+        # forecaster.compile(optimizer='adam', loss='mse')
+        model_weights_pathname_template = '/_weights_acc_freq_NN_/_individual_ts_x_model_weights_.h5'
+        local_acc_freq_y_pred = np.zeros(shape=(local_nof_ts, local_forecast_horizon_days), dtype=np.dtype('float32'))
+        local_time_series_processed = []
+        for local_time_serie in range(local_nof_ts):
+            model_weights_pathname = model_weights_pathname_template.replace('x', str(local_time_serie))
+            model_weights_full_pathname = ''.join([local_af_settings['models_path'], model_weights_pathname])
+            if os.path.isfile(model_weights_full_pathname):
+                forecaster.load_weights(model_weights_full_pathname)
+                local_x_input = \
+                    local_acc_freq_source[local_time_serie: local_time_serie + 1, -local_forecast_horizon_days:]
+                local_x_input = local_x_input.reshape(1, local_x_input.shape[1], 1)
+                local_y_pred = \
+                    forecaster.predict(local_x_input)
+                local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
+                print(local_time_serie)
+                print(local_x_input)
+                print(local_y_pred)
+                local_acc_freq_y_pred[local_time_serie, :] = local_y_pred
+                local_time_series_processed.append(int(local_time_serie))
+        local_time_series_processed = np.array(local_time_series_processed)
+
+        # saving exactly witch time_series were processed
+        np.save(''.join([local_af_settings['train_data_path'], 'time_series_processed_by_acc_freq_ind_neural_network']),
+                local_time_series_processed)
+
+        # de-transform from prediction of accumulated_frequencies to unit_sales forecast (29 --> 28 by time_serie)
+        local_acc_freq_y_pred = np.multiply(local_acc_freq_y_pred, local_max_acc_freq)
+        local_y_pred = np.zeros(shape=(local_nof_ts, local_forecast_horizon_days - 1), dtype=np.dtype('float32'))
+
+        # pass from acc_freq to point forecast
+        for local_day in range(1, local_forecast_horizon_days - 1):
+            local_y_pred[:, local_day] = np.add(local_acc_freq_y_pred[:, local_day + 1],
+                                                -local_acc_freq_y_pred[:, local_day]).clip(0)
+
+        # controlling that first day forecast retain accumulation as is an aggregated data approach
+        local_y_pred[:, 0] = np.mean(local_y_pred[:, 1: 8], axis=1)
+
+        # saving seventh model forecast and submission based only in model
+        store_and_submit_first_model_forecast = save_forecast_and_submission()
+        seventh_model_save_review = \
+            store_and_submit_first_model_forecast.store_and_submit('seventh_model_forecast_data',
+                                                                   local_af_settings, local_y_pred)
+        print('accumulated_frequencies approach individual time-serie neural network model')
+        if seventh_model_save_review:
+            print('forecast data and submission form saved for seventh model (load weights and make forecast function)')
+        else:
+            print('an error had occurred at forecast data and submission form saved for seventh model '
+                  '(load weights and make forecast function)')
+
+        # loading specific hyperparameters to pass in results analysis
+        with open(''.join([local_af_settings['hyperparameters_path'],
+                           'organic_in_block_time_serie_based_model_hyperparameters.json'])) \
+                as local_r_json_file:
+            local_organic_in_block_time_serie_based_model_hyperparameters = json.loads(local_r_json_file.read())
+            local_r_json_file.close()
+
+        # evaluating the seventh model results, needed as sixth model needs this data previously
+        seventh_model_results = stochastic_simulation_results_analysis()
+        local_time_series_not_improved = seventh_model_results.evaluate_stochastic_simulation(
+            local_af_settings, local_organic_in_block_time_serie_based_model_hyperparameters, local_raw_unit_sales,
+            local_ground_truth, 'seventh_model_forecast')
+        print('nof time_series not improved with seventh model forecast:', len(local_time_series_not_improved))
+
+    except Exception as e2:
+        print('Error at loading model weights or making forecast acc_freq neural network (seventh_model)')
+        print(e2)
+        logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
+                             ' acc_freq neural network model weights loading and make forecast function error']))
+        logger.error(str(e2), exc_info=True)
+        return False
+    return True
+
+
+
 # classes definitions
 
 
@@ -212,12 +321,12 @@ def train():
 
         # checking correct order in run models
         if local_script_settings['first_train_approach'] == 'stochastic_simulation':
-            print('\nthe order in model execution will be: first and second stochastic_simulations, '
-                  '\nthird RANSAC model, fourth acc_freq_in_block_neural_network, '
-                  '\nfifth model individual_ts_NN_unit_sales_approach'
-                  '\nsixth model COMBINATION LINEAR-non_LINEAR, seventh model NN_individual_ts_acc_freq_approach'
-                  '\neighth model nearest_neighbor regression'
-                  '\nand ninth model accumulated_frequencies approach and nearest_neighbor regression')
+            print('\nthe order in model execution will be: first and second models: stochastic_simulations, '
+                  '\nthird model: RANSAC Regression, fourth model: acc_freq_in_block_neural_network, '
+                  '\nfifth model: individual_ts_NN_unit_sales_approach'
+                  '\nsixth model: COMBINATION LINEAR-non_LINEAR, seventh model NN_individual_ts_acc_freq_approach'
+                  '\neighth model: nearest_neighbor regression'
+                  '\nand ninth model: accumulated_frequencies approach and nearest_neighbor regression')
         else:
             print('first_train_approach parameter in settings not defined or unknown')
             return False
@@ -334,18 +443,21 @@ def train():
         else:
             print('by settings, skipping fourth model training')
 
-
         # ________________FIFTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_COF_ZEROS_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_training = local_script_settings['repeat_neural_network_training_individual_unit_sales']
         if repeat_nn_training == 'False' and local_settings['repeat_training_acc_freq_individual'] == 'False' and \
                 local_settings['skip_eighth_model_training'] == 'True' and \
-                local_script_settings['skip_ninth_model_training'] == "True":
+                local_script_settings['skip_ninth_model_training'] == "True" and \
+                local_script_settings['seventh_model_load_saved_weights_and_make_forecasts_and_submission_again'] \
+                == 'False':
             print('settings indicate do not repeat neural network training')
             return True
         elif repeat_nn_training != 'True' and local_settings['repeat_training_acc_freq_individual'] != 'True' and \
                 local_settings['skip_eighth_model_training'] != 'False' and \
-                local_script_settings['skip_ninth_model_training'] == "True":
+                local_script_settings['skip_ninth_model_training'] == 'True' and \
+                local_script_settings['seventh_model_load_saved_weights_and_make_forecasts_and_submission_again'] \
+                == 'False':
             print('skipping training of fifth, seventh and eighth models')
             return False
         elif repeat_nn_training == 'True':
@@ -361,18 +473,33 @@ def train():
             training_nn_review = True
             print('fifth model training skipped by settings configuration')
 
-        # the SIXTH MODEL is the best combination of previous linear and non-linear models
-        # previous models forecasts are used to select the best average, this is done in submodule explore_results_mse
+        # the SIXTH MODEL is a COMBINATION MODEL the best combination of previous linear and non-linear models
+        # all models forecasts are used to select the best average, this is done in submodule explore_results_mse
 
         # ________________SEVENTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_ACC_FREQ_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_acc_freq_training = local_script_settings['repeat_training_acc_freq_individual']
+        acc_freq_nn_load_model_weights_and_make_forecast = \
+            local_script_settings['seventh_model_load_saved_weights_and_make_forecasts_and_submission_again']
+        if acc_freq_nn_load_model_weights_and_make_forecast == 'True' and repeat_nn_acc_freq_training == 'False':
+            acc_freq_load_model_weights_review = \
+                acc_freq_load_model_weights_and_make_forecast(local_script_settings, raw_unit_sales,
+                                                              raw_unit_sales_ground_truth,
+                                                              freq_acc_individual_ts_model_hyperparameters)
+            if acc_freq_load_model_weights_review:
+                print('acc_freq individual time_series approach model weights loaded, forecast and submission done')
+            else:
+                print('an error occurred at loading model weights or making acc_freq neural network forecast')
         if repeat_nn_acc_freq_training == 'False' and local_settings['skip_eighth_model_training'] == 'True'\
-                and local_script_settings['skip_ninth_model_training'] == "True":
+                and local_script_settings['skip_ninth_model_training'] == "True" and \
+                local_script_settings['seventh_model_load_saved_weights_and_make_forecasts_and_submission_again'] \
+                == 'False':
             print('settings indicate do not repeat neural network training (neither next models training)')
             return True
         elif repeat_nn_acc_freq_training != 'True' and local_settings['skip_eighth_model_training'] == 'True' and \
-                local_script_settings['skip_ninth_model_training'] == "True":
+                local_script_settings['skip_ninth_model_training'] == "True" and \
+                local_script_settings['seventh_model_load_saved_weights_and_make_forecasts_and_submission_again'] \
+                == 'False':
             print('skipping training (seventh, eighth and ninth model) but check seventh model settings')
             return False
         elif repeat_nn_acc_freq_training == 'True':
@@ -384,7 +511,9 @@ def train():
                 organic_in_block_time_serie_based_model_hyperparameters['stochastic_simulation_poor_result_threshold']
             time_series_not_improved_int = \
                 time_series_not_improved[time_series_not_improved[:, 2] > threshold_poor_mse][:, 0].astype(int)
-            print(len(time_series_not_improved), 'time_series were identified as high loss (MSE >', threshold_poor_mse, ')')
+            print(time_series_not_improved_int.shape)
+            print(len(time_series_not_improved_int), 'time_series were identified as high loss (MSE >',
+                  threshold_poor_mse, ')')
             neural_network_ts_acc_freq_schema_training = neural_network_time_serie_acc_freq_schema()
             training_nn_review = neural_network_ts_acc_freq_schema_training.train_model(
                 local_script_settings, raw_unit_sales, freq_acc_individual_ts_model_hyperparameters,
@@ -459,7 +588,6 @@ def train():
                 local_wr_json_file.close()
         logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
                              ' settings modified and saved']))
-
     except Exception as e1:
         print('Error training model')
         print(e1)

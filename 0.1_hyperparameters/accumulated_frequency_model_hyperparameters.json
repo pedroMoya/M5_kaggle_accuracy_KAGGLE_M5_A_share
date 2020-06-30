@@ -3,5 +3,5 @@
   "comment": "from first sale, no more zeros",
   "days_in_focus_frame": 35,
   "regression_technique": "RANSACRegressor_first_and_in_block_neural_network_latter",
-  "repeat_RANSAC_regression": "False"
+  "repeat_RANSAC_regression": "True"
 }

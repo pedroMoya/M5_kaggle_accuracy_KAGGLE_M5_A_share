@@ -38,6 +38,10 @@ logger = logging.getLogger(__name__)
 logHandler = handlers.RotatingFileHandler(log_path_filename, maxBytes=10485760, backupCount=5)
 logger.addHandler(logHandler)
 
+# load custom libraries
+sys.path.insert(1, local_submodule_settings['custom_library_path'])
+from build_local_x_y_train import local_bxy_x_y_builder
+
 # set random seed for reproducibility --> done in _2_train.py module
 np.random.seed(42)
 tf.random.set_seed(42)
@@ -120,11 +124,31 @@ class neural_network_time_serie_acc_freq_schema:
     def train_model(self, local_settings, local_raw_unit_sales, local_model_hyperparameters,
                     local_time_series_not_improved, raw_unit_sales_ground_truth):
         try:
-            # loading data normalizated (acc_freq, previously computed in third and fourth models..)
-            preprocess_structure = np.load(''.join([local_settings['train_data_path'],
-                                                    'preprocess_acc_freq_structure.npy']))
-            local_max_array = np.load(''.join([local_settings['train_data_path'],
-                                               'acc_freq_local_max_array.npy']))
+            # acquiring data normalizated (acc_freq, previously computed in third and fourth models..)
+            # building acc_freq
+            local_days_in_focus = local_model_hyperparameters['days_in_focus_frame']
+            local_raw_unit_sales_data = local_raw_unit_sales[:, -local_days_in_focus:]
+            local_nof_ts = local_raw_unit_sales.shape[0]
+            if local_settings['seventh_model_train_only_time_series_previously_improved'] == 'True':
+                local_time_series_not_improved = [time_serie for time_serie in [ts for ts in range(local_nof_ts)]
+                                                  if time_serie not in local_time_series_not_improved]
+                print(len(local_time_series_not_improved), ' time series for training')
+                print('training focused in time_series previously improved with other models forecasts')
+            elif local_settings['seventh_model_train_only_time_series_not_previously_improved'] == 'True':
+                print('training focused in time_series previously not improved with other models forecasts')
+            local_forecast_horizon_days = local_settings['forecast_horizon_days'] + 1
+            local_max_acc_freq = np.amax(local_raw_unit_sales, axis=1)
+            local_max_acc_freq[local_max_acc_freq == 0] = 1.
+            local_max_acc_freq = local_max_acc_freq.reshape(local_max_acc_freq.shape[0], 1)
+            local_acc_freq_source = np.zeros(shape=(local_nof_ts, local_days_in_focus),
+                                             dtype=np.dtype('float32'))
+            for local_day in range(local_days_in_focus):
+                if local_day != 0:
+                    local_acc_freq_source[:, local_day] = \
+                        np.add(local_acc_freq_source[:, local_day - 1], local_raw_unit_sales_data[:, local_day])
+                else:
+                    local_acc_freq_source[:, 0] = local_raw_unit_sales_data[:, 0]
+            preprocess_structure = np.divide(local_acc_freq_source, local_max_acc_freq)
 
             # as data here are acc_frequencies, for obtain later a forecast_horizon_days number of forecast, need add 1
             local_forecast_horizon_days = local_settings['forecast_horizon_days'] + 1
@@ -139,6 +163,7 @@ class neural_network_time_serie_acc_freq_schema:
             local_workers = int(local_model_hyperparameters['workers'])
             local_optimizer_function = local_model_hyperparameters['optimizer']
             local_optimizer_learning_rate = local_model_hyperparameters['learning_rate']
+            local_validation_split = local_model_hyperparameters['validation_split']
             if local_optimizer_function == 'adam':
                 local_optimizer_function = optimizers.Adam(local_optimizer_learning_rate)
             elif local_optimizer_function == 'ftrl':
@@ -186,31 +211,31 @@ class neural_network_time_serie_acc_freq_schema:
             local_base_model = tf.keras.Sequential()
             # first layer (LSTM)
             if local_model_hyperparameters['units_layer_1'] > 0:
-                local_base_model.add(layers.Bidirectional(
-                    layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_1'],
-                                                activation=local_model_hyperparameters['activation_1'],
-                                                input_shape=(local_model_hyperparameters['time_steps_days'],
-                                                             local_features_for_each_training),
-                                                activity_regularizer=local_activation_regularizer,
-                                                dropout=float(local_model_hyperparameters['dropout_layer_1'])),
-                               return_sequences=False)))
-                local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+                local_base_model.add(
+                    layers.LSTM(units=local_model_hyperparameters['units_layer_1'],
+                                activation=local_model_hyperparameters['activation_1'],
+                                input_shape=(local_model_hyperparameters['time_steps_days'],
+                                             local_features_for_each_training),
+                                dropout=float(local_model_hyperparameters['dropout_layer_1']),
+                                activity_regularizer=local_activation_regularizer,
+                                return_sequences=True))
             # second LSTM layer
             if local_model_hyperparameters['units_layer_2'] > 0:
                 local_base_model.add(layers.Bidirectional(
-                    layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_2'],
-                                                activation=local_model_hyperparameters['activation_2'],
-                                                activity_regularizer=local_activation_regularizer,
-                                                dropout=float(local_model_hyperparameters['dropout_layer_2'])),
-                               return_sequences=False)))
+                    layers.LSTM(units=local_model_hyperparameters['units_layer_2'],
+                                activation=local_model_hyperparameters['activation_2'],
+                                activity_regularizer=local_activation_regularizer,
+                                dropout=float(local_model_hyperparameters['dropout_layer_2']),
+                    return_sequences=False)))
                 local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # third LSTM layer
             if local_model_hyperparameters['units_layer_3'] > 0:
                 local_base_model.add(layers.Bidirectional(
                     layers.RNN(PeepholeLSTMCell(units=local_model_hyperparameters['units_layer_3'],
                                                 dropout=float(local_model_hyperparameters['dropout_layer_3'])),
-                               return_sequences=True)))
-                # local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
+                               activity_regularizer=local_activation_regularizer,
+                               return_sequences=False)))
+                local_base_model.add(RepeatVector(local_model_hyperparameters['repeat_vector']))
             # fourth layer (DENSE)
             if local_model_hyperparameters['units_layer_4'] > 0:
                 local_base_model.add(layers.Dense(units=local_model_hyperparameters['units_layer_4'],
@@ -218,7 +243,7 @@ class neural_network_time_serie_acc_freq_schema:
                                                   activity_regularizer=local_activation_regularizer))
                 local_base_model.add(layers.Dropout(rate=float(local_model_hyperparameters['dropout_layer_4'])))
             # final layer
-            local_base_model.add(layers.Dense(units=local_features_for_each_training))
+            local_base_model.add(layers.Dense(units=local_model_hyperparameters['units_final_layer']))
 
             # build and compile model
             local_base_model.build(input_shape=(1, local_time_steps_days, local_features_for_each_training))
@@ -228,10 +253,10 @@ class neural_network_time_serie_acc_freq_schema:
 
             # save model architecture (template for specific models)
             local_base_model.save(''.join([local_settings['models_path'],
-                                           'accumulated_frequencies_forecaster_template_individual_ts.h5']))
+                                           '_accumulated_frequencies_forecaster_template_individual_ts.h5']))
             local_base_model_json = local_base_model.to_json()
             with open(''.join([local_settings['models_path'],
-                               'accumulated_frequencies_forecaster_template_individual_ts.json']), 'w') \
+                               '_accumulated_frequencies_forecaster_template_individual_ts.json']), 'w') \
                     as json_file:
                 json_file.write(local_base_model_json)
                 json_file.close()
@@ -242,23 +267,29 @@ class neural_network_time_serie_acc_freq_schema:
                                          local_settings['moving_window_output_length']
 
             # loading x_train and y_train, previously done for third and fourth models trainings
-            local_x_train = np.load(''.join([local_settings['train_data_path'], '_from_fourth_model_x_train.npy']))
-            local_y_train = np.load(''.join([local_settings['train_data_path'], '_from_fourth_model_y_train.npy']))
+            local_builder = local_bxy_x_y_builder()
+            local_x_train, local_y_train = local_builder.build_x_y_train_arrays(local_raw_unit_sales,
+                                                                                local_settings,
+                                                                                local_model_hyperparameters)
+            local_x_train = local_x_train.reshape(local_x_train.shape[0], local_x_train.shape[2],
+                                                  local_x_train.shape[1])
+            local_y_train = local_x_train.reshape(local_y_train.shape[0], local_y_train.shape[2],
+                                                  local_y_train.shape[1])
 
             # star training time_serie by time_serie
             local_y_pred_array = np.zeros(shape=(local_raw_unit_sales.shape[0], local_forecast_horizon_days),
                                           dtype=np.dtype('float32'))
-            for time_serie in local_time_series_not_improved[11228:]:
-                print('training time_serie:', time_serie)
-                local_x, local_y = local_x_train[time_serie: time_serie + 1, :], \
-                                   local_y_train[time_serie: time_serie + 1, :]
-                local_x = local_x.reshape(local_x.shape[0], local_x.shape[1], 1)
-                local_y = local_y.reshape(local_y.shape[0], local_y.shape[1], 1)
+            for time_serie in local_time_series_not_improved:
+                # print('training time_serie:', time_serie)
+                local_x, local_y = local_x_train[:, :, time_serie: time_serie + 1], \
+                                   local_y_train[:, :, time_serie: time_serie + 1]
+                # print(local_x)
                 # training, saving model and storing forecasts
                 local_base_model.fit(local_x, local_y, batch_size=local_batch_size, epochs=local_epochs,
-                                     workers=local_workers, callbacks=local_callbacks, shuffle=False)
+                                     workers=local_workers, callbacks=local_callbacks, shuffle=False,
+                                     validation_split=local_validation_split)
                 local_base_model.save_weights(''.join([local_settings['models_path'],
-                                                       '/weights_acc_freq_NN_/_individual_ts_',
+                                                       '/_weights_acc_freq_NN_/_individual_ts_',
                                                        str(time_serie), '_model_weights_.h5']))
                 local_x_input = preprocess_structure[time_serie: time_serie + 1, -local_forecast_horizon_days:]
                 local_x_input = local_x_input.reshape(1, local_x_input.shape[1], 1)
@@ -268,11 +299,11 @@ class neural_network_time_serie_acc_freq_schema:
                 # print('y_pred shape:', local_y_pred.shape)
                 local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
                 # print('ts:', time_serie)
-                # print(local_y_pred)
+                # print(local_y_pred * local_max_acc_freq[time_serie])
                 local_y_pred_array[time_serie: time_serie + 1, :] = local_y_pred
             local_point_forecast_normalized = local_y_pred_array.reshape(
                 (local_y_pred_array.shape[0], local_y_pred_array.shape[1]))
-            local_point_forecast = np.multiply(local_point_forecast_normalized, local_max_array)
+            local_point_forecast = np.multiply(local_point_forecast_normalized, local_max_acc_freq)
 
             # save points forecast
             np.save(''.join([local_settings['train_data_path'], 'point_forecast_NN_from_acc_freq_training']),

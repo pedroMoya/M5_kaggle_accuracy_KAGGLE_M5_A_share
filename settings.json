@@ -12,12 +12,14 @@
   "skip_second_model_training": "True",
   "skip_third_model_training": "True",
   "skip_fourth_model_training": "True",
-  "skip_seventh_model_training": "True",
   "skip_eighth_model_training": "True",
   "skip_ninth_model_training": "True",
   "repeat_training_in_block": "True",
+  "skip_seventh_model_training": "True",
   "repeat_training_acc_freq_individual": "False",
-  "two_parameters_above_in_False_allow_load_saved_model_and_then_make_fresh_forecasts_and_submission_again": "True",
+  "seventh_model_load_saved_weights_and_make_forecasts_and_submission_again": "False",
+  "seventh_model_train_only_time_series_previously_improved": "True",
+  "seventh_model_train_only_time_series_not_previously_improved": "False",
   "save_fresh_forecast_from_fourth_model": "True",
   "save_fresh_forecast_from_seventh_model": "True",
   "first_train_approach": "stochastic_simulation",
@@ -73,5 +75,6 @@
   "current_model_name": "generic_forecaster_template_individual_ts.h5",
   "current_trained_model_subdirectory": "weights_last_year/",
   "model_weights_name_template": "_individual_ts_x_model_weights_.h5",
-  "results_mse_with_model_combination_as_forecasts_done": "False"
+  "results_mse_with_model_combination_as_forecasts_done": "False",
+  "historic_data_days_for_distribution_calculations": 5
 }

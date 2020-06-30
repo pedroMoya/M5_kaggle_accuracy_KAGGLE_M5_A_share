@@ -26,6 +26,10 @@ try:
     from model_analyzer import model_structure
     from submission_evaluator import submission_tester
     from explore_results_mse import explore_results_and_generate_submission
+    from day_by_day_best_low_error_point_forecast_between_all_models \
+        import explore_day_by_day_results_and_generate_submission
+    from build_forecast_focused_in_results import explore_results_focused_and_generate_submission
+
     physical_devices = tf.config.list_physical_devices('GPU')
     tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
     tf.keras.backend.set_floatx('float32')
@@ -163,9 +167,9 @@ def evaluate():
             else:
                 print('error at model_analysis submodule')
 
-        # calling submodule that obtain the best forecast for each time_serie between first, second, third model
-        # and fourth models
-        # building one best FINAL_SUBMISSION
+        # calling submodule that obtain the best forecast for each time_serie between various models
+        # (by time_series, days in block)
+        # building one best SUBMISSION for this approach
         explore_results_and_generate_submission_engine = explore_results_and_generate_submission()
         explore_results_and_generate_submission_review = explore_results_and_generate_submission_engine.run(
             'mse_based_best_ts_forecast', local_script_settings)
@@ -173,6 +177,34 @@ def evaluate():
             print('mse best submission between models obtained')
         else:
             print('an error has occurred in generating between different-models best forecasts submission')
+
+        # calling submodule that obtain the best forecast for each time_serie between various models day_by_day
+        # (by time_series, and day by day)
+        # building one best SUBMISSION for this approach
+        # explore_day_by_day_results_and_generate_submission_engine = explore_day_by_day_results_and_generate_submission()
+        # explore_day_by_day_results_and_generate_submission_review = \
+        #     explore_day_by_day_results_and_generate_submission_engine.run(
+        #         'day_by_day_based_best_lower_error_ts_forecast', local_script_settings)
+        # if explore_day_by_day_results_and_generate_submission_review:
+        #     print('lower point_forecast error best submission between models '
+        #           'in a ts by ts and day by day based approach obtained')
+        # else:
+        #     print('an error has occurred in generating ts by ts and day by day based approach '
+        #           'best forecasts submission')
+
+        # calling submodule that make best_mse forecast for each time_serie between various models
+        # according to improved or not, select distribution
+        # building one best SUBMISSION for this approach
+        explore_results_and_generate_submission_engine = explore_results_focused_and_generate_submission()
+        explore_results_and_generate_submission_review = \
+            explore_results_and_generate_submission_engine.run(
+                'best_mse_and_distribution_model_forecast', local_script_settings)
+        if explore_results_and_generate_submission_review:
+            print('mse_results_and_distribution best submission between models or stochastic approach')
+        else:
+            print('an error has occurred in mse_results_and_distribution best submission '
+                  'between models or stochastic approach')
+
         # # finalizing the last module
         print('model evaluation subprocess ended successfully')
     except Exception as e1:

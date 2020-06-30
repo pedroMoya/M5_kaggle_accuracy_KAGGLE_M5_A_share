@@ -54,7 +54,7 @@ class stochastic_simulation_results_analysis:
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                    'seventh_model_forecast_data.npy']))
             elif local_forecasts_name == 'final_best_mse_criteria_model_forecast':
-                print('\nevaluating the final_best_mse_criteria_model_forecast (final model) ....')
+                print('\nevaluating the final_best_mse_criteria_model_forecast (final days_in_block model) ....')
                 local_forecasts = np.load(''.join([local_settings['train_data_path'],
                                                    'mse_based_best_ts_forecast.npy']))
             elif local_forecasts_name == 'ninth_model_acc_freq_and_nearest_neighbor_regression_forecast':
@@ -62,6 +62,16 @@ class stochastic_simulation_results_analysis:
                 local_forecasts = \
                     np.load(''.join([local_settings['train_data_path'],
                                      'ninth_model_acc_freq_and_nearest_neighbor_regression_forecast_data.npy']))
+            elif local_forecasts_name == 'day_by_day_best_low_error_criteria_model_forecast':
+                print('\nevaluating the day_by_day_best_lower_error_criteria model_forecast (the granular model) ....')
+                local_forecasts = \
+                    np.load(''.join([local_settings['train_data_path'],
+                                     'day_by_day_based_best_lower_error_ts_forecast.npy']))
+            elif local_forecasts_name == 'best_mse_and_distribution_model_forecast':
+                print('\nevaluating the best_mse_and_distribution_model_forecast model_forecast (smart model) ....')
+                local_forecasts = \
+                    np.load(''.join([local_settings['train_data_path'],
+                                     'best_mse_and_distribution_model_forecast.npy']))
             else:
                 print('\nmodel_name not expected, please review the last argument')
                 print('in stochastic_model_obtain_results submodule\n')
@@ -210,16 +220,40 @@ class stochastic_simulation_results_analysis:
                                  'time_series_not_improved_ninth_model']),
                         local_time_series_not_improved)
             elif local_forecasts_name == 'final_best_mse_criteria_model_forecast':
-                np.savetxt(''.join([local_settings['models_evaluation_path'], 'final_model_mse.csv']),
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'final_days_in_block_model_mse.csv']),
                            local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_results_final_model_mse']),
+                                 'time_series_results_final_days_in_block__model_mse']),
                         local_time_series_treated)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'improved_time_series_final_model']),
+                                 'improved_time_series_final_days_in_block_model']),
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
-                                 'time_series_not_improved_final_model']),
+                                 'time_series_not_improved_final_days_in_block_model']),
+                        local_time_series_not_improved)
+            elif local_forecasts_name == 'day_by_day_best_low_error_criteria_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'day_by_day_granular_model_mse.csv']),
+                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_results_day_by_day_granular_model_mse']),
+                        local_time_series_treated)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'improved_time_series_day_by_day_granular_model']),
+                        local_improved_time_series_forecast)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_not_improved_day_by_day_granular_model']),
+                        local_time_series_not_improved)
+            elif local_forecasts_name == 'best_mse_and_distribution_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'], 'best_mse_and_distribution_model_mse.csv']),
+                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_results_best_mse_and_distribution_model_mse']),
+                        local_time_series_treated)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'improved_time_series_best_mse_and_distribution_model']),
+                        local_improved_time_series_forecast)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_not_improved_best_mse_and_distribution_model']),
                         local_time_series_not_improved)
             print('specific model evaluation saved')
             print('metadata (results, time_series) saved')
