@@ -42,6 +42,7 @@ try:
     from freq_acc_to_unit_sales_individual_time_serie_forecast import make_acc_freq_to_unit_sales_forecast
     from nearest_neighbor_regression import generate_nearest_neighbors_predictions_and_calculate_mse
     from accumulated_freq_and_nearest_neighbor_regression import generate_forecast_and_calculate_mse
+    from individual_ts_neural_network_unit_sales_training import neural_network_time_serie_unit_sales_schema
 
 except Exception as ee1:
     print('Error importing libraries or opening settings (train module)')
@@ -442,6 +443,50 @@ def train():
                 raw_unit_sales_ground_truth, 'fourth_model_forecast')
         else:
             print('by settings, skipping fourth model training')
+
+        # _______________________ELEVENTH_MODEL__________________________________________________________________
+        if local_script_settings['skip_eleventh_model_training'] != "True":
+            # using models based in individual_time_series unit_sales
+            # individual_ts_unit_sales_neural_network
+            # loading hyperparameters
+            with open(''.join([local_script_settings['hyperparameters_path'],
+                               'unit_sales_individual_time_serie_model_hyperparameters.json'])) \
+                    as local_r_json_file:
+                individual_ts_neural_network_unit_sales_model_hyperparameters = \
+                    json.loads(local_r_json_file.read())
+                local_r_json_file.close()
+            # instantiate model builder and trainer
+            individual_nn_unit_sales_build_and_train = neural_network_time_serie_unit_sales_schema()
+            call_to_eleventh_model_forecasts_submodule_review, eleventh_model_forecasts = \
+                individual_nn_unit_sales_build_and_train.train_model(
+                    local_script_settings, raw_unit_sales,
+                    individual_ts_neural_network_unit_sales_model_hyperparameters)
+            print('eleventh_model training completed, success --> ', call_to_eleventh_model_forecasts_submodule_review)
+
+            # saving eleventh model forecast and submission based only in this model
+            store_and_submit_eleventh_model_forecast = save_forecast_and_submission()
+            eleventh_model_save_review = \
+                store_and_submit_eleventh_model_forecast.store_and_submit('eleventh_model_forecast_data',
+                                                                          local_script_settings,
+                                                                          eleventh_model_forecasts)
+            if eleventh_model_save_review:
+                print('eleventh_model forecast data and submission done')
+            else:
+                print('error at storing eleventh model forecast data or submission')
+
+            # eleventh model results, necessary here because time_series_not_improved is input to next model
+            eleventh_model_results = stochastic_simulation_results_analysis()
+            time_series_not_improved = eleventh_model_results.evaluate_stochastic_simulation(
+                local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+                raw_unit_sales_ground_truth, 'eleventh_model_forecast')
+        else:
+            if local_script_settings['repeat_eleventh_model_result_evaluation'] == 'True':
+                # eleventh model results, necessary here because time_series_not_improved is input to next model
+                eleventh_model_results = stochastic_simulation_results_analysis()
+                time_series_not_improved = eleventh_model_results.evaluate_stochastic_simulation(
+                    local_script_settings, organic_in_block_time_serie_based_model_hyperparameters, raw_unit_sales,
+                    raw_unit_sales_ground_truth, 'eleventh_model_forecast')
+            print('by settings, skipping eleventh model training')
 
         # ________________FIFTH_MODEL:_NEURAL_NETWORK_INDIVIDUAL_TS_COF_ZEROS_MODEL_____________________________
         # training individual_time_serie with specific time_serie LSTM-ANN

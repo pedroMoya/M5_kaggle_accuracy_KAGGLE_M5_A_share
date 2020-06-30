@@ -1,5 +1,5 @@
 # analyzing each result (validation stage) and selecting the best,
-# if there no best (based in threshold) then applies a distribution based in historic sales
+# if there no best (based in threshold) then applies a smart_reshift based in historic sales
 import os
 import sys
 import datetime
@@ -32,37 +32,22 @@ from stochastic_model_obtain_results import stochastic_simulation_results_analys
 # functions definitions
 
 
-def make_distribution(local_array, local_md_forecast_horizon_days):
+def make_smart_reshift(local_array, local_md_forecast_horizon_days):
     local_md_days_in_historical_data = len(local_array)
     local_array_forecast = np.zeros(shape=(1, local_md_forecast_horizon_days), dtype=np.dtype('float32'))
-    rng = np.random.default_rng()
-    local_max = np.amax(local_array)
-    local_min = np.amin(local_array)
-    if local_max == 0:
-        return local_array_forecast
-    local_count = np.bincount(local_array)
-    local_sum = np.sum(local_array)
-    local_sum = 1 if local_sum == 0 else local_sum
-    select_distribution = rng.integers(local_min, local_max + 1, size=local_md_forecast_horizon_days)
-    for local_day in range(local_md_forecast_horizon_days):
-        selection = select_distribution[local_day]
-        acc_frequency = np.sum(local_count[:selection]) / local_sum
-        selection_choice = rng.random()
-        if selection_choice >= acc_frequency:
-            local_array_forecast[0, local_day] = selection
-        elif selection_choice < acc_frequency:
-            local_array_forecast[0, local_day] = selection * selection_choice
+
+
     return local_array_forecast
 
 
 # classes definitions
 
 
-class explore_results_focused_and_generate_submission:
+class explore_results_focused_reshift_and_generate_submission:
 
     def run(self, submission_name, local_ergs_settings):
         try:
-            print('\nstarting the smart mse_based and distribution focused forecast selection approach')
+            print('\nstarting the smart mse_based and reshift forecast selection approach')
             # first check the stage, if evaluation stage, this means that no MSE are available, warning about this
             if local_ergs_settings['competition_stage'] != 'submitting_after_June_1th_using_1913days':
                 print('settings indicate that the final stage is now in progress')
@@ -94,6 +79,8 @@ class explore_results_focused_and_generate_submission:
                                                     'eighth_model_nearest_neighbor_forecast_data.npy']))
             ninth_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
                                                     'ninth_model_random_average_simulation_forecast_data.npy']))
+            eleventh_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
+                                                       'eleventh_model_forecast_data.npy']))
             
             # day by day comparison
             with open(''.join([local_ergs_settings['hyperparameters_path'],
@@ -102,21 +89,17 @@ class explore_results_focused_and_generate_submission:
                 local_model_ergs_hyperparameters = json.loads(local_r_json_file.read())
                 local_r_json_file.close()
             nof_ts = local_ergs_settings['number_of_time_series']
-            local_days_historic_data = local_ergs_settings['historic_data_days_for_distribution_calculations']
             local_forecast_horizon_days = local_ergs_settings['forecast_horizon_days']
             local_threshold = local_model_ergs_hyperparameters['stochastic_simulation_poor_result_threshold']
             best_lower_error_ts_y_pred = np.zeros(shape=(nof_ts, local_forecast_horizon_days),
                                                   dtype=np.dtype('float32'))
-            count_best_first_model, count_best_second_model, count_best_third_model, count_best_fourth_model,\
-                count_best_fifth_model, count_best_sixth_model, count_best_seventh_model, count_best_eighth_model,\
-                count_best_ninth_model, count_best_mse_model = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ts_model_mse = []
 
             # accessing ground_truth data and rechecking stage of competition
             local_ergs_raw_data_filename = 'sales_train_evaluation.csv'
             local_ergs_raw_unit_sales = pd.read_csv(''.join([local_ergs_settings['raw_data_path'],
                                                              local_ergs_raw_data_filename]))
-            print('raw sales data accessed (best_mse and distribution approach model)')
+            print('raw sales data accessed (best_mse and smart_reshift approach model)')
             # extract data and check  dimensions
             local_ergs_raw_unit_sales = local_ergs_raw_unit_sales.iloc[:, 6:].values
             local_max_selling_time = np.shape(local_ergs_raw_unit_sales)[1]
@@ -181,34 +164,40 @@ class explore_results_focused_and_generate_submission:
                 elif local_best_model == 9:
                     best_lower_error_ts_y_pred[int(local_time_serie), :] = \
                         ninth_model_forecast[int(local_time_serie), :]
+                elif local_best_model == 11:
+                    best_lower_error_ts_y_pred[int(local_time_serie), :] = \
+                        eleventh_model_forecast[int(local_time_serie), :]
                 else:
                     print('model number did not understood')
+                    print('aborting process')
+                    return False
 
-            # applying distribution in the poor results (>threshold) time_series forecasts
+            # applying smart_reshift in the poor results (>threshold) time_series forecasts
             local_ts_forecast_not_improved = \
                 local_result_ts_model_mse[local_result_ts_model_mse[:, 2] >= local_threshold][:, 0]
             print('time_series forecast not improved (>= threshold: ', local_threshold, ') -->',
                   len(local_ts_forecast_not_improved))
             for local_time_serie in local_ts_forecast_not_improved:
-                local_array_for_distribution_analysis = \
-                    local_ergs_raw_unit_sales[int(local_time_serie), -local_days_historic_data:]
-                local_forecast_distribution = make_distribution(local_array_for_distribution_analysis,
+                local_array_for_smart_reshift_analysis = \
+                    local_ergs_raw_unit_sales[int(local_time_serie), - 2 * local_forecast_horizon_days:]
+                local_forecast_smart_reshift = make_smart_reshift(local_array_for_smart_reshift_analysis,
                                                                 local_forecast_horizon_days)
-                best_lower_error_ts_y_pred[int(local_time_serie), :] = local_forecast_distribution
-            print('forecasts based in historical distribution analysis finished')
+                best_lower_error_ts_y_pred[int(local_time_serie), :] = local_forecast_smart_reshift
+            print('forecasts based in smartReshift finished')
 
             # saving best mse_based between different models forecast and submission
+            # submission name is : best_mse_and_select_smartReshift_model_forecast
             store_and_submit_best_model_forecast = save_forecast_and_submission()
             point_error_based_best_model_save_review = \
                 store_and_submit_best_model_forecast.store_and_submit(submission_name, local_ergs_settings,
                                                                       best_lower_error_ts_y_pred)
             if point_error_based_best_model_save_review:
-                print('forecast_build_based_in_results data and submission done')
+                print('forecast_build_based_in_results and reshift data and submission done')
             else:
-                print('error at storing forecast_build_based_in_results or at submission')
+                print('error at storing forecast_build_based_in_results and reshift or at submission')
 
             # evaluating the forecast_build_based_in_results_ts_model
-            local_ergs_forecasts_name = 'best_mse_and_distribution_model_forecast'
+            local_ergs_forecasts_name = 'best_mse_and_smart_reshift_model_forecast'
             zeros_as_forecast = stochastic_simulation_results_analysis()
             zeros_as_forecast_review = \
                 zeros_as_forecast.evaluate_stochastic_simulation(local_ergs_settings,

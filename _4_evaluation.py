@@ -28,7 +28,8 @@ try:
     from explore_results_mse import explore_results_and_generate_submission
     from day_by_day_best_low_error_point_forecast_between_all_models \
         import explore_day_by_day_results_and_generate_submission
-    from build_forecast_focused_in_results import explore_results_focused_and_generate_submission
+    from build_forecast_focused_in_results import explore_results_focused_reshift_and_generate_submission
+    from build_final_best_forecast_submission import make_best_forecast_and_generate_submission
 
     physical_devices = tf.config.list_physical_devices('GPU')
     tf.config.experimental.set_memory_growth(physical_devices[0], enable=True)
@@ -107,7 +108,7 @@ def evaluate():
 
             time_serie_not_improved_with_first_model = \
                 np.load(''.join([local_script_settings['models_evaluation_path'],
-                                 'time_series_not_improved_stochastic_simulation.npy']))
+                                 'time_series_not_improved_final_model.npy']))
             forecast_horizon_days = local_script_settings['forecast_horizon_days']
             nof_time_series = np.shape(raw_unit_sales)[0]
             current_trained_model_subdirectory = local_script_settings['current_trained_model_subdirectory']
@@ -178,6 +179,7 @@ def evaluate():
         else:
             print('an error has occurred in generating between different-models best forecasts submission')
 
+        # THIS MODEL USED FUTURE DATA CAUTION
         # calling submodule that obtain the best forecast for each time_serie between various models day_by_day
         # (by time_series, and day by day)
         # building one best SUBMISSION for this approach
@@ -193,17 +195,23 @@ def evaluate():
         #           'best forecasts submission')
 
         # calling submodule that make best_mse forecast for each time_serie between various models
-        # according to improved or not, select distribution
+        # according to improved or not, select BY smartReshift
         # building one best SUBMISSION for this approach
-        explore_results_and_generate_submission_engine = explore_results_focused_and_generate_submission()
+        explore_results_and_generate_submission_engine = explore_results_focused_reshift_and_generate_submission()
         explore_results_and_generate_submission_review = \
             explore_results_and_generate_submission_engine.run(
-                'best_mse_and_distribution_model_forecast', local_script_settings)
+                'best_mse_and_select_smartReshift_model_forecast', local_script_settings)
         if explore_results_and_generate_submission_review:
-            print('mse_results_and_distribution best submission between models or stochastic approach')
+            print('mse_best_results_and_select_smartReshift best submission between models or stochastic approach')
         else:
-            print('an error has occurred in mse_results_and_distribution best submission '
-                  'between models or stochastic approach')
+            print('an error has occurred in mse_best_results and select_smartReshift best submission')
+
+        # assuming last stage, Evaluation stage, make_best_forecast and generating submission
+        if local_script_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
+            final_submission_name = 'final_evaluation_stage_forecast'
+            builder_final_forecast_and_submission = make_best_forecast_and_generate_submission()
+            builder_final_forecast_and_submission_review = \
+                builder_final_forecast_and_submission.run(final_submission_name, local_script_settings)
 
         # # finalizing the last module
         print('model evaluation subprocess ended successfully')

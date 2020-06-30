@@ -16,6 +16,8 @@
   "skip_ninth_model_training": "True",
   "repeat_training_in_block": "True",
   "skip_seventh_model_training": "True",
+  "skip_eleventh_model_training": "True",
+  "repeat_eleventh_model_result_evaluation": "False",
   "repeat_training_acc_freq_individual": "False",
   "seventh_model_load_saved_weights_and_make_forecasts_and_submission_again": "False",
   "seventh_model_train_only_time_series_previously_improved": "True",
@@ -75,6 +77,5 @@
   "current_model_name": "generic_forecaster_template_individual_ts.h5",
   "current_trained_model_subdirectory": "weights_last_year/",
   "model_weights_name_template": "_individual_ts_x_model_weights_.h5",
-  "results_mse_with_model_combination_as_forecasts_done": "False",
-  "historic_data_days_for_distribution_calculations": 5
+  "results_mse_with_model_combination_as_forecasts_done": "False"
 }

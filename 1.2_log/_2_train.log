@@ -27752,3 +27752,17 @@ NameError: name 'accumulated_frequency_distribution_based_engine' is not defined
 29.Jun 2020 09:39:58 correct model training, correct saving of model and weights
 
 29.Jun 2020 09:39:58 settings modified and saved
+
+30.Jun 2020 00:21:00 model training error
+[Errno 2] No such file or directory: './0.1_hyperparameters/individual_ts_neural_network_unit_sales_model_hyperparameters.json'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 452, in train
+    with open(''.join([local_script_settings['hyperparameters_path'],
+FileNotFoundError: [Errno 2] No such file or directory: './0.1_hyperparameters/individual_ts_neural_network_unit_sales_model_hyperparameters.json'
+
+30.Jun 2020 00:22:27 model training error
+'neural_network_time_serie_unit_sales_schema' object is not callable
+Traceback (most recent call last):
+  File ".\_2_train.py", line 461, in train
+    individual_nn_unit_sales_build_and_train(local_script_settings, raw_unit_sales,
+TypeError: 'neural_network_time_serie_unit_sales_schema' object is not callable
