@@ -27766,3 +27766,55 @@ Traceback (most recent call last):
   File ".\_2_train.py", line 461, in train
     individual_nn_unit_sales_build_and_train(local_script_settings, raw_unit_sales,
 TypeError: 'neural_network_time_serie_unit_sales_schema' object is not callable
+
+30.Jun 2020 17:26:56 model training error
+local variable 'raw_unit_sales_ground_truth' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 356, in train
+    raw_unit_sales_ground_truth, 'first_model_forecast')
+UnboundLocalError: local variable 'raw_unit_sales_ground_truth' referenced before assignment
+
+30.Jun 2020 17:31:12 model training error
+local variable 'raw_unit_sales_ground_truth' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 356, in train
+    raw_unit_sales_ground_truth, 'first_model_forecast')
+UnboundLocalError: local variable 'raw_unit_sales_ground_truth' referenced before assignment
+
+30.Jun 2020 17:33:44 model training error
+local variable 'stochastic_simulation' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 369, in train
+    time_series_sm_review, second_model_forecasts = stochastic_simulation.run_stochastic_simulation(
+UnboundLocalError: local variable 'stochastic_simulation' referenced before assignment
+
+30.Jun 2020 17:37:29 model training error
+local variable 'time_series_not_improved' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 384, in train
+    first_model_not_improved_ts = len(time_series_not_improved)
+UnboundLocalError: local variable 'time_series_not_improved' referenced before assignment
+
+30.Jun 2020 17:44:44 correct model training, correct saving of model and weights
+
+30.Jun 2020 17:44:44 settings modified and saved
+
+30.Jun 2020 18:09:58 model training error
+local variable 'time_series_not_improved' referenced before assignment
+Traceback (most recent call last):
+  File ".\_2_train.py", line 514, in train
+    time_series_not_improved,
+UnboundLocalError: local variable 'time_series_not_improved' referenced before assignment
+
+30.Jun 2020 18:13:09 model training error
+[Errno 2] No such file or directory: './4_TRAIN_DATA_PATH/time_series_not_improved_final_evaluation_stage_forecast_best_mse_model.npy'
+Traceback (most recent call last):
+  File ".\_2_train.py", line 511, in train
+    np.load(''.join([local_script_settings['train_data_path'],
+  File "C:\carpeta_p_pycharm\M5_kaggle_accuracy\venv\lib\site-packages\numpy\lib\npyio.py", line 428, in load
+    fid = open(os_fspath(file), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: './4_TRAIN_DATA_PATH/time_series_not_improved_final_evaluation_stage_forecast_best_mse_model.npy'
+
+30.Jun 2020 19:00:33 correct model training, correct saving of model and weights
+
+30.Jun 2020 19:00:33 settings modified and saved

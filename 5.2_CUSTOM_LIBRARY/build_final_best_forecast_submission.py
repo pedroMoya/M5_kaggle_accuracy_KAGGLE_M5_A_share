@@ -65,7 +65,7 @@ class make_best_forecast_and_generate_submission:
             fifth_model_forecast_30490_28 = np.load(''.join([local_ergs_settings['train_data_path'],
                                                              'fifth_model_forecast_data.npy']))
             fifth_model_forecast = np.zeros(shape=(60980, 28), dtype=np.dtype('float32'))
-            fifth_model_forecast[0: 30490, :] = fifth_model_forecast_30490_28
+            fifth_model_forecast[30490:, :] = fifth_model_forecast_30490_28
             sixth_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
                                                     'sixth_model_forecast_data.npy']))
             seventh_model_forecast = np.load(''.join([local_ergs_settings['train_data_path'],
@@ -99,8 +99,8 @@ class make_best_forecast_and_generate_submission:
             local_ergs_raw_unit_sales = local_ergs_raw_unit_sales.iloc[:, 6:].values
             local_max_selling_time = np.shape(local_ergs_raw_unit_sales)[1]
             local_settings_max_selling_time = local_ergs_settings['max_selling_time']
+            local_ergs_raw_unit_sales_ground_truth = local_ergs_raw_unit_sales
             if local_settings_max_selling_time + 28 <= local_max_selling_time:
-                local_ergs_raw_unit_sales_ground_truth = local_ergs_raw_unit_sales
                 print('ground_truth data obtained')
                 print('length raw data ground truth:', local_ergs_raw_unit_sales_ground_truth.shape[1])
                 local_ergs_raw_unit_sales = local_ergs_raw_unit_sales[:, :local_settings_max_selling_time]
@@ -134,34 +134,34 @@ class make_best_forecast_and_generate_submission:
                 local_best_model = local_result_ts_model_mse[local_time_serie, 1]
                 if local_best_model == 1:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        first_model_forecast[local_time_serie, :]
+                        first_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 2:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        second_model_forecast[local_time_serie, :]
+                        second_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 3:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        third_model_forecast[local_time_serie, :]
+                        third_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 4:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        fourth_model_forecast[local_time_serie, :]
+                        fourth_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 5:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        fifth_model_forecast[local_time_serie, :]
+                        fifth_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 6:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        sixth_model_forecast[local_time_serie, :]
+                        sixth_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 7:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        seventh_model_forecast[local_time_serie, :]
+                        seventh_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 8:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        eighth_model_forecast[local_time_serie, :]
+                        eighth_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 9:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        ninth_model_forecast[local_time_serie, :]
+                        ninth_model_forecast[nof_ts + local_time_serie, :]
                 elif local_best_model == 11:
                     best_lower_error_ts_y_pred[local_time_serie, :] = \
-                        eleventh_model_forecast[local_time_serie, :]
+                        eleventh_model_forecast[nof_ts + local_time_serie, :]
                 else:
                     print('model number did not understood')
                     print('returning without making submission')

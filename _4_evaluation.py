@@ -202,7 +202,7 @@ def evaluate():
             explore_results_and_generate_submission_engine.run(
                 'best_mse_and_select_smartReshift_model_forecast', local_script_settings)
         if explore_results_and_generate_submission_review:
-            print('mse_best_results_and_select_smartReshift best submission between models or stochastic approach')
+            print('mse_best_results_and_select_smartReshift submission done well')
         else:
             print('an error has occurred in mse_best_results and select_smartReshift best submission')
 

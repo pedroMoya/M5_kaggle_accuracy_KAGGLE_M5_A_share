@@ -32,12 +32,43 @@ from stochastic_model_obtain_results import stochastic_simulation_results_analys
 # functions definitions
 
 
-def make_smart_reshift(local_array, local_md_forecast_horizon_days):
-    local_md_days_in_historical_data = len(local_array)
-    local_array_forecast = np.zeros(shape=(1, local_md_forecast_horizon_days), dtype=np.dtype('float32'))
+def make_absolute_error_map(local_mae_settings, local_array_forecast, local_ground_truth,
+                            local_mae_forecast_horizon_days):
+    # smart_Reshift process, first step obtain map of absolute errors day by day,
+    print('mapping the shift cell by cell')
+    absolute_error_map = np.add(local_array_forecast, -local_ground_truth[:, -local_mae_forecast_horizon_days:])
+    np.save(''.join([local_mae_settings['train_data_path'], 'absolute_error_map']), absolute_error_map)
+    return True
 
 
-    return local_array_forecast
+def make_smart_reshift(local_msr_settings, local_array_forecast, local_ground_truth,
+                       local_msr_forecast_horizon_days, local_not_improved_ts):
+    # defining witch stage is in progress
+    local_msr_validation_stage = local_msr_settings['competition_stage']
+
+    # smart_Reshift process, first stage obtain map of absolute errors day by day, second stage applies to forecast
+    if local_msr_validation_stage == 'submitting_after_June_1th_using_1913days':
+        # in this first step, local_array_forecast is returned no_changed
+        if os.path.isfile(''.join([local_msr_settings['train_data_path'], 'absolute_error_map.npy'])):
+            print('the of mapping smart_shift cell by cell was previously')
+        else:
+            print('file is not found, the map is rebuilding')
+            make_absolute_error_review = make_absolute_error_map(local_msr_settings, local_array_forecast,
+                                                                 local_ground_truth,
+                                                                 local_msr_forecast_horizon_days)
+            if make_absolute_error_review:
+                print('file is not found, the map is rebuild with success (first step of smart_Reshift')
+            else:
+                print('error at building absolute error map')
+    elif local_msr_validation_stage == 'submitting_after_June_1th_using_1941days':
+        # this second steps does change local_array_forecast based in map previously build
+        print('apply mapping for smart_Reshift (second step)')
+        local_mae_map = np.load(''.join([local_msr_settings['train_data_path'], 'absolute_error_map.npy']))
+        local_array_forecast = np.add(local_array_forecast[local_not_improved_ts.astype('int'), :],
+                                      -local_mae_map[local_not_improved_ts.astype('int'), :])
+    else:
+        print('competition stage is not understood')
+    return local_array_forecast.clip(0)
 
 
 # classes definitions
@@ -48,8 +79,43 @@ class explore_results_focused_reshift_and_generate_submission:
     def run(self, submission_name, local_ergs_settings):
         try:
             print('\nstarting the smart mse_based and reshift forecast selection approach')
-            # first check the stage, if evaluation stage, this means that no MSE are available, warning about this
-            if local_ergs_settings['competition_stage'] != 'submitting_after_June_1th_using_1913days':
+
+            # accessing ground_truth data and rechecking stage of competition
+            local_ergs_raw_data_filename = 'sales_train_evaluation.csv'
+            local_ergs_raw_unit_sales = pd.read_csv(''.join([local_ergs_settings['raw_data_path'],
+                                                             local_ergs_raw_data_filename]))
+            print('raw sales data accessed (best_mse and smart_reshift approach model)')
+            # extract data and check  dimensions
+            local_ergs_raw_unit_sales = local_ergs_raw_unit_sales.iloc[:, 6:].values
+            local_ergs_raw_unit_sales_ground_truth = local_ergs_raw_unit_sales
+            local_max_selling_time = np.shape(local_ergs_raw_unit_sales)[1]
+            local_settings_max_selling_time = local_ergs_settings['max_selling_time']
+            local_validation_stage = local_ergs_settings['competition_stage']
+            if local_settings_max_selling_time + 28 <= local_max_selling_time:
+                print('ground_truth data obtained')
+                print('length raw data ground truth:', local_ergs_raw_unit_sales_ground_truth.shape[1])
+                local_ergs_raw_unit_sales = local_ergs_raw_unit_sales[:, :local_settings_max_selling_time]
+                print('length raw data for training:', local_ergs_raw_unit_sales.shape[1])
+            elif local_max_selling_time != local_settings_max_selling_time:
+                print("settings doesn't match data dimensions, it must be rechecked before continue"
+                      "(_day_by_day_best_lower_error_model_module)")
+                logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
+                                     ' data dimensions does not match settings']))
+                return False
+            else:
+                if local_validation_stage != 'submitting_after_June_1th_using_1941days':
+                    print(''.join(['\x1b[0;2;41m', 'Warning', '\x1b[0m']))
+                    print('please check: forecast horizon days will be included within training data')
+                    print('It was expected that the last 28 days were not included..')
+                    print('to avoid overfitting')
+                elif local_validation_stage == 'submitting_after_June_1th_using_1941days':
+                    print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
+                    print('settings indicate that this is the last stage!')
+                    print('caution: take in consideration that evaluations in this point are not useful, '
+                          'because will be made using the last data (the same used in training)')
+
+            # check the stage, if evaluation stage, this means that no MSE are available, warning about this
+            if local_validation_stage == 'submitting_after_June_1th_using_1941days':
                 print('settings indicate that the final stage is now in progress')
                 print('so there not available real MSE for comparison')
                 print('the last saved data will be used and allow to continue..')
@@ -95,39 +161,6 @@ class explore_results_focused_reshift_and_generate_submission:
                                                   dtype=np.dtype('float32'))
             ts_model_mse = []
 
-            # accessing ground_truth data and rechecking stage of competition
-            local_ergs_raw_data_filename = 'sales_train_evaluation.csv'
-            local_ergs_raw_unit_sales = pd.read_csv(''.join([local_ergs_settings['raw_data_path'],
-                                                             local_ergs_raw_data_filename]))
-            print('raw sales data accessed (best_mse and smart_reshift approach model)')
-            # extract data and check  dimensions
-            local_ergs_raw_unit_sales = local_ergs_raw_unit_sales.iloc[:, 6:].values
-            local_max_selling_time = np.shape(local_ergs_raw_unit_sales)[1]
-            local_settings_max_selling_time = local_ergs_settings['max_selling_time']
-            if local_settings_max_selling_time + 28 <= local_max_selling_time:
-                local_ergs_raw_unit_sales_ground_truth = local_ergs_raw_unit_sales
-                print('ground_truth data obtained')
-                print('length raw data ground truth:', local_ergs_raw_unit_sales_ground_truth.shape[1])
-                local_ergs_raw_unit_sales = local_ergs_raw_unit_sales[:, :local_settings_max_selling_time]
-                print('length raw data for training:', local_ergs_raw_unit_sales.shape[1])
-            elif local_max_selling_time != local_settings_max_selling_time:
-                print("settings doesn't match data dimensions, it must be rechecked before continue"
-                      "(_day_by_day_best_lower_error_model_module)")
-                logger.info(''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
-                                     ' data dimensions does not match settings']))
-                return False
-            else:
-                if local_ergs_settings['competition_stage'] != 'submitting_after_June_1th_using_1941days':
-                    print(''.join(['\x1b[0;2;41m', 'Warning', '\x1b[0m']))
-                    print('please check: forecast horizon days will be included within training data')
-                    print('It was expected that the last 28 days were not included..')
-                    print('to avoid overfitting')
-                elif local_ergs_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
-                    print(''.join(['\x1b[0;2;41m', 'Straight end of the competition', '\x1b[0m']))
-                    print('settings indicate that this is the last stage!')
-                    print('caution: take in consideration that evaluations in this point are not useful, '
-                          'because will be made using the last data (the same used in training)')
-
             # calculating witch forecasts improved well and making this best forecast based in previous time_steps
             local_result_ts_model_mse = np.load(''.join([local_ergs_settings['models_evaluation_path'],
                                                          'ts_model_mse.npy']))
@@ -135,7 +168,7 @@ class explore_results_focused_reshift_and_generate_submission:
                 local_result_ts_model_mse[local_result_ts_model_mse[:, 2] < local_threshold][:, 0]
             print('time_series forecast improved (< threshold: ', local_threshold, ') -->',
                   len(local_ts_forecast_improved))
-            for local_time_serie in local_ts_forecast_improved:
+            for local_time_serie in range(nof_ts):
                 local_best_model = local_result_ts_model_mse[int(local_time_serie), 1]
                 if local_best_model == 1:
                     best_lower_error_ts_y_pred[int(local_time_serie), :] = \
@@ -177,13 +210,24 @@ class explore_results_focused_reshift_and_generate_submission:
                 local_result_ts_model_mse[local_result_ts_model_mse[:, 2] >= local_threshold][:, 0]
             print('time_series forecast not improved (>= threshold: ', local_threshold, ') -->',
                   len(local_ts_forecast_not_improved))
-            for local_time_serie in local_ts_forecast_not_improved:
-                local_array_for_smart_reshift_analysis = \
-                    local_ergs_raw_unit_sales[int(local_time_serie), - 2 * local_forecast_horizon_days:]
-                local_forecast_smart_reshift = make_smart_reshift(local_array_for_smart_reshift_analysis,
-                                                                local_forecast_horizon_days)
-                best_lower_error_ts_y_pred[int(local_time_serie), :] = local_forecast_smart_reshift
-            print('forecasts based in smartReshift finished')
+            if local_validation_stage == 'submitting_after_June_1th_using_1913days':
+                make_absolute_error_review = make_absolute_error_map(local_ergs_settings, best_lower_error_ts_y_pred,
+                                                                     local_ergs_raw_unit_sales_ground_truth,
+                                                                     local_forecast_horizon_days)
+                if make_absolute_error_review:
+                    print('absolute_error map build successfully')
+                print('forecasts based in smartReshift (first step) finished')
+            elif local_validation_stage == 'submitting_after_June_1th_using_1941days':
+                local_forecast_smart_reshift = \
+                    make_smart_reshift(local_ergs_settings,
+                                       best_lower_error_ts_y_pred,
+                                       local_ergs_raw_unit_sales_ground_truth,
+                                       local_forecast_horizon_days,
+                                       local_ts_forecast_not_improved)
+                best_lower_error_ts_y_pred[local_ts_forecast_not_improved.astype('int')] = local_forecast_smart_reshift
+                print('forecasts based in smartReshift (second step) finished')
+            else:
+                print('please review settings, competition stage not understood')
 
             # saving best mse_based between different models forecast and submission
             # submission name is : best_mse_and_select_smartReshift_model_forecast
@@ -205,14 +249,6 @@ class explore_results_focused_reshift_and_generate_submission:
                                                                  local_ergs_raw_unit_sales,
                                                                  local_ergs_raw_unit_sales_ground_truth,
                                                                  local_ergs_forecasts_name)
-
-            # saving errors by time_serie and storing the estimated model forecast
-            ts_model_mse = np.array(ts_model_mse)
-            np.save(''.join([local_ergs_settings['models_evaluation_path'],
-                             'forecast_build_based_in_results_ts_model']), ts_model_mse)
-            np.savetxt(''.join([local_ergs_settings['models_evaluation_path'],
-                                'forecast_build_based_in_results_ts_model.csv']),
-                       ts_model_mse, fmt='%10.15f', delimiter=',', newline='\n')
         except Exception as submodule_error:
             print('build_forecast based in results submodule_error: ', submodule_error)
             logger.info('error in build_forecast based in results  submodule')

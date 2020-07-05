@@ -308,8 +308,7 @@ class explore_results_and_generate_submission:
                            ts_model_mse, fmt='%10.15f', delimiter=',', newline='\n')
             elif local_ergs_settings['competition_stage'] == 'submitting_after_June_1th_using_1941days':
                 print('final_stage: Evaluation, no ground truth for scoring forecasts days 1942 to 1969')
-                print('according to Validation data corresponding to this forecast and submission')
-                print('Mean of MSE of all time series:', np.mean(final_evaluation_stage_best_mse_result[:, 2]))
+                # print('Mean of MSE of all time series:', np.mean(final_evaluation_stage_best_mse_result[:, 2]))
             else:
                 print('please review settings, competition stage was not understood')
 

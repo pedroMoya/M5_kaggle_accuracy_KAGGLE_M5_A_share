@@ -173,6 +173,83 @@ def acc_freq_load_model_weights_and_make_forecast(local_af_settings, local_raw_u
 
 
 
+def unit_sales_load_model_weights_and_make_forecast(local_af_settings, local_raw_unit_sales, local_ground_truth,
+                                                  local_af_hyperparameters):
+    try:
+        print('\nstarting unit_sales individual ts model weights load and make forecasts function')
+        local_days_in_focus = local_af_hyperparameters['days_in_focus_frame']
+        local_raw_unit_sales_data = local_raw_unit_sales[:, -local_days_in_focus:]
+        local_nof_ts = local_raw_unit_sales.shape[0]
+        local_forecast_horizon_days = local_af_settings['forecast_horizon_days']
+        local_acc_freq_source = np.zeros(shape=(local_nof_ts, local_days_in_focus),
+                                         dtype=np.dtype('float32'))
+
+        # making forecast in base a unit_sales
+        forecaster = models.load_model(''.join([local_af_settings['models_path'],
+                                                '_unit_sales_forecaster_template_individual_ts.h5']))
+        model_weights_pathname_template = '/_weights_unit_sales_NN_35_days/_individual_ts_x_model_weights_.h5'
+        local_acc_freq_y_pred = np.zeros(shape=(local_nof_ts, local_forecast_horizon_days), dtype=np.dtype('float32'))
+        local_time_series_processed = []
+        for local_time_serie in range(local_nof_ts):
+            model_weights_pathname = model_weights_pathname_template.replace('x', str(local_time_serie))
+            model_weights_full_pathname = ''.join([local_af_settings['models_path'], model_weights_pathname])
+            if os.path.isfile(model_weights_full_pathname):
+                forecaster.load_weights(model_weights_full_pathname)
+                local_x_input = \
+                    local_acc_freq_source[local_time_serie: local_time_serie + 1, -local_forecast_horizon_days:]
+                local_x_input = local_x_input.reshape(1, local_x_input.shape[1], 1)
+                local_y_pred = \
+                    forecaster.predict(local_x_input)
+                local_y_pred = local_y_pred.reshape(local_y_pred.shape[1])
+                local_acc_freq_y_pred[local_time_serie, :] = local_y_pred
+                local_time_series_processed.append(int(local_time_serie))
+        local_time_series_processed = np.array(local_time_series_processed)
+
+        # saving exactly witch time_series were processed
+        np.save(''.join([local_af_settings['train_data_path'],
+                         'time_series_processed_by_unit_sales_ind_neural_network']),
+                local_time_series_processed)
+
+        local_y_pred = local_acc_freq_y_pred
+
+        # saving eleventh model forecast and submission based only in model
+        store_and_submit_first_model_forecast = save_forecast_and_submission()
+        eleventh_model_save_review = \
+            store_and_submit_first_model_forecast.store_and_submit('eleventh_model_forecast_data',
+                                                                   local_af_settings, local_y_pred)
+        print('unit_sales approach individual time-serie neural network model')
+        if eleventh_model_save_review:
+            print('forecast data and submission form saved for eleventh_model (load weights and make forecast function)')
+        else:
+            print('an error had occurred at forecast data and submission form saved for eleventh_model '
+                  '(load weights and make forecast function)')
+
+        # loading specific hyperparameters to pass in results analysis
+        with open(''.join([local_af_settings['hyperparameters_path'],
+                           'organic_in_block_time_serie_based_model_hyperparameters.json'])) \
+                as local_r_json_file:
+            local_organic_in_block_time_serie_based_model_hyperparameters = json.loads(local_r_json_file.read())
+            local_r_json_file.close()
+
+        # evaluating the eleventh model results, needed as sixth model needs this data previously
+        seventh_model_results = stochastic_simulation_results_analysis()
+        local_time_series_not_improved = seventh_model_results.evaluate_stochastic_simulation(
+            local_af_settings, local_organic_in_block_time_serie_based_model_hyperparameters, local_raw_unit_sales,
+            local_ground_truth, 'eleventh_model_forecast')
+        print('nof time_series not improved with eleventh model forecast:', len(local_time_series_not_improved))
+
+    except Exception as e2:
+        print('Error at loading model weights or making individual unit_sales neural network (eleventh_model)')
+        print(e2)
+        logger.info(
+            ''.join(['\n', datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S"),
+                     'individual unit_sales neural network model weights loading and make forecast function error']))
+        logger.error(str(e2), exc_info=True)
+        return False
+    return True
+
+
+
 # classes definitions
 
 
@@ -297,9 +374,9 @@ def train():
         print('max_selling_time(test) inferred by raw data shape:', max_selling_time)
         print('max_selling_time(train) based in settings info:', local_settings_max_selling_time)
         print('It is expected that max_selling_time(train) were at least 28 days lesser than max_selling_time(test)')
+        raw_unit_sales_ground_truth = raw_unit_sales
         if local_settings_max_selling_time + 28 <= max_selling_time:
             print('and this condition is correctly met')
-            raw_unit_sales_ground_truth = raw_unit_sales
             print('length raw data ground truth:', raw_unit_sales_ground_truth.shape[1])
             raw_unit_sales = raw_unit_sales[:, :local_settings_max_selling_time]
             print('length raw data for training:', raw_unit_sales.shape[1])
@@ -364,6 +441,7 @@ def train():
             print('\nsecond model training')
             forecast_horizon_days = local_script_settings['forecast_horizon_days']
             nof_time_series = local_script_settings['number_of_time_series']
+            stochastic_simulation = organic_in_block_estochastic_simulation()
             days_in_focus_second_model = \
                 organic_in_block_time_serie_based_model_hyperparameters['second_model_days_in_focus']
             time_series_sm_review, second_model_forecasts = stochastic_simulation.run_stochastic_simulation(
@@ -506,6 +584,9 @@ def train():
             print('skipping training of fifth, seventh and eighth models')
             return False
         elif repeat_nn_training == 'True':
+            time_series_not_improved = \
+                np.load(''.join([local_script_settings['models_evaluation_path'],
+                                 'time_series_not_improved_final_evaluation_stage_forecast_best_mse_model.npy']))
             print('\nrunning fifth model (neural_network individual with control of zeros approach)')
             neural_network_ts_schema_training = neural_network_time_serie_schema()
             training_nn_review = neural_network_ts_schema_training.train(local_script_settings,
@@ -525,7 +606,7 @@ def train():
         # training individual_time_serie with specific time_serie LSTM-ANN
         repeat_nn_acc_freq_training = local_script_settings['repeat_training_acc_freq_individual']
         acc_freq_nn_load_model_weights_and_make_forecast = \
-            local_script_settings['seventh_model_load_saved_weights_and_make_forecasts_and_submission_again']
+            local_script_settings['eleventh_model_load_saved_weights_and_make_forecasts_and_submission_again']
         if acc_freq_nn_load_model_weights_and_make_forecast == 'True' and repeat_nn_acc_freq_training == 'False':
             acc_freq_load_model_weights_review = \
                 acc_freq_load_model_weights_and_make_forecast(local_script_settings, raw_unit_sales,

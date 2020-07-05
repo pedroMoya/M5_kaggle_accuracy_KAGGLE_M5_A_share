@@ -83,7 +83,15 @@ class stochastic_simulation_results_analysis:
                       '(Evaluation stage, validation stage is filled with the real data) ....')
                 local_forecasts = \
                     np.load(''.join([local_settings['train_data_path'],
-                                     'final_evaluation_stage_forecast_best_mse_model_data.npy']))
+                                     'final_evaluation_stage_forecast.npy']))
+            elif local_forecasts_name == 'best_mse_and_smart_reshift_model_forecast':
+                print('\nevaluating the smart_reshift model'
+                      '(this is a guess adjustment stage, in evaluation stage mae helps to fill bad mse forecast) ....')
+                print('in validation stage, this model pass exactly the same forecast that '
+                      'final_best_mse_criteria_model_forecast')
+                local_forecasts = \
+                    np.load(''.join([local_settings['train_data_path'],
+                                     'best_mse_and_select_smartReshift_model_forecast.npy']))
             else:
                 print('\nmodel_name not expected, please review the last argument')
                 print('in stochastic_model_obtain_results submodule\n')
@@ -291,6 +299,19 @@ class stochastic_simulation_results_analysis:
                         local_improved_time_series_forecast)
                 np.save(''.join([local_settings['models_evaluation_path'],
                                  'time_series_not_improved_final_evaluation_stage_forecast_best_mse_model']),
+                        local_time_series_not_improved)
+            elif local_forecasts_name == 'best_mse_and_select_smartReshift_model_forecast':
+                np.savetxt(''.join([local_settings['models_evaluation_path'],
+                                    'best_mse_and_select_smartReshift_model_mse.csv']),
+                           local_time_series_treated, fmt='%10.15f', delimiter=',', newline='\n')
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_results_best_mse_and_select_smartReshift_model_mse']),
+                        local_time_series_treated)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'improved_time_series_best_mse_and_select_smartReshift_model']),
+                        local_improved_time_series_forecast)
+                np.save(''.join([local_settings['models_evaluation_path'],
+                                 'time_series_not_improved_best_mse_and_select_smartReshift_model']),
                         local_time_series_not_improved)
             print('specific model evaluation saved')
             print('metadata (results, time_series) saved')
